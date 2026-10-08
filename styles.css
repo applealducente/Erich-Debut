@@ -185,8 +185,8 @@ a{color:inherit}
 
 /* Nine-photo enchanted garden composition */
 .garden-photo-gallery{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
-.gallery-photo{position:absolute;overflow:hidden;filter:drop-shadow(0 18px 28px rgba(10,3,18,.62));mix-blend-mode:multiply;opacity:.96}
-.gallery-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(1.03) contrast(1.04)}
+.gallery-photo{position:absolute;overflow:hidden;filter:drop-shadow(0 18px 28px rgba(10,3,18,.62));mix-blend-mode:normal;opacity:1}
+.gallery-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;filter:none}
 .gp1{width:190px;height:285px;left:4%;top:10%;transform:rotate(-5deg)}
 .gp2{width:205px;height:305px;right:4%;top:9%;transform:rotate(5deg)}
 .gp3{width:165px;height:245px;left:16%;bottom:5%;transform:rotate(3deg)}
@@ -210,7 +210,7 @@ a{color:inherit}
 .hero-gp3{width:160px;height:235px;left:13%;top:7%;transform:rotate(3deg)}
 .hero-gp4{width:155px;height:225px;right:13%;top:9%;transform:rotate(-3deg)}
 .story-photo-scatter{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
-.story-photo-scatter img{position:absolute;width:190px;height:270px;object-fit:contain;mix-blend-mode:darken;filter:drop-shadow(0 16px 24px rgba(8,2,15,.55));opacity:.78}
+.story-photo-scatter img{position:absolute;width:190px;height:270px;object-fit:contain;mix-blend-mode:normal;filter:drop-shadow(0 16px 24px rgba(8,2,15,.55));opacity:1}
 .scatter-two img:nth-child(1){left:2%;top:12%;transform:rotate(-5deg)}
 .scatter-two img:nth-child(2){right:2%;top:15%;transform:rotate(5deg)}
 .scatter-two img:nth-child(3){left:7%;bottom:5%;transform:rotate(4deg)}
