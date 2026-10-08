@@ -59,7 +59,7 @@ button,a{font:inherit}
 .music-toggle{position:fixed;z-index:50;top:17px;right:17px;border:1px solid rgba(255,229,170,.5);background:rgba(24,12,33,.72);backdrop-filter:blur(12px);color:#fff1d2;border-radius:999px;padding:10px 15px;cursor:pointer;font-family:Cinzel,serif;font-size:10px;letter-spacing:.1em}
 .story{min-height:100svh;position:relative;display:grid;place-items:center;padding:90px 22px;overflow:hidden}
 .story:after{content:"";position:absolute;inset:auto 0 0;height:35%;background:linear-gradient(transparent,rgba(5,4,9,.45));pointer-events:none}
-.hero-story{grid-template-columns:minmax(260px,430px) minmax(300px,650px);gap:70px;background:
+.hero-story{grid-template-columns:minmax(0,430px) minmax(0,650px);gap:clamp(28px,5vw,70px);background:
  radial-gradient(circle at 50% 25%,rgba(147,104,166,.22),transparent 35%),
  linear-gradient(180deg,#382645,#171020 78%,#0d0813)}
 .hero-moon{position:absolute;right:12%;top:10%;width:120px;height:120px;border-radius:50%;background:#fff0d0;box-shadow:0 0 70px 20px rgba(255,229,171,.15);opacity:.85}
@@ -67,7 +67,7 @@ button,a{font:inherit}
 .hero-photo-wrap{position:relative;z-index:3;width:min(420px,82vw);aspect-ratio:3/4;display:grid;place-items:center}
 .photo-aura{position:absolute;inset:-18px;border-radius:48% 48% 42% 42%;background:radial-gradient(ellipse,rgba(255,216,235,.28),transparent 65%);filter:blur(18px);animation:breath 5s ease-in-out infinite}
 .hero-photo{position:relative;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:48% 48% 42% 42%;border:1px solid rgba(255,224,235,.55);box-shadow:0 25px 80px rgba(0,0,0,.55),0 0 0 9px rgba(255,255,255,.035);z-index:2}
-.hero-copy{position:relative;z-index:4}
+.hero-copy{position:relative;z-index:4;min-width:0;max-width:650px}.hero-copy .copy{max-width:100%}
 .story h2{font-family:Parisienne,cursive;font-size:clamp(65px,9vw,120px);line-height:.78;margin:0;color:#ffe8ef}
 .story h3{font-family:Cinzel,serif;font-weight:500;font-size:clamp(27px,4vw,51px);color:#f8dbe4;margin:8px 0 20px}
 .story em{font-style:normal}.gold-line{color:var(--gold);font-size:28px}.lead{font-family:Cinzel,serif;letter-spacing:.2em;color:var(--gold)}
@@ -111,3 +111,17 @@ button,a{font:inherit}
 body.modal-open{overflow:hidden}
 .opening.leaving{animation:openingOut .9s ease forwards}
 @keyframes openingOut{to{opacity:0;transform:scale(1.035);filter:blur(3px)}}
+
+@media (max-width:1050px){
+  .hero-story{grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:34px;padding-left:28px;padding-right:28px}
+  .story h2{font-size:clamp(52px,7vw,82px);overflow-wrap:anywhere}
+  .hero-photo-wrap{width:min(360px,38vw)}
+  .hero-copy{max-width:100%}
+}
+@media (max-width:820px){
+  .hero-story{grid-template-columns:1fr;gap:34px;text-align:center;padding-top:80px}
+  .hero-photo-wrap{width:min(330px,72vw);margin:0 auto}
+  .hero-copy{max-width:680px;margin:0 auto}
+  .hero-copy .copy{margin-left:auto;margin-right:auto}
+  .story h2{font-size:clamp(60px,15vw,92px)}
+}
