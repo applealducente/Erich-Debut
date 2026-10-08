@@ -182,3 +182,22 @@ a{color:inherit}
  .hero-photo-wrap{width:92vw;height:530px}
  .story{padding:75px 20px}
 }
+
+/* Nine-photo enchanted garden composition */
+.garden-photo-gallery{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.gallery-photo{position:absolute;overflow:hidden;filter:drop-shadow(0 18px 28px rgba(10,3,18,.62));mix-blend-mode:multiply;opacity:.96}
+.gallery-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(1.03) contrast(1.04)}
+.gp1{width:190px;height:285px;left:4%;top:10%;transform:rotate(-5deg)}
+.gp2{width:205px;height:305px;right:4%;top:9%;transform:rotate(5deg)}
+.gp3{width:165px;height:245px;left:16%;bottom:5%;transform:rotate(3deg)}
+.gp4{width:175px;height:255px;right:16%;bottom:5%;transform:rotate(-3deg)}
+.garden-photo-gallery:after{content:"";position:absolute;inset:0;pointer-events:none;background:
+ radial-gradient(circle at 8% 18%,rgba(238,190,255,.12),transparent 15%),
+ radial-gradient(circle at 92% 20%,rgba(247,201,232,.12),transparent 16%),
+ linear-gradient(180deg,transparent 60%,rgba(22,6,27,.38))}
+@media(max-width:900px){
+ .gp1{width:120px;height:180px;left:1%;top:8%}
+ .gp2{width:130px;height:195px;right:1%;top:8%}
+ .gp3{width:105px;height:155px;left:4%;bottom:7%}
+ .gp4{width:110px;height:160px;right:4%;bottom:7%}
+}
