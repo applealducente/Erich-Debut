@@ -6,21 +6,6 @@ musicToggle.addEventListener("click",()=>{if(music.paused){music.play().then(()=
 music.addEventListener("play",()=>{musicToggle.innerHTML="♫ <span>MUSIC ON</span>"});
 music.addEventListener("pause",()=>{musicToggle.innerHTML="♫ <span>MUSIC OFF</span>"});
 
-const roleName=document.getElementById("roleName"),revealRole=document.getElementById("revealRole"),roleResult=document.getElementById("roleResult");
-function showRoles(name){
- const roles=findRoles(name);
- if(!roles.length){
-   roleResult.innerHTML='<div class="role-result-title">A special guest awaits</div><p>Your name is not listed among the 18s or Cotillion, but you are warmly invited to celebrate with Erich.</p>';
-   return;
- }
- roleResult.innerHTML='<div class="role-result-title">Your place in the garden is reserved</div>'+
-   roles.map(r=>'<div class="role-badge"><strong>'+r.category+'</strong><span>#'+r.number+'</span>'+
-   (r.category==="Cotillion Dancer"?'<small>One of the six Cotillion pairs</small>':"")+
-   '</div>').join("");
-}
-revealRole.addEventListener("click",()=>{const name=roleName.value.trim();if(name)showRoles(name)});
-roleName.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();revealRole.click()}});
-
 const modal=document.getElementById("rsvpModal"),openRsvp=document.getElementById("openRsvp"),closeRsvp=document.getElementById("closeRsvp"),form=document.getElementById("rsvpForm"),attendance=document.getElementById("attendance"),plusOneWrap=document.getElementById("plusOneWrap"),plusOne=document.getElementById("plusOne"),confirmation=document.getElementById("rsvpConfirmation");
 function openModal(){modal.classList.add("show");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open")}
 function closeModal(){modal.classList.remove("show");modal.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
