@@ -119,3 +119,10 @@ button,a{font:inherit}
 .palette-swatches{display:flex;justify-content:center;gap:7px;margin:13px 0 7px}.palette-swatches i{display:block;width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.55);box-shadow:0 3px 10px rgba(0,0,0,.25)}.palette-swatches i:nth-child(1){background:#f2b8c7}.palette-swatches i:nth-child(2){background:#b9d5e8}.palette-swatches i:nth-child(3){background:#b8c9ad}.palette-swatches i:nth-child(4){background:#f4dfaa}.palette-swatches i:nth-child(5){background:#efc2a5}
 #plusOneNameWrap{display:none}
 .cotillion-pairs i{font-style:normal;color:#e8c983;text-align:center;font-family:"Playfair Display",serif;font-size:16px}
+
+/* Enchanted garden cleanup */
+.star{display:none}
+.moon,.nebula,.starscape,.garden-horizon,.vine,.arch{display:none}
+.garden-photo:before{content:"✿  ❀  ✿";position:absolute;z-index:3;left:8px;right:8px;bottom:5px;color:#f3c7d7;text-align:center;letter-spacing:9px;font-size:13px;text-shadow:0 0 9px rgba(255,213,225,.8)}
+.garden-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent 58%,rgba(24,9,28,.32));pointer-events:none}
+.garden-photo img{border-radius:inherit}
