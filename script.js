@@ -1,45 +1,46 @@
-const envelope = document.getElementById("envelope");
-const opening = document.getElementById("opening");
-const invitation = document.getElementById("invitation");
-const music = document.getElementById("bgMusic");
-const musicToggle = document.getElementById("musicToggle");
+const envelope=document.getElementById("envelope");
+const opening=document.getElementById("opening");
+const invitation=document.getElementById("invitation");
+const music=document.getElementById("bgMusic");
+const musicToggle=document.getElementById("musicToggle");
+let opened=false;
 
-let opened = false;
+function showInvitation(){
+  opening.classList.add("leaving");
+  setTimeout(()=>{
+    opening.hidden=true;
+    opening.style.display="none";
+    invitation.classList.add("visible");
+    invitation.setAttribute("aria-hidden","false");
+    document.body.classList.add("garden-open");
+    window.scrollTo(0,0);
+  },900);
+}
 
-envelope.addEventListener("click", async () => {
-  if (opened) return;
-  opened = true;
-
+envelope.addEventListener("click",()=>{
+  if(opened)return;
+  opened=true;
   envelope.classList.add("opening");
-
-  // The click is the user gesture that allows the browser to start audio.
-  try {
-    music.volume = 0.72;
-    await music.play();
-  } catch (error) {
-    console.log("Audio will require another tap:", error);
+  music.volume=.72;
+  const playAttempt=music.play();
+  if(playAttempt&&typeof playAttempt.catch==="function"){
+    playAttempt.catch(()=>{});
   }
-
-  setTimeout(() => {
-    opening.style.transition = "opacity 1.3s ease, transform 1.3s ease";
-    opening.style.opacity = "0";
-    opening.style.transform = "scale(1.04)";
-
-    setTimeout(() => {
-      opening.style.display = "none";
-      invitation.classList.add("visible");
-      invitation.setAttribute("aria-hidden", "false");
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }, 1100);
-  }, 850);
+  setTimeout(showInvitation,650);
 });
 
-musicToggle.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    musicToggle.innerHTML = "♫ <span>MUSIC ON</span>";
-  } else {
+musicToggle.addEventListener("click",()=>{
+  if(music.paused){
+    music.play().then(()=>{
+      musicToggle.innerHTML="♫ <span>MUSIC ON</span>";
+    }).catch(()=>{
+      musicToggle.innerHTML="♫ <span>TAP TO PLAY</span>";
+    });
+  }else{
     music.pause();
-    musicToggle.innerHTML = "♫ <span>MUSIC OFF</span>";
+    musicToggle.innerHTML="♫ <span>MUSIC OFF</span>";
   }
 });
+
+music.addEventListener("play",()=>{musicToggle.innerHTML="♫ <span>MUSIC ON</span>"});
+music.addEventListener("pause",()=>{musicToggle.innerHTML="♫ <span>MUSIC OFF</span>"});

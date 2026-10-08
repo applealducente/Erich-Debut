@@ -1,135 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#24152f">
-  <title>Erich Enchants | An Enchanted Eighteenth</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Parisienne&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#120b18">
+<title>Erich Enchants | An Enchanted Eighteenth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Parisienne&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <audio id="bgMusic" preload="auto" loop>
-    <source src="assets/enchanted.mp3" type="audio/mpeg">
-  </audio>
+<audio id="bgMusic" preload="auto" loop>
+  <source src="assets/enchanted.mp3.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="ambient" aria-hidden="true">
-    <span class="firefly f1"></span><span class="firefly f2"></span><span class="firefly f3"></span>
-    <span class="firefly f4"></span><span class="firefly f5"></span><span class="firefly f6"></span>
-    <span class="petal p1">✿</span><span class="petal p2">✿</span><span class="petal p3">✿</span>
-    <span class="petal p4">✿</span><span class="petal p5">✿</span>
-  </div>
+<div class="ambient" aria-hidden="true">
+  <i class="star s1"></i><i class="star s2"></i><i class="star s3"></i><i class="star s4"></i><i class="star s5"></i><i class="star s6"></i>
+  <i class="firefly f1"></i><i class="firefly f2"></i><i class="firefly f3"></i><i class="firefly f4"></i><i class="firefly f5"></i><i class="firefly f6"></i>
+  <i class="petal p1">✿</i><i class="petal p2">✿</i><i class="petal p3">✿</i><i class="petal p4">✿</i><i class="petal p5">✿</i>
+</div>
 
-  <main id="opening" class="opening">
-    <div class="garden-wash"></div>
-    <div class="moon"></div>
-    <div class="arch arch-left"></div>
-    <div class="arch arch-right"></div>
+<main id="opening" class="opening">
+  <div class="sky-glow"></div>
+  <div class="nebula nebula-a"></div><div class="nebula nebula-b"></div>
+  <div class="moon"><span></span></div>
+  <div class="starscape"></div>
+  <div class="garden-horizon"></div>
+  <div class="vine vine-left"></div><div class="vine vine-right"></div>
+  <div class="arch arch-left"></div><div class="arch arch-right"></div>
+  <div class="lantern lantern-1">✦</div><div class="lantern lantern-2">✦</div>
 
-    <div class="lantern lantern-1">🕯</div>
-    <div class="lantern lantern-2">🕯</div>
-    <div class="lantern lantern-3">🕯</div>
+  <section class="opening-content">
+    <p class="eyebrow">COME CELEBRATE WITH US</p>
+    <p class="tiny-line">A little magic awaits behind the garden gate</p>
 
-    <section class="opening-content">
-      <p class="eyebrow">COME CELEBRATE WITH US!</p>
-      <p class="tiny-line">A little magic awaits behind the garden gate</p>
+    <button id="envelope" class="envelope" aria-label="Open the enchanted invitation">
+      <span class="envelope-glow"></span>
+      <span class="envelope-body"></span>
+      <span class="envelope-flap"></span>
+      <span class="flower flower-one">✿</span><span class="flower flower-two">✿</span>
+      <span class="seal">E</span>
+    </button>
 
-      <button id="envelope" class="envelope" aria-label="Open the invitation">
-        <span class="envelope-glow"></span>
-        <span class="envelope-flap"></span>
-        <span class="envelope-body"></span>
-        <span class="butterfly-wing wing-left"></span>
-        <span class="butterfly-wing wing-right"></span>
-        <span class="seal">E</span>
-        <span class="flower-ring">✿</span>
-      </button>
+    <h1>Erich <span>Enchants</span></h1>
+    <p class="subtitle">AN ENCHANTED EIGHTEENTH</p>
+    <p class="instruction">OPEN THE GARDEN GATE</p>
+  </section>
+</main>
 
-      <h1>Erich <span>Enchants</span></h1>
-      <p class="subtitle">AN ENCHANTED EIGHTEENTH</p>
-      <p class="instruction">CLICK THE ENVELOPE<br><span>TO VIEW THE DETAILS</span></p>
-      <div class="scroll-hint">✦</div>
-    </section>
-  </main>
+<section id="invitation" class="invitation" aria-hidden="true">
+  <div class="garden-layer"></div>
+  <button id="musicToggle" class="music-toggle" type="button">♫ <span>MUSIC ON</span></button>
 
-  <section id="invitation" class="invitation" aria-hidden="true">
-    <button id="musicToggle" class="music-toggle" type="button">♫ <span>MUSIC ON</span></button>
-
-    <nav class="garden-nav">
-      <a href="#welcome">The Invitation</a>
-      <a href="#details">The Garden</a>
-      <a href="#program">Her Eighteen</a>
-      <a href="#people">The People She Loves</a>
-      <a href="#rsvp">RSVP</a>
-    </nav>
-
-    <section id="welcome" class="story hero-story">
-      <div class="mist"></div>
-      <div class="story-inner">
-        <p class="eyebrow">WELCOME TO THE GARDEN</p>
-        <h2>Erich <em>Enchants</em></h2>
-        <p class="gold-line">✦</p>
-        <p class="lead">An Enchanted Eighteenth</p>
-        <p class="copy">Step into a little world of flowers, candlelight, butterflies and memories as we celebrate eighteen beautiful years of Erich.</p>
-        <p class="date">NOVEMBER 7, 2026 · 6:00 PM</p>
-      </div>
-    </section>
-
-    <section id="details" class="story details-story">
-      <div class="card">
-        <p class="eyebrow">THE CELEBRATION</p>
-        <h3>A night beneath the lanterns</h3>
-        <div class="detail-grid">
-          <div><span>DATE</span><strong>November 7, 2026</strong></div>
-          <div><span>TIME</span><strong>6:00 PM</strong></div>
-          <div><span>VENUE</span><strong>Carlito’s Private Pool and Venue</strong></div>
-          <div><span>ADDRESS</span><strong>01 Patag St. 3020, Meycauayan, Bulacan</strong></div>
-          <div><span>DRESS CODE</span><strong>Semi Formal</strong></div>
-          <div><span>COLORS</span><strong>Pastel colors, excluding purple or violet</strong></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="program" class="story program-story">
-      <div class="story-inner">
-        <p class="eyebrow">HER EIGHTEEN</p>
-        <h3>Moments woven into the night</h3>
-        <div class="moment-grid">
-          <article><span>18</span><h4>ROSES</h4><p>A garden of roses, one by one, for a beautiful eighteen.</p></article>
-          <article><span>18</span><h4>CANDLES</h4><p>Lights of love, wishes and memories.</p></article>
-          <article><span>18</span><h4>TREASURES</h4><p>Little pieces of wisdom, love and blessings.</p></article>
-          <article><span>18</span><h4>BLUE BILLS</h4><p>Gifts offered with love for her next chapter.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="people" class="story people-story">
-      <div class="story-inner">
-        <p class="eyebrow">THE PEOPLE SHE LOVES</p>
-        <h3>Every bloom has a name</h3>
-        <p class="copy">The garden continues with the people who will make this celebration unforgettable.</p>
-        <div class="people-links">
-          <a href="#rsvp">18 Roses</a>
-          <a href="#rsvp">18 Candles</a>
-          <a href="#rsvp">18 Treasures</a>
-          <a href="#rsvp">18 Blue Bills</a>
-          <a href="#rsvp">Cotillion</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="rsvp" class="story rsvp-story">
-      <div class="rsvp-card">
-        <p class="eyebrow">THE FINAL GATE</p>
-        <h3>Will you join us?</h3>
-        <p>Kindly confirm your attendance by October 30, 2026.</p>
-        <a class="rsvp-button" href="rsvp.html">RSVP</a>
-        <small>One plus one per guest only.</small>
-      </div>
-    </section>
+  <section id="welcome" class="story hero-story">
+    <div class="hero-moon"></div>
+    <div class="hero-vines"></div>
+    <div class="hero-photo-wrap">
+      <div class="photo-aura"></div>
+      <img src="assets/IMG_6100.JPG" alt="Erich Jacelle Mancilla" class="hero-photo">
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow">THE GARDEN OPENS</p>
+      <h2>Erich <em>Enchants</em></h2>
+      <p class="gold-line">✦</p>
+      <p class="lead">An Enchanted Eighteenth</p>
+      <p class="copy">Step into a secret garden of candlelight, flowers, butterflies and memories as we celebrate eighteen beautiful years of Erich.</p>
+      <p class="date">NOVEMBER 7, 2026 · 6:00 PM</p>
+      <a class="story-button" href="#details">FOLLOW THE LIGHT</a>
+    </div>
   </section>
 
-  <script src="script.js"></script>
+  <section id="details" class="story details-story">
+    <div class="story-inner">
+      <p class="eyebrow">THE CELEBRATION</p>
+      <h3>A night beneath the lanterns</h3>
+      <div class="detail-grid">
+        <div><span>DATE</span><strong>November 7, 2026</strong></div>
+        <div><span>TIME</span><strong>6:00 PM</strong></div>
+        <div><span>VENUE</span><strong>Carlito’s Private Pool and Venue</strong></div>
+        <div><span>ADDRESS</span><strong>01 Patag St. 3020, Meycauayan, Bulacan</strong></div>
+        <div><span>DRESS CODE</span><strong>Semi Formal</strong></div>
+        <div><span>COLORS</span><strong>Pastel colors, excluding purple or violet</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="program" class="story program-story">
+    <div class="story-inner">
+      <p class="eyebrow">HER EIGHTEEN</p>
+      <h3>Moments woven into the night</h3>
+      <div class="moment-grid">
+        <article><span>18</span><h4>ROSES</h4><p>One rose for every story, friendship and beautiful wish.</p></article>
+        <article><span>18</span><h4>CANDLES</h4><p>Lights of love, guidance, memories and dreams.</p></article>
+        <article><span>18</span><h4>TREASURES</h4><p>Gifts carrying blessings for her next chapter.</p></article>
+        <article><span>18</span><h4>BLUE BILLS</h4><p>A little garden of generous wishes for Erich.</p></article>
+      </div>
+      <div class="cotillion-card"><span>THE COTILLION</span><strong>A dance beneath the moonlight</strong><p>Six pairs will open another chapter of the evening.</p></div>
+    </div>
+  </section>
+
+  <section id="people" class="story gallery-story">
+    <div class="story-inner">
+      <p class="eyebrow">A GARDEN OF MEMORIES</p>
+      <h3>Her eighteenth, in bloom</h3>
+      <div class="photo-grid">
+        <figure><img src="assets/IMG_6103.JPG" alt="Erich"></figure>
+        <figure class="tall"><img src="assets/IMG_6107.JPG" alt="Erich"></figure>
+        <figure><img src="assets/IMG_6120.JPG" alt="Erich"></figure>
+        <figure><img src="assets/IMG_6128.JPG" alt="Erich"></figure>
+        <figure class="wide"><img src="assets/IMG_6130.JPG" alt="Erich"></figure>
+        <figure><img src="assets/IMG_6137.JPG" alt="Erich"></figure>
+        <figure><img src="assets/IMG_6157.JPG" alt="Erich"></figure>
+        <figure><img src="assets/IMG_6159.JPG" alt="Erich"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="rsvp" class="story rsvp-story">
+    <div class="rsvp-card">
+      <p class="eyebrow">THE FINAL GATE</p>
+      <h3>Will you join us?</h3>
+      <p>Kindly confirm your attendance by October 30, 2026.</p>
+      <a class="rsvp-button" href="rsvp.html">ENTER YOUR RSVP</a>
+      <small>One plus one per guest only.</small>
+    </div>
+  </section>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
