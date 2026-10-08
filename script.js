@@ -1,39 +1,45 @@
-function fillNames(id, names){
-  const el = document.getElementById(id);
-  names.forEach((name,i)=>{
-    const item=document.createElement("article");
-    item.className="name-item";
-    item.innerHTML=`<span>${String(i+1).padStart(2,"0")}</span><strong>${escapeHtml(name)}</strong>`;
-    el.appendChild(item);
-  });
-}
-function fillPairs(id,pairs){
-  const el=document.getElementById(id);
-  pairs.forEach((pair,i)=>{
-    const item=document.createElement("article");
-    item.className="pair-item";
-    item.innerHTML=`<span>PAIR ${String(i+1).padStart(2,"0")}</span><strong>${escapeHtml(pair[0])} &amp; ${escapeHtml(pair[1])}</strong>`;
-    el.appendChild(item);
-  });
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
+const envelope = document.getElementById("envelope");
+const opening = document.getElementById("opening");
+const invitation = document.getElementById("invitation");
+const music = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
 
-fillNames("roses-list",PROGRAM.roses);
-fillNames("candles-list",PROGRAM.candles);
-fillNames("treasures-list",PROGRAM.treasures);
-fillNames("bills-list",PROGRAM.bills);
-fillPairs("cotillion-list",PROGRAM.cotillion);
+let opened = false;
 
-const form=document.getElementById("rsvpForm");
-const confirmation=document.getElementById("confirmation");
-form.addEventListener("submit",e=>{
-  e.preventDefault();
-  const data=Object.fromEntries(new FormData(form).entries());
-  if(data.plusOne==="No") data.plusOneName="";
-  data.submittedAt=new Date().toISOString();
-  const current=JSON.parse(localStorage.getItem("erichEnchantsRSVP")||"[]");
-  current.push(data);
-  localStorage.setItem("erichEnchantsRSVP",JSON.stringify(current));
-  form.hidden=true;
-  confirmation.hidden=false;
+envelope.addEventListener("click", async () => {
+  if (opened) return;
+  opened = true;
+
+  envelope.classList.add("opening");
+
+  // The click is the user gesture that allows the browser to start audio.
+  try {
+    music.volume = 0.72;
+    await music.play();
+  } catch (error) {
+    console.log("Audio will require another tap:", error);
+  }
+
+  setTimeout(() => {
+    opening.style.transition = "opacity 1.3s ease, transform 1.3s ease";
+    opening.style.opacity = "0";
+    opening.style.transform = "scale(1.04)";
+
+    setTimeout(() => {
+      opening.style.display = "none";
+      invitation.classList.add("visible");
+      invitation.setAttribute("aria-hidden", "false");
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, 1100);
+  }, 850);
+});
+
+musicToggle.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicToggle.innerHTML = "♫ <span>MUSIC ON</span>";
+  } else {
+    music.pause();
+    musicToggle.innerHTML = "♫ <span>MUSIC OFF</span>";
+  }
 });

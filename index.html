@@ -1,157 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#09051b">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#24152f">
   <title>Erich Enchants | An Enchanted Eighteenth</title>
-  <meta name="description" content="Erich Jacelle Ordonio Mancilla's enchanted eighteenth debut invitation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Parisienne&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="moon" aria-hidden="true"></div>
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="assets/enchanted.mp3" type="audio/mpeg">
+  </audio>
 
-  <header class="hero" id="home">
-    <div class="hero-glow"></div>
-    <nav class="nav">
-      <a class="brand" href="#home">ERICH ENCHANTS</a>
-      <div class="nav-links">
-        <a href="#details">Details</a>
-        <a href="#program">Program</a>
-        <a href="#rsvp">RSVP</a>
-      </div>
-    </nav>
+  <div class="ambient" aria-hidden="true">
+    <span class="firefly f1"></span><span class="firefly f2"></span><span class="firefly f3"></span>
+    <span class="firefly f4"></span><span class="firefly f5"></span><span class="firefly f6"></span>
+    <span class="petal p1">✿</span><span class="petal p2">✿</span><span class="petal p3">✿</span>
+    <span class="petal p4">✿</span><span class="petal p5">✿</span>
+  </div>
 
-    <div class="hero-content">
-      <p class="eyebrow">Once upon a twilight...</p>
-      <h1>ERICH<br><span>ENCHANTS</span></h1>
-      <p class="subtitle">An Enchanted Eighteenth</p>
-      <p class="hero-date">November 7, 2026 · 6:00 PM</p>
-      <a class="button primary" href="#details">Enter the Enchantment</a>
-    </div>
+  <main id="opening" class="opening">
+    <div class="garden-wash"></div>
+    <div class="moon"></div>
+    <div class="arch arch-left"></div>
+    <div class="arch arch-right"></div>
 
-    <div class="portrait-frame">
-      <img src="assets/erich-original.jpg" alt="Erich Jacelle Ordonio Mancilla" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="photo-placeholder">
-        <strong>ERICH</strong>
-        <span>Place original photo here</span>
-        <small>No edits to face or facial features</small>
-      </div>
-    </div>
+    <div class="lantern lantern-1">🕯</div>
+    <div class="lantern lantern-2">🕯</div>
+    <div class="lantern lantern-3">🕯</div>
 
-    <div class="floral floral-left">✦ ❋ ✧</div>
-    <div class="floral floral-right">✧ ❋ ✦</div>
-  </header>
+    <section class="opening-content">
+      <p class="eyebrow">COME CELEBRATE WITH US!</p>
+      <p class="tiny-line">A little magic awaits behind the garden gate</p>
 
-  <main>
-    <section class="section intro" id="details">
-      <p class="section-kicker">A night to remember</p>
-      <h2>Come celebrate a little magic.</h2>
-      <p class="lead">Join us as Erich steps into her eighteenth year with an evening filled with family, friends, music, laughter, and enchanted moments.</p>
+      <button id="envelope" class="envelope" aria-label="Open the invitation">
+        <span class="envelope-glow"></span>
+        <span class="envelope-flap"></span>
+        <span class="envelope-body"></span>
+        <span class="butterfly-wing wing-left"></span>
+        <span class="butterfly-wing wing-right"></span>
+        <span class="seal">E</span>
+        <span class="flower-ring">✿</span>
+      </button>
 
-      <div class="details-grid">
-        <article class="glass-card"><span>DATE</span><strong>November 7, 2026</strong></article>
-        <article class="glass-card"><span>TIME</span><strong>6:00 PM</strong></article>
-        <article class="glass-card"><span>VENUE</span><strong>Carlito’s Private Pool and Venue</strong><small>01 Patag St., 3020 Meycauayan, Bulacan</small></article>
-      </div>
-      <a class="button secondary" target="_blank" rel="noopener" href="https://maps.google.com/maps?vet=10CAAQoqAOahcKEwio3oeXo6qXAxUAAAAAHQAAAAAQDw..i&udm&fvr=1&pvq=Cg0vZy8xMWM0NTFicTI1IhsKFWNhcmxpdG9zIGV2ZW50cyBwbGFjZRACGAOJATidwyy6Z2Fr&lqi=ChVjYXJsaXRvcyBldmVudHMgcGxhY2VIxbDV0JCrgIAIWiMQABABEAIYAiIVY2FybGl0b3MgZXZlbnRzIHBsYWNlMgJlbpIBDXN3aW1taW5nX3Bvb2w&cs=1&um=1&ie=UTF-8&fb=1&gl=ph&sa=X&ftid=0x3397b3d2e91c3c9f:0x6b6167ba2cc39d38">View Location</a>
-    </section>
-
-    <section class="section dress">
-      <p class="section-kicker">Dress code</p>
-      <h2>Pastel Dreams</h2>
-      <div class="dress-card glass-card">
-        <div class="color-orbs">
-          <i></i><i></i><i></i><i></i><i></i>
-        </div>
-        <p><strong>Semi-Formal</strong></p>
-        <p>Wear your favorite pastel shade.</p>
-        <p class="note">Please exclude purple and violet from your outfit.</p>
-        <p class="plus">Each invited guest may bring <strong>one (1) plus one only.</strong></p>
-      </div>
-    </section>
-
-    <section class="section program" id="program">
-      <p class="section-kicker">The enchanted circle</p>
-      <h2>Her Eighteen</h2>
-      <p class="lead">A special part of the evening for the people who will share Erich’s milestone.</p>
-
-      <div class="program-grid">
-        <a class="program-card" href="#roses"><span>01</span><h3>18 Roses</h3><p>18 gentlemen, 18 roses, 18 wishes.</p></a>
-        <a class="program-card" href="#candles"><span>02</span><h3>18 Candles</h3><p>18 lights to guide the way.</p></a>
-        <a class="program-card" href="#treasures"><span>03</span><h3>18 Treasures</h3><p>18 people bringing meaningful gifts.</p></a>
-        <a class="program-card" href="#bills"><span>04</span><h3>18 Blue Bills</h3><p>18 special blessings for Erich.</p></a>
-        <a class="program-card" href="#cotillion"><span>05</span><h3>Cotillion Dancers</h3><p>A separate enchanted dance ensemble.</p></a>
-      </div>
-    </section>
-
-    <section class="section list-section" id="roses">
-      <p class="section-kicker">The roses</p><h2>18 Roses</h2>
-      <div class="name-grid" id="roses-list"></div>
-    </section>
-
-    <section class="section list-section" id="candles">
-      <p class="section-kicker">The lights</p><h2>18 Candles</h2>
-      <div class="name-grid" id="candles-list"></div>
-    </section>
-
-    <section class="section list-section" id="treasures">
-      <p class="section-kicker">The gifts</p><h2>18 Treasures</h2>
-      <div class="name-grid" id="treasures-list"></div>
-    </section>
-
-    <section class="section list-section" id="bills">
-      <p class="section-kicker">The blessings</p><h2>18 Blue Bills</h2>
-      <div class="name-grid" id="bills-list"></div>
-    </section>
-
-    <section class="section list-section" id="cotillion">
-      <p class="section-kicker">The dance</p><h2>Cotillion Dancers</h2>
-      <div class="pair-grid" id="cotillion-list"></div>
-    </section>
-
-    <section class="section rsvp" id="rsvp">
-      <div class="rsvp-box">
-        <p class="section-kicker">Your presence is the gift</p>
-        <h2>Will you join the enchantment?</h2>
-        <p>Kindly respond by <strong>October 30, 2026</strong>.</p>
-
-        <form id="rsvpForm">
-          <label>Guest name<input name="guestName" required maxlength="80" placeholder="Your full name"></label>
-          <label>Will you attend?
-            <select name="attendance" required>
-              <option value="">Please select</option>
-              <option value="Attending">Yes, I’ll be there</option>
-              <option value="Unable to attend">Sorry, I can’t make it</option>
-            </select>
-          </label>
-          <label>Plus one
-            <select name="plusOne" required>
-              <option value="No">No plus one</option>
-              <option value="Yes">Yes, I’m bringing one</option>
-            </select>
-          </label>
-          <label>Plus-one name <span class="muted">(optional)</span><input name="plusOneName" maxlength="80" placeholder="Full name"></label>
-          <label>Message <span class="muted">(optional)</span><textarea name="message" maxlength="300" placeholder="Leave a little birthday wish..."></textarea></label>
-          <button class="button primary" type="submit">Send RSVP</button>
-        </form>
-        <div class="confirmation" id="confirmation" hidden>
-          <div class="check">✦</div>
-          <h3>Thank you for responding.</h3>
-          <p>Your RSVP has been recorded on this device.</p>
-          <p class="muted">The live guest dashboard will be connected to the chosen RSVP backend before launch.</p>
-        </div>
-      </div>
+      <h1>Erich <span>Enchants</span></h1>
+      <p class="subtitle">AN ENCHANTED EIGHTEENTH</p>
+      <p class="instruction">CLICK THE ENVELOPE<br><span>TO VIEW THE DETAILS</span></p>
+      <div class="scroll-hint">✦</div>
     </section>
   </main>
 
-  <footer>
-    <p>ERICH ENCHANTS</p>
-    <small>An Enchanted Eighteenth · November 7, 2026</small>
-  </footer>
+  <section id="invitation" class="invitation" aria-hidden="true">
+    <button id="musicToggle" class="music-toggle" type="button">♫ <span>MUSIC ON</span></button>
 
-  <script src="data.js"></script>
+    <nav class="garden-nav">
+      <a href="#welcome">The Invitation</a>
+      <a href="#details">The Garden</a>
+      <a href="#program">Her Eighteen</a>
+      <a href="#people">The People She Loves</a>
+      <a href="#rsvp">RSVP</a>
+    </nav>
+
+    <section id="welcome" class="story hero-story">
+      <div class="mist"></div>
+      <div class="story-inner">
+        <p class="eyebrow">WELCOME TO THE GARDEN</p>
+        <h2>Erich <em>Enchants</em></h2>
+        <p class="gold-line">✦</p>
+        <p class="lead">An Enchanted Eighteenth</p>
+        <p class="copy">Step into a little world of flowers, candlelight, butterflies and memories as we celebrate eighteen beautiful years of Erich.</p>
+        <p class="date">NOVEMBER 7, 2026 · 6:00 PM</p>
+      </div>
+    </section>
+
+    <section id="details" class="story details-story">
+      <div class="card">
+        <p class="eyebrow">THE CELEBRATION</p>
+        <h3>A night beneath the lanterns</h3>
+        <div class="detail-grid">
+          <div><span>DATE</span><strong>November 7, 2026</strong></div>
+          <div><span>TIME</span><strong>6:00 PM</strong></div>
+          <div><span>VENUE</span><strong>Carlito’s Private Pool and Venue</strong></div>
+          <div><span>ADDRESS</span><strong>01 Patag St. 3020, Meycauayan, Bulacan</strong></div>
+          <div><span>DRESS CODE</span><strong>Semi Formal</strong></div>
+          <div><span>COLORS</span><strong>Pastel colors, excluding purple or violet</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="program" class="story program-story">
+      <div class="story-inner">
+        <p class="eyebrow">HER EIGHTEEN</p>
+        <h3>Moments woven into the night</h3>
+        <div class="moment-grid">
+          <article><span>18</span><h4>ROSES</h4><p>A garden of roses, one by one, for a beautiful eighteen.</p></article>
+          <article><span>18</span><h4>CANDLES</h4><p>Lights of love, wishes and memories.</p></article>
+          <article><span>18</span><h4>TREASURES</h4><p>Little pieces of wisdom, love and blessings.</p></article>
+          <article><span>18</span><h4>BLUE BILLS</h4><p>Gifts offered with love for her next chapter.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="people" class="story people-story">
+      <div class="story-inner">
+        <p class="eyebrow">THE PEOPLE SHE LOVES</p>
+        <h3>Every bloom has a name</h3>
+        <p class="copy">The garden continues with the people who will make this celebration unforgettable.</p>
+        <div class="people-links">
+          <a href="#rsvp">18 Roses</a>
+          <a href="#rsvp">18 Candles</a>
+          <a href="#rsvp">18 Treasures</a>
+          <a href="#rsvp">18 Blue Bills</a>
+          <a href="#rsvp">Cotillion</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" class="story rsvp-story">
+      <div class="rsvp-card">
+        <p class="eyebrow">THE FINAL GATE</p>
+        <h3>Will you join us?</h3>
+        <p>Kindly confirm your attendance by October 30, 2026.</p>
+        <a class="rsvp-button" href="rsvp.html">RSVP</a>
+        <small>One plus one per guest only.</small>
+      </div>
+    </section>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>

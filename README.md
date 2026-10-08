@@ -1,21 +1,53 @@
-# ERICH ENCHANTS | An Enchanted Eighteenth
+# Erich Enchants: Enchanted Garden Invitation
 
-Static invitation website for Erich Jacelle Ordonio Mancilla.
+This is the new opening experience for Erich Jacelle Ordonio Mancilla's debut invitation.
 
-## Files
-- `index.html` main invitation
-- `styles.css` enchanted twilight visual design
-- `data.js` 18 Roses, 18 Candles, 18 Treasures, 18 Blue Bills, and Cotillion Dancers
-- `script.js` interactive sections and RSVP capture
-- `assets/erich-original.jpg` add Erich's original photo here
+## Upload these files
 
-## Important photo rule
-Do not replace the original portrait with an AI-generated face. The website uses the image as supplied. The current design only changes the surrounding page theme.
+- `index.html`
+- `styles.css`
+- `script.js`
+- `assets/enchanted.mp3`
 
-## RSVP
-The current prototype stores submissions in the visitor's browser using localStorage. This is intentionally not presented as a live shared database.
+The design expects these optional image assets:
 
-Before public launch, connect the form to a real backend such as Google Sheets + Apps Script or Supabase so the host can see confirmed guests from any device.
+- `assets/garden-background.jpg`
+- `assets/erich-original.jpg`
 
-## Vercel
-Upload these files to a GitHub repository and import the repository into Vercel. No build command is required.
+## Important
+
+The envelope click is intentionally the user interaction that starts the music. Browsers generally block true autoplay before the visitor interacts with the page.
+
+The RSVP link is currently a placeholder. Connect it to the final RSVP form/backend once the invitation design is approved.
+
+## Event
+
+Erich Enchants
+An Enchanted Eighteenth
+
+November 7, 2026
+6:00 PM
+
+Carlito’s Private Pool and Venue
+01 Patag St. 3020, Meycauayan, Bulacan
+
+RSVP deadline: October 30, 2026
+Dress code: Semi Formal
+Color coding: Pastel colors excluding purple or violet
+Plus 1 per guest only
+
+
+## RSVP role recognition
+
+The RSVP flow checks the guest's name against `data.js`.
+
+After a YES RSVP, the confirmation can display:
+- 18 Roses + number
+- 18 Candles + number
+- 18 Treasures + number
+- 18 Blue Bills + number
+- Cotillion Dancer + pair number
+
+A guest can have multiple roles and all matching roles are shown.
+
+The current RSVP stores submissions in browser localStorage as a prototype. For a real event, connect the same response object to a shared Google Sheet, Supabase, or another backend so the host can see RSVPs from every device.

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP | Erich Enchants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Parisienne&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="rsvp-page">
+  <div class="ambient" aria-hidden="true">
+    <span class="firefly f1"></span><span class="firefly f2"></span><span class="firefly f3"></span>
+    <span class="firefly f4"></span><span class="firefly f5"></span>
+  </div>
+
+  <main class="rsvp-shell">
+    <div id="rsvpFormWrap" class="rsvp-card">
+      <p class="eyebrow">THE FINAL GATE</p>
+      <h1>Will you join us?</h1>
+      <p class="copy">Kindly confirm your attendance by October 30, 2026.</p>
+
+      <form id="rsvpForm">
+        <label>
+          Your full name
+          <input id="guestName" name="guestName" autocomplete="name" required placeholder="Enter your name">
+        </label>
+
+        <label>
+          Will you be joining us?
+          <select id="attendance" name="attendance" required>
+            <option value="">Please select</option>
+            <option value="yes">Yes, I’ll be there</option>
+            <option value="no">Sorry, I can’t attend</option>
+          </select>
+        </label>
+
+        <label id="plusOneWrap">
+          Plus one
+          <select id="plusOne" name="plusOne">
+            <option value="no">No plus one</option>
+            <option value="yes">Yes, 1 plus one</option>
+          </select>
+        </label>
+
+        <label>
+          Message <span class="optional">(optional)</span>
+          <textarea id="message" name="message" rows="3" placeholder="Leave a little message for Erich"></textarea>
+        </label>
+
+        <button class="rsvp-button" type="submit">CONFIRM RSVP</button>
+      </form>
+    </div>
+
+    <section id="confirmation" class="confirmation-card" hidden>
+      <p class="eyebrow">YOUR INVITATION IS SEALED</p>
+      <div class="seal-large">E</div>
+      <h1 id="confirmTitle">Thank you!</h1>
+      <p id="confirmMessage"></p>
+      <div id="roleBox" class="role-box"></div>
+      <a href="index.html" class="return-button">RETURN TO THE GARDEN</a>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script>
+    const form = document.getElementById("rsvpForm");
+    const attendance = document.getElementById("attendance");
+    const plusOneWrap = document.getElementById("plusOneWrap");
+    const plusOne = document.getElementById("plusOne");
+    const formWrap = document.getElementById("rsvpFormWrap");
+    const confirmation = document.getElementById("confirmation");
+    const confirmTitle = document.getElementById("confirmTitle");
+    const confirmMessage = document.getElementById("confirmMessage");
+    const roleBox = document.getElementById("roleBox");
+
+    function updatePlusOne() {
+      plusOneWrap.style.display = attendance.value === "yes" ? "block" : "none";
+      if (attendance.value !== "yes") plusOne.value = "no";
+    }
+    attendance.addEventListener("change", updatePlusOne);
+    updatePlusOne();
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const guestName = document.getElementById("guestName").value.trim();
+      const attending = attendance.value === "yes";
+      const roles = findRoles(guestName);
+
+      const response = {
+        guestName,
+        attendance: attending ? "yes" : "no",
+        plusOne: attending ? plusOne.value : "no",
+        message: document.getElementById("message").value.trim(),
+        roles,
+        submittedAt: new Date().toISOString()
+      };
+
+      // Temporary local confirmation. Connect this object to Google Sheets/Supabase
+      // for the production RSVP dashboard.
+      const existing = JSON.parse(localStorage.getItem("erich_rsvps") || "[]");
+      existing.push(response);
+      localStorage.setItem("erich_rsvps", JSON.stringify(existing));
+
+      formWrap.hidden = true;
+      confirmation.hidden = false;
+      confirmTitle.textContent = attending ? `See you in the garden, ${guestName}!` : `Thank you, ${guestName}.`;
+      confirmMessage.textContent = attending
+        ? "Your RSVP has been recorded. We are so excited to celebrate Erich's enchanted eighteenth with you."
+        : "Thank you for letting us know. You will always have a place in Erich's garden.";
+
+      if (attending && roles.length) {
+        roleBox.innerHTML = `
+          <div class="role-heading">YOU ARE PART OF ERICH'S 18</div>
+          <div class="role-list">
+            ${roles.map(role => `<div class="role-item"><span>${role.category}</span><strong>${role.number ? "#" + role.number : ""}</strong></div>`).join("")}
+          </div>
+        `;
+      } else if (attending) {
+        roleBox.innerHTML = `
+          <div class="role-heading">SPECIAL GUEST ✦</div>
+          <p>You are joining us as one of Erich's special guests.</p>
+        `;
+      } else {
+        roleBox.innerHTML = `<div class="role-heading">WITH LOVE</div><p>Thank you for responding to Erich's invitation.</p>`;
+      }
+
+      window.scrollTo({top: 0, behavior: "smooth"});
+    });
+  </script>
+</body>
+</html>
