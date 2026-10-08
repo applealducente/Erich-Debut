@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Erich Enchants | RSVP Dashboard</title><link rel="stylesheet" href="styles.css"></head>
+<body><main class="section"><p class="section-kicker">Private host view</p><h1 style="font-family:'Cormorant Garamond';font-size:64px">RSVP Dashboard</h1><p class="lead">Prototype view. This browser shows RSVPs stored on this device. Connect the production form to a shared backend before launch.</p><div id="stats" class="details-grid"></div><div id="rows" class="name-grid"></div><button class="button secondary" onclick="clearAll()">Clear local test RSVPs</button></main>
+<script>
+const data=JSON.parse(localStorage.getItem("erichEnchantsRSVP")||"[]");
+const attending=data.filter(x=>x.attendance==="Attending");
+const declined=data.filter(x=>x.attendance==="Unable to attend");
+document.getElementById("stats").innerHTML=`<article class="glass-card"><span>RESPONSES</span><strong>${data.length}</strong></article><article class="glass-card"><span>CONFIRMED</span><strong>${attending.length}</strong></article><article class="glass-card"><span>DECLINED</span><strong>${declined.length}</strong></article>`;
+document.getElementById("rows").innerHTML=data.length?data.map((x,i)=>`<article class="name-item"><span>${new Date(x.submittedAt).toLocaleString()}</span><strong>${x.guestName}</strong><small>${x.attendance} · Plus one: ${x.plusOne}${x.plusOneName?" · "+x.plusOneName:""}</small></article>`).join(""):`<p class="muted">No local test RSVPs yet.</p>`;
+function clearAll(){localStorage.removeItem("erichEnchantsRSVP");location.reload()}
+</script></body></html>
