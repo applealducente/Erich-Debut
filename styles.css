@@ -14,7 +14,7 @@ a{color:inherit}
   background:
     linear-gradient(180deg,rgba(17,4,27,.18),rgba(21,6,31,.48) 55%,rgba(8,3,13,.88)),
     radial-gradient(circle at 50% 25%,rgba(255,190,223,.18),transparent 28%),
-    url("https://img-v3.deepdreamgenerator.com/1830577/md_jqoyzi_cd4c9620c2c615f0c62434cfbde11156f88ab215.jpg") center/cover no-repeat;
+    url("https://image.fonwall.ru/o/ep/wisteria-the-flowering-garden.jpeg?auto=compress&domain=img3.fonwall.ru&fit=crop&h=1080&w=1920") center/cover no-repeat;
 }
 .opening:before,.opening:after,.garden-layer:before,.garden-layer:after{
   content:"";position:absolute;inset:0;pointer-events:none
@@ -57,7 +57,7 @@ a{color:inherit}
 .garden-layer{position:fixed;inset:0;z-index:0;background:
   linear-gradient(180deg,rgba(26,8,35,.16),rgba(18,5,26,.64) 70%,rgba(8,3,13,.88)),
   radial-gradient(circle at 50% 25%,rgba(255,191,226,.16),transparent 34%),
-  url("https://img-v3.deepdreamgenerator.com/1830577/md_jqoyzi_cd4c9620c2c615f0c62434cfbde11156f88ab215.jpg") center/cover no-repeat;
+  url("https://image.fonwall.ru/o/ep/wisteria-the-flowering-garden.jpeg?auto=compress&domain=img3.fonwall.ru&fit=crop&h=1080&w=1920") center/cover no-repeat;
   filter:saturate(1.06) contrast(1.03)}
 .garden-layer:before{position:absolute}
 .garden-layer:after{position:absolute}
@@ -76,7 +76,7 @@ a{color:inherit}
   radial-gradient(ellipse at 100% 100%,rgba(42,18,38,.78),transparent 36%);
  pointer-events:none;
 }
-.hero-photo-wrap{position:relative;z-index:auto;justify-self:center;width:min(440px,75vw);height:min(650px,78vh);min-height:500px;display:flex;align-items:flex-end;justify-content:center}
+.hero-photo-wrap{position:relative;z-index:auto;justify-self:center;width:min(440px,75vw);height:min(650px,78vh);min-height:500px;display:flex;align-items:flex-end;justify-content:center;background:transparent;mix-blend-mode:multiply;isolation:auto}
 .hero-photo-wrap:before{
  content:"";position:absolute;inset:-45px -55px -20px;
  background:
@@ -93,7 +93,7 @@ a{color:inherit}
  clip-path:ellipse(60% 64% at 50% 100%);
  pointer-events:none;
 }
-.hero-photo{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply;filter:none;drop-shadow:none}
+.hero-photo{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply;filter:contrast(1.03) saturate(1.04);background:transparent}
 .photo-aura{position:absolute;inset:8% 3% 0;border-radius:45% 45% 0 0;background:rgba(246,213,162,.08);box-shadow:0 0 70px rgba(255,212,142,.15);z-index:1}
 .hero-copy{position:relative;z-index:5;padding:30px 0 50px}
 .hero-copy h2{font:500 clamp(45px,6vw,78px) "Playfair Display",serif;margin:0;color:#fff2e4}
@@ -105,9 +105,9 @@ a{color:inherit}
 .story-button,.rsvp-button{display:inline-block;border:1px solid rgba(240,213,155,.55);background:rgba(24,42,26,.55);color:#f7dfb1;text-decoration:none;padding:14px 21px;font:10px Cinzel,serif;letter-spacing:.17em;backdrop-filter:blur(8px);cursor:pointer}
 .story-button:hover,.rsvp-button:hover{background:rgba(80,48,67,.7)}
 .details-story,.program-story,.rsvp-story{background:
- radial-gradient(ellipse at 18% 46%,rgba(153,72,137,.34),transparent 32%),
- radial-gradient(ellipse at 82% 42%,rgba(174,86,151,.30),transparent 32%),
- linear-gradient(180deg,rgba(20,7,25,.34),rgba(38,13,36,.74))}
+ radial-gradient(ellipse at 18% 46%,rgba(170,82,151,.24),transparent 32%),
+ radial-gradient(ellipse at 82% 42%,rgba(194,103,165,.22),transparent 32%),
+ linear-gradient(180deg,rgba(20,7,25,.22),rgba(38,13,36,.62))}
 .details-inner,.role-list-inner{width:min(1180px,100%);margin:auto;position:relative;z-index:6;text-align:center}
 .story h3{font:500 clamp(36px,5vw,58px) "Playfair Display",serif;color:#fff0e4;margin:0 0 12px}
 .section-intro{max-width:720px;margin:0 auto 34px;color:#d9d1ca;line-height:1.8}
@@ -126,8 +126,8 @@ a{color:inherit}
 .palette-swatches i{width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.65);box-shadow:0 3px 10px rgba(0,0,0,.3)}
 .palette-swatches i:nth-child(1){background:#f2b8c7}.palette-swatches i:nth-child(2){background:#b9d5e8}.palette-swatches i:nth-child(3){background:#b8c9ad}.palette-swatches i:nth-child(4){background:#f4dfaa}.palette-swatches i:nth-child(5){background:#efc2a5}
 .garden-portraits{position:absolute;inset:0;pointer-events:none;z-index:auto;overflow:hidden}
-.garden-cutout{position:absolute;margin:0;border:0;background:transparent;opacity:1;filter:drop-shadow(0 22px 32px rgba(13,3,20,.55));}
-.garden-cutout img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:saturate(1.04) brightness(1.03)}
+.garden-cutout{position:absolute;margin:0;border:0;background:transparent;opacity:1;mix-blend-mode:multiply;filter:drop-shadow(0 22px 32px rgba(13,3,20,.55));}
+.garden-cutout img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply;filter:saturate(1.04) brightness(1.03)}
 .gc1{width:330px;height:450px;left:-5px;top:5%;transform:rotate(-3deg);mask-image:linear-gradient(to bottom,black 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,black 78%,transparent 100%)}
 .gc2{width:310px;height:430px;right:-4px;top:6%;transform:rotate(3deg);mask-image:linear-gradient(to bottom,black 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,black 78%,transparent 100%)}
 .gc3{width:245px;height:300px;left:2px;bottom:1%;transform:rotate(3deg);mask-image:linear-gradient(to bottom,black 72%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,black 72%,transparent 100%)}
