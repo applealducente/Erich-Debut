@@ -76,7 +76,7 @@ a{color:inherit}
   radial-gradient(ellipse at 100% 100%,rgba(42,18,38,.78),transparent 36%);
  pointer-events:none;
 }
-.hero-photo-wrap{position:relative;z-index:5;justify-self:center;width:min(440px,75vw);height:min(650px,78vh);min-height:500px;display:flex;align-items:flex-end;justify-content:center}
+.hero-photo-wrap{position:relative;z-index:auto;justify-self:center;width:min(440px,75vw);height:min(650px,78vh);min-height:500px;display:flex;align-items:flex-end;justify-content:center}
 .hero-photo-wrap:before{
  content:"";position:absolute;inset:-45px -55px -20px;
  background:
@@ -93,7 +93,7 @@ a{color:inherit}
  clip-path:ellipse(60% 64% at 50% 100%);
  pointer-events:none;
 }
-.hero-photo{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:brightness(1.14) saturate(1.08) contrast(.96) drop-shadow(0 25px 35px rgba(0,0,0,.55));mix-blend-mode:multiply}
+.hero-photo{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply;filter:none;drop-shadow:none}
 .photo-aura{position:absolute;inset:8% 3% 0;border-radius:45% 45% 0 0;background:rgba(246,213,162,.08);box-shadow:0 0 70px rgba(255,212,142,.15);z-index:1}
 .hero-copy{position:relative;z-index:5;padding:30px 0 50px}
 .hero-copy h2{font:500 clamp(45px,6vw,78px) "Playfair Display",serif;margin:0;color:#fff2e4}
@@ -122,10 +122,10 @@ a{color:inherit}
 .palette-swatches{display:flex;justify-content:center;gap:7px;margin:13px 0 7px}
 .palette-swatches i{width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.65);box-shadow:0 3px 10px rgba(0,0,0,.3)}
 .palette-swatches i:nth-child(1){background:#f2b8c7}.palette-swatches i:nth-child(2){background:#b9d5e8}.palette-swatches i:nth-child(3){background:#b8c9ad}.palette-swatches i:nth-child(4){background:#f4dfaa}.palette-swatches i:nth-child(5){background:#efc2a5}
-.garden-portraits{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden}
-.garden-cutout{position:absolute;margin:0;border:0;background:transparent;filter:drop-shadow(0 24px 32px rgba(15,4,18,.45));mix-blend-mode:multiply;opacity:.98}
-.garden-cutout:after{content:"";position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(180deg,transparent,rgba(24,8,28,.72));pointer-events:none}
-.garden-cutout img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:brightness(1.18) saturate(1.08) contrast(.96)}
+.garden-portraits{position:absolute;inset:0;pointer-events:none;z-index:auto;overflow:hidden}
+.garden-cutout{position:absolute;margin:0;border:0;background:transparent;mix-blend-mode:multiply;opacity:.98;filter:none}
+.garden-cutout:after{display:none}
+.garden-cutout img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:none}
 .gc1{width:290px;height:430px;left:-20px;top:7%;transform:rotate(-3deg)}
 .gc2{width:270px;height:400px;right:-12px;top:8%;transform:rotate(3deg)}
 .gc3{width:250px;height:360px;left:-12px;bottom:2%;transform:rotate(3deg)}
