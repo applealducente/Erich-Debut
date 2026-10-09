@@ -639,3 +639,8 @@ a{color:inherit}
 .details-story .story-inner,
 .program-story .story-inner{padding-left:4vw!important;padding-right:4vw!important}
 .rsvp-story .rsvp-card{max-width:min(650px,92vw)!important;margin:0 auto!important}
+
+/* ===== Clean up: only welcome keeps a photo, inner sections are photo-free ===== */
+.stage-erich{display:none!important}
+.stage-foreground{display:none!important}
+.section-stage::before{display:none!important}
