@@ -237,3 +237,31 @@ a{color:inherit}
 .hero-garden-portraits{z-index:6}
 .hero-gp1{left:-1%;bottom:2%}.hero-gp2{right:-1%;bottom:4%}.hero-gp3{left:18%;top:5%}.hero-gp4{right:18%;top:7%}
 @media(max-width:900px){.hero-gp1{left:-8%}.hero-gp2{right:-8%}.hero-gp3{left:8%}.hero-gp4{right:8%}}
+
+
+/* Embedded portrait composition for the opening gate */
+.opening-portraits{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.opening-portrait{position:absolute;display:flex;align-items:flex-end;justify-content:center;background:transparent}
+.opening-portrait img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:transparent;filter:drop-shadow(0 16px 28px rgba(8,3,12,.38))}
+.opening-portrait-left{left:1.5%;bottom:-1%;width:min(34vw,560px);height:84vh;z-index:3}
+.opening-portrait-left img{object-position:left bottom}
+.opening-portrait-fade{right:19%;top:5%;width:min(25vw,390px);height:77vh;z-index:2;opacity:.29;filter:blur(.35px);mask-image:linear-gradient(to bottom,rgba(0,0,0,.9) 0%,rgba(0,0,0,.72) 48%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.9) 0%,rgba(0,0,0,.72) 48%,rgba(0,0,0,0) 100%)}
+.opening-portrait-right{right:4%;bottom:-1%;width:min(25vw,410px);height:49vh;z-index:5}
+.opening-content{z-index:10}
+@media(max-width:900px){
+ .opening-portrait-left{left:-5%;width:42vw;height:64vh;opacity:.92}
+ .opening-portrait-fade{right:10%;top:12%;width:33vw;height:56vh;opacity:.22}
+ .opening-portrait-right{right:-2%;width:31vw;height:34vh}
+ .opening-content{width:min(740px,96vw)}
+}
+@media(max-width:600px){
+ .opening{min-height:100svh}
+ .opening-portrait-left{left:-17%;width:62vw;height:47vh;opacity:.76}
+ .opening-portrait-fade{right:-1%;top:17%;width:45vw;height:42vh;opacity:.18}
+ .opening-portrait-right{right:-9%;width:43vw;height:25vh;opacity:.92}
+ .opening-content{padding:88px 15px 64px}
+ .opening h1{font-size:clamp(58px,15vw,84px)}
+ .opening h1 span{font-size:clamp(19px,5.5vw,28px)}
+ .envelope{width:min(290px,72vw);height:174px}
+ .moon{width:84px;height:84px;right:8%;top:5%}
+}
