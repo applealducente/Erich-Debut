@@ -119,14 +119,18 @@
     <div class="rsvp-card">
       <p class="eyebrow">THE FINAL GATE</p>
       <h3>Will you join us?</h3>
-      <p>Kindly confirm your attendance by October 30, 2026.</p>
+      <p>Confirm your attendance and discover your seat in the garden.</p>
       <button id="openRsvp" class="rsvp-button" type="button">ENTER YOUR RSVP</button>
-      <small>One plus one per guest only.</small>
     </div>
   </section>
 </section>
-<div id="rsvpModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card"><button id="closeRsvp" class="modal-close" type="button" aria-label="Close RSVP">×</button><p class="eyebrow">A PLACE HAS BEEN SAVED</p><h3>YOU’RE INVITED</h3><p class="modal-intro">Confirm your place in Erich’s enchanted garden.</p><form id="rsvpForm"><label>Your full name<input id="guestName" required autocomplete="name" placeholder="Enter your full name"></label><label>Will you be attending?<select id="attendance" required><option value="">Please select</option><option value="yes">Joyfully Accepts</option><option value="no">Regretfully Declines</option></select></label><label id="plusOneWrap">Will you be having a Plus One?<select id="plusOne"><option value="no">No</option><option value="yes">Yes, I will</option></select></label>
-<label id="plusOneNameWrap">Plus One’s full name<input id="plusOneName" autocomplete="name" placeholder="Enter your Plus One’s full name"></label><label>Message <span>(optional)</span><textarea id="message" rows="3" placeholder="Leave a little message for Erich"></textarea></label><button type="submit" class="rsvp-submit">SEAL MY RSVP</button></form><div id="rsvpConfirmation" class="rsvp-confirmation" hidden></div></div></div>
+<div id="rsvpModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card"><button id="closeRsvp" class="modal-close" type="button" aria-label="Close RSVP">×</button><p class="eyebrow">A PLACE HAS BEEN SAVED</p><h3>YOU’RE INVITED</h3><p class="modal-intro">Confirm your place in Erich’s enchanted garden.</p><form id="rsvpForm"><label>Your full name<input id="guestName" required autocomplete="name" placeholder="Enter your full name"></label><label>Will you be attending?<select id="attendance" required><option value="">Please select</option><option value="yes">Joyfully Accepts</option><option value="no">Regretfully Declines</option></select></label><label>Message <span>(optional)</span><textarea id="message" rows="3" placeholder="Leave a little message for Erich"></textarea></label><button type="submit" class="rsvp-submit">SEAL MY RSVP</button></form><div id="rsvpConfirmation" class="rsvp-confirmation" hidden></div></div></div>
+
+<!-- Seating Chart Modal -->
+<div id="seatingModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card seating-modal"><button id="closeSeating" class="modal-close" type="button" aria-label="Close seating">×</button><p class="eyebrow">YOUR SEAT IN THE GARDEN</p><h3 id="seatingTitle">Find Your Place</h3><div id="seatingContent" class="seating-content"></div></div></div>
+
+<!-- Organizer Seating Dashboard (hidden, accessible via admin panel) -->
+<div id="seatingDashboard" class="seating-dashboard" hidden><div class="dashboard-header"><h2>Seating Chart Editor</h2><button id="toggleDashboard" class="btn-small">Close</button></div><div id="seatingGrid" class="seating-grid"></div><div class="dashboard-controls"><button id="exportSeating" class="btn-small">Export Seating</button><button id="importSeating" class="btn-small">Import Seating</button></div></div>
 <script src="data.js"></script><script src="script.js"></script>
 </body>
 </html>
