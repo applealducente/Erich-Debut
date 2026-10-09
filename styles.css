@@ -540,33 +540,35 @@ a{color:inherit}
 .stage-erich.in-view{opacity:1;transform:translateY(0)}
 
 /* Primary foreground figures (left or right) */
-.stage-primary{width:min(30vw,380px)!important;height:86%!important}
-.stage-primary.stage-left{left:0!important;transform:translateY(40px) rotate(-1.5deg)}
-.stage-primary.stage-right{right:0!important;transform:translateY(40px) rotate(1.5deg)}
-.stage-primary.stage-left.in-view{transform:translateY(0) rotate(-1.5deg)}
-.stage-primary.stage-right.in-view{transform:translateY(0) rotate(1.5deg)}
+.stage-primary{width:min(34vw,440px)!important;height:95%!important;top:auto!important}
+.stage-primary.stage-left{left:0!important;transform:translateY(40px)}
+.stage-primary.stage-right{right:0!important;transform:translateY(40px)}
+.stage-primary.in-view{transform:translateY(0)!important}
 
 /* Distant background figure, softer */
 .stage-distant{
-  left:50%!important;margin-left:min(-14vw,-180px)!important;
-  width:min(22vw,280px)!important;height:60%!important;z-index:2!important;
+  left:50%!important;margin-left:min(-13vw,-160px)!important;
+  width:min(22vw,280px)!important;height:68%!important;z-index:2!important;
   opacity:0;transform:translateY(30px);
 }
-.stage-distant.in-view{opacity:.5;filter:
+.stage-distant.in-view{opacity:.42;filter:
   drop-shadow(0 18px 24px rgba(10,3,18,.5))
   drop-shadow(0 0 42px rgba(255,205,130,.3))
-  saturate(.9) brightness(.88) blur(.6px);}
+  saturate(.85) brightness(.82) blur(.8px) hue-rotate(8deg);}
 
 /* Garden foreground overlay: flowers + candles IN FRONT of Erich */
 .stage-foreground{
   position:absolute!important;left:0!important;right:0!important;bottom:0!important;
-  height:min(55%,420px)!important;z-index:4!important;pointer-events:none!important;
+  height:min(32%,260px)!important;z-index:4!important;pointer-events:none!important;
   background:url("assets/garden-foreground.png") center bottom/cover no-repeat;
   opacity:0;transform:translateY(20px);
   transition:opacity 1.4s ease .2s, transform 1.4s ease .2s;
 }
 .section-stage.staged .stage-foreground{opacity:1;transform:translateY(0)}
-.welcome-foreground{height:min(42%,320px)!important}
+.welcome-foreground{height:min(28%,220px)!important}
+
+/* RSVP needs more height so photo 9 isn't cut off */
+.rsvp-story{min-height:95vh!important;padding-bottom:40px!important}
 
 /* keep inner content well above the stage layer */
 .story-inner,.rsvp-card,.hero-copy,.hero-photo-wrap,.hero-moon,.hero-vines,.details-garden{position:relative;z-index:5}
