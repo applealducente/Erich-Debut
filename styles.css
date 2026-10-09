@@ -265,3 +265,60 @@ a{color:inherit}
  .envelope{width:min(290px,72vw);height:174px}
  .moon{width:84px;height:84px;right:8%;top:5%}
 }
+
+
+/* Enchanted Garden portrait integration: blend the existing portraits into the garden rather than displaying framed photo tiles. */
+.opening-portrait img,
+.hero-photo,
+.gallery-photo img,
+.story-photo-scatter img,
+.hero-gp img,
+.garden-cutout img {
+  mix-blend-mode: multiply;
+  background: transparent;
+}
+.opening-portrait,
+.hero-photo-wrap,
+.gallery-photo,
+.garden-photo-gallery,
+.story-photo-scatter,
+.hero-garden-portraits {
+  background: transparent;
+}
+.gallery-photo {
+  overflow: visible;
+  filter: drop-shadow(0 18px 28px rgba(15, 4, 22, .38));
+}
+.gallery-photo img {
+  object-fit: contain;
+  object-position: center bottom;
+}
+.garden-photo-gallery {
+  background:
+    radial-gradient(ellipse at 0% 55%, rgba(50, 25, 57, .42), transparent 35%),
+    radial-gradient(ellipse at 100% 48%, rgba(42, 22, 51, .36), transparent 36%);
+}
+.gp1 { left: 1%; top: 7%; width: min(22vw, 280px); height: 56vh; transform: rotate(-4deg); }
+.gp2 { right: 1%; top: 8%; width: min(22vw, 280px); height: 58vh; transform: rotate(4deg); }
+.gp3 { left: 9%; bottom: 2%; width: min(18vw, 225px); height: 42vh; transform: rotate(3deg); }
+.gp4 { right: 9%; bottom: 2%; width: min(18vw, 225px); height: 42vh; transform: rotate(-3deg); }
+.opening-portrait-left img,
+.opening-portrait-fade img,
+.opening-portrait-right img { object-fit: contain; object-position: center bottom; }
+.opening-portrait-fade { opacity: .2; }
+.hero-photo { object-fit: contain; }
+@media(max-width:900px) {
+  .gp1 { left: -4%; top: 8%; width: 28vw; height: 36vh; }
+  .gp2 { right: -4%; top: 8%; width: 28vw; height: 36vh; }
+  .gp3 { left: -1%; bottom: 2%; width: 24vw; height: 29vh; }
+  .gp4 { right: -1%; bottom: 2%; width: 24vw; height: 29vh; }
+}
+@media(max-width:600px) {
+  .opening-portrait-left { left: -14%; width: 58vw; height: 44vh; }
+  .opening-portrait-fade { right: 0; top: 16%; width: 40vw; height: 38vh; opacity: .16; }
+  .opening-portrait-right { right: -8%; width: 40vw; height: 24vh; }
+  .gp1 { left: -10%; top: 6%; width: 35vw; height: 27vh; }
+  .gp2 { right: -10%; top: 6%; width: 35vw; height: 27vh; }
+  .gp3 { left: -6%; bottom: 1%; width: 30vw; height: 22vh; }
+  .gp4 { right: -6%; bottom: 1%; width: 30vw; height: 22vh; }
+}
