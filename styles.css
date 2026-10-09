@@ -76,10 +76,9 @@ a{color:inherit}
 .invitation{display:none;min-height:100vh;background:#09100b}
 .invitation.visible{display:block;animation:fadeIn 1s ease}
 .garden-layer{position:fixed;inset:0;z-index:0;background:
-  linear-gradient(180deg,rgba(26,8,35,.16),rgba(18,5,26,.64) 70%,rgba(8,3,13,.88)),
-  radial-gradient(circle at 50% 25%,rgba(255,191,226,.16),transparent 34%),
-  url("https://image.fonwall.ru/o/ep/wisteria-the-flowering-garden.jpeg?auto=compress&domain=img3.fonwall.ru&fit=crop&h=1080&w=1920") center/cover no-repeat;
-  filter:saturate(1.06) contrast(1.03)}
+  linear-gradient(180deg,rgba(26,8,35,.35),rgba(18,5,26,.55) 60%,rgba(8,3,13,.85)),
+  url("assets/garden-background.jpg") center/cover no-repeat;
+  filter:saturate(1.08) contrast(1.02)}
 .garden-layer:before{position:absolute}
 .garden-layer:after{position:absolute}
 .invitation>*:not(.garden-layer):not(.ambient){position:relative;z-index:4}
