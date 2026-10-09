@@ -403,3 +403,18 @@ a{color:inherit}
  .opening-portrait-left{left:-18%;width:66vw;height:42vh}
  .opening .envelope{width:230px;height:140px}
 }
+
+
+/* PNG cutouts now carry real transparency. Do not use multiply, which darkens skin and fabric. */
+.opening-portrait img,.hero-photo,.gallery-photo img,.story-photo-scatter img,.hero-gp img,.garden-cutout img{
+ mix-blend-mode:normal!important;background:transparent!important;
+}
+.opening-portrait,.hero-photo-wrap,.gallery-photo,.garden-photo-gallery,.story-photo-scatter,.hero-garden-portraits{
+ background:transparent!important;
+}
+.opening-portrait-left{width:min(39vw,660px);height:86vh;left:0;bottom:0}
+.opening-portrait-left img{object-fit:contain;object-position:left bottom;filter:drop-shadow(0 14px 26px rgba(10,3,16,.36))}
+.hero-photo-wrap{overflow:visible}
+.hero-photo{object-fit:contain;object-position:center bottom}
+.gallery-photo{overflow:visible;filter:drop-shadow(0 14px 24px rgba(10,3,16,.32))}
+.gallery-photo img{object-fit:contain;object-position:center bottom;filter:drop-shadow(0 8px 15px rgba(10,3,16,.15))}
