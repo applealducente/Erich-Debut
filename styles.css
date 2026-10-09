@@ -686,15 +686,19 @@ a{color:inherit}
   z-index:2;
 }
 
-/* Frame shape variants (all portrait so figures aren't cropped) */
+/* Frame shape variants */
 .frame-arch{border-radius:50% 50% 10px 10px / 42% 42% 10px 10px}
 .frame-rect{border-radius:18px}
 .frame-oval{border-radius:50%/42%}
+.frame-wide{
+  width:min(44vw,420px)!important;height:min(24vw,230px)!important;
+  border-radius:14px;
+}
 
-/* Each shape gets a slightly different object-position so Erich stays centered on her face */
-.frame-arch img{object-position:center 15%}
-.frame-rect img{object-position:center 15%}
-.frame-oval img{object-position:center 15%}
+.frame-arch img{object-position:center center}
+.frame-rect img{object-position:center center}
+.frame-oval img{object-position:center center}
+.frame-wide img{object-position:center center}
 
 /* slight staggered float so they feel hung in the garden */
 .photo-frames .photo-frame:nth-child(1){transform:rotate(-1.5deg) translateY(6px)}
