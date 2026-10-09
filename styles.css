@@ -620,3 +620,22 @@ a{color:inherit}
   .program-story .story-inner{padding-left:4vw!important;padding-right:4vw!important}
   .rsvp-story .rsvp-card{max-width:92vw!important}
 }
+
+/* ===== Remove the foreground strip and side-edge figures Apple rejected ===== */
+.stage-foreground{display:none!important}
+.stage-primary{display:none!important}
+
+/* Keep the distant Erich as a soft centered background accent, bigger */
+.stage-distant{
+  left:50%!important;margin-left:min(-17vw,-220px)!important;
+  width:min(34vw,440px)!important;height:80%!important;z-index:2!important;
+}
+.stage-distant.in-view{opacity:.3!important;filter:
+  drop-shadow(0 20px 28px rgba(10,3,18,.5))
+  drop-shadow(0 0 48px rgba(255,205,130,.3))
+  saturate(.85) brightness(.82) blur(1px) hue-rotate(8deg)!important;}
+
+/* content back on top with no edge padding */
+.details-story .story-inner,
+.program-story .story-inner{padding-left:4vw!important;padding-right:4vw!important}
+.rsvp-story .rsvp-card{max-width:min(650px,92vw)!important;margin:0 auto!important}
