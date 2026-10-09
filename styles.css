@@ -658,28 +658,32 @@ a{color:inherit}
 
 .photo-frame{
   position:relative;margin:0;
-  width:min(26vw,220px);height:min(38vw,310px);
-  background:rgba(26,10,36,.18);
-  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
-  border:1.5px solid rgba(245,215,145,.55);
+  width:min(28vw,250px);height:min(42vw,360px);
+  background:
+    linear-gradient(180deg,rgba(42,20,70,.35),rgba(10,3,18,.55)),
+    url("assets/garden-background.jpg") center 60%/cover no-repeat;
+  border:1.5px solid rgba(245,215,145,.6);
   border-radius:50% 50% 10px 10px / 42% 42% 10px 10px;
-  padding:10px;
   box-shadow:
-    0 24px 44px rgba(10,3,18,.55),
-    0 0 36px rgba(255,215,140,.28),
-    inset 0 0 28px rgba(255,215,140,.14);
+    0 24px 44px rgba(10,3,18,.6),
+    0 0 42px rgba(255,215,140,.3),
+    inset 0 0 32px rgba(255,215,140,.18);
   overflow:hidden;
 }
 .photo-frame:before{
-  content:"";position:absolute;inset:4px;z-index:1;pointer-events:none;
-  border-radius:50% 50% 6px 6px / 42% 42% 6px 6px;
-  border:1px solid rgba(255,236,195,.3);
+  content:"";position:absolute;inset:5px;z-index:1;pointer-events:none;
+  border-radius:48% 48% 7px 7px / 40% 40% 7px 7px;
+  border:1px solid rgba(255,236,195,.35);
 }
 .photo-frame img{
-  display:block;width:100%;height:100%;
-  object-fit:cover;object-position:center top;
-  border-radius:50% 50% 6px 6px / 42% 42% 6px 6px;
-  filter:saturate(1.03) contrast(1.02);
+  display:block;position:absolute;left:0;bottom:0;
+  width:100%;height:112%;
+  object-fit:cover;object-position:center bottom;
+  filter:
+    drop-shadow(0 10px 18px rgba(10,3,18,.5))
+    drop-shadow(0 0 24px rgba(255,215,140,.3))
+    saturate(1.03) contrast(1.02);
+  z-index:2;
 }
 
 /* slight staggered float so they feel hung in the garden */
@@ -697,3 +701,37 @@ a{color:inherit}
   .photo-frames .photo-frame:nth-child(2){transform:rotate(1deg);margin:14px 0}
   .photo-frames .photo-frame:nth-child(3){transform:rotate(-.5deg)}
 }
+
+/* ===== Frame the welcome hero portrait the same way ===== */
+.hero-photo-wrap{
+  overflow:hidden!important;
+  background:
+    linear-gradient(180deg,rgba(42,20,70,.3),rgba(10,3,18,.5)),
+    url("assets/garden-background.jpg") center 60%/cover no-repeat!important;
+  border:1.5px solid rgba(245,215,145,.6)!important;
+  border-radius:50% 50% 20px 20px / 42% 42% 20px 20px!important;
+  box-shadow:
+    0 28px 54px rgba(10,3,18,.6),
+    0 0 56px rgba(255,215,140,.3),
+    inset 0 0 42px rgba(255,215,140,.18)!important;
+}
+.hero-photo-wrap:before,.hero-photo-wrap:after{display:none!important}
+.hero-photo{
+  width:112%!important;height:112%!important;
+  position:absolute!important;left:-6%!important;bottom:0!important;
+  object-fit:cover!important;object-position:center bottom!important;
+  mask-image:none!important;-webkit-mask-image:none!important;
+  filter:
+    drop-shadow(0 14px 24px rgba(10,3,18,.5))
+    drop-shadow(0 0 36px rgba(255,215,140,.3))
+    saturate(1.03) contrast(1.02)!important;
+}
+.photo-aura{display:none!important}
+
+/* Pull section headings down below the frame row with a bit of breathing room */
+.details-story .story-inner,
+.program-story .story-inner,
+.rsvp-story .rsvp-card{margin-top:14px}
+
+/* Tighten frames into a nice centered row */
+.photo-frames{margin-bottom:50px!important}
