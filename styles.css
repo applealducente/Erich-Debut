@@ -418,3 +418,20 @@ a{color:inherit}
 .hero-photo{object-fit:contain;object-position:center bottom}
 .gallery-photo{overflow:visible;filter:drop-shadow(0 14px 24px rgba(10,3,16,.32))}
 .gallery-photo img{object-fit:contain;object-position:center bottom;filter:drop-shadow(0 8px 15px rgba(10,3,16,.15))}
+
+/* Reference-inspired envelope composition using the original sixth cutout */
+.opening{min-height:100svh;display:grid;place-items:center;isolation:isolate;background:linear-gradient(180deg,rgba(24,5,26,.12),rgba(23,5,29,.26) 50%,rgba(8,3,13,.62)),url("https://image.fonwall.ru/o/ep/wisteria-the-flowering-garden.jpeg?auto=compress&domain=img3.fonwall.ru&fit=crop&h=1080&w=1920") center/cover no-repeat!important}
+.opening-content{width:min(610px,44vw);margin-left:7%;padding:8vh 0 6vh;text-align:center}
+.opening .eyebrow{font:11px Cinzel,serif;letter-spacing:.27em;margin-bottom:20px;color:#f6d99b}
+.opening h1{font:500 clamp(54px,5.5vw,98px)/.84 "Playfair Display",serif;letter-spacing:-.04em;color:#f9d990;text-shadow:0 4px 28px rgba(27,4,25,.7)}
+.opening h1 span{display:block;font:inherit;letter-spacing:-.045em;margin-top:3px}
+.opening .subtitle{font:clamp(28px,3vw,52px)/1.05 Parisienne,cursive;text-transform:none;letter-spacing:0;color:#f5dff6;margin:17px 0 12px}
+.opening .tiny-line{font-size:clamp(12px,1vw,16px);margin:0 0 18px;color:#f8e9d5}
+.opening .envelope{width:min(280px,22vw);height:150px;margin:16px auto 0}
+.opening .instruction{font:12px Cinzel,serif;letter-spacing:.22em;margin-top:12px;color:#ffedc4}
+.opening-portrait-left{position:absolute;left:0;bottom:-1%;width:min(43vw,700px);height:86vh;z-index:5;pointer-events:none}
+.opening-portrait-left img{width:100%;height:100%;object-fit:contain;object-position:left bottom;mix-blend-mode:normal!important;filter:drop-shadow(0 14px 26px rgba(12,3,17,.35))}
+.opening-portrait-fade,.opening-portrait-right,.opening-nav{display:none!important}
+.moon{right:14%;top:16%;width:120px;height:120px;opacity:.8}
+@media(max-width:900px){.opening-content{width:53vw;margin-left:9%}.opening-portrait-left{left:-4%;width:46vw;height:67vh}.opening .envelope{width:240px;height:140px}}
+@media(max-width:600px){.opening-content{width:96vw;margin:0 auto;padding:7vh 8px 30vh}.opening h1{font-size:clamp(42px,12vw,66px)}.opening .subtitle{font-size:clamp(26px,7vw,36px)}.opening-portrait-left{left:-16%;width:68vw;height:43vh}.opening .envelope{width:225px;height:135px}}
