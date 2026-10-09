@@ -519,3 +519,51 @@ a{color:inherit}
  #opening .envelope{width:225px;height:135px}
  #opening .opening-scroll{display:none}
 }
+
+/* ===== Section stages: one grounded Erich per content section ===== */
+.section-stage{position:relative!important;overflow:hidden!important}
+.stage-erich{
+  position:absolute!important;bottom:0!important;z-index:3!important;
+  width:min(32vw,420px)!important;height:88%!important;
+  object-fit:contain!important;object-position:center bottom!important;
+  mix-blend-mode:normal!important;background:transparent!important;
+  pointer-events:none!important;
+  filter:
+    drop-shadow(0 24px 36px rgba(10,3,18,.6))
+    drop-shadow(0 0 60px rgba(255,205,130,.4))
+    saturate(1.05) contrast(1.02);
+  mask-image:radial-gradient(ellipse 92% 98% at 50% 62%,rgba(0,0,0,1) 58%,rgba(0,0,0,.8) 80%,rgba(0,0,0,.35) 93%,rgba(0,0,0,0) 100%);
+  -webkit-mask-image:radial-gradient(ellipse 92% 98% at 50% 62%,rgba(0,0,0,1) 58%,rgba(0,0,0,.8) 80%,rgba(0,0,0,.35) 93%,rgba(0,0,0,0) 100%);
+  opacity:0;transform:translateY(40px);
+  transition:opacity 1.1s ease .1s, transform 1.1s cubic-bezier(.2,.8,.2,1) .1s;
+}
+.stage-erich.in-view{opacity:1;transform:translateY(0)}
+.stage-left .stage-erich{left:0!important}
+.stage-right .stage-erich{right:0!important}
+
+/* grounding ellipse behind each stage photo */
+.section-stage::before{
+  content:"";position:absolute;bottom:0;width:min(34vw,440px);height:120px;
+  background:
+    radial-gradient(ellipse at 50% 60%,rgba(255,205,130,.3),transparent 55%),
+    radial-gradient(ellipse at 50% 100%,rgba(10,3,18,.7),transparent 55%);
+  filter:blur(14px);pointer-events:none;z-index:2;opacity:0;
+  transition:opacity 1.2s ease .3s;
+}
+.stage-left::before{left:0}
+.stage-right::before{right:0}
+.section-stage.staged::before{opacity:1}
+
+/* push the content clear of the stage photo */
+.details-story.stage-left .story-inner{padding-left:min(32vw,440px)}
+.program-story.stage-right .story-inner{padding-right:min(32vw,440px)}
+.rsvp-story.stage-left .rsvp-card{margin-left:auto;margin-right:auto;max-width:min(560px,calc(100% - min(32vw,440px) - 40px));transform:translateX(min(16vw,220px))}
+
+@media(max-width:900px){
+  .stage-erich{width:min(60vw,360px)!important;height:50%!important;opacity:.5}
+  .stage-erich.in-view{opacity:.6}
+  .details-story.stage-left .story-inner,
+  .program-story.stage-right .story-inner{padding-left:0;padding-right:0}
+  .rsvp-story.stage-left .rsvp-card{transform:none;max-width:92vw}
+  .section-stage::before{width:60vw}
+}

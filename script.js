@@ -30,3 +30,22 @@ form.addEventListener("submit",e=>{
    '<div class="role-result-title">WITH LOVE ✦</div><p>Thank you, <strong>'+name+'</strong>, for letting us know.</p>';
  form.querySelectorAll("input,select,textarea,button[type=submit]").forEach(el=>el.disabled=true);
 });
+/* Scroll-reveal stage photos: fade and rise each stage-erich into view */
+(function(){
+  const stages = document.querySelectorAll('[data-reveal]');
+  if(!stages.length) return;
+  if(!('IntersectionObserver' in window)){
+    stages.forEach(el=>{el.classList.add('in-view'); const s=el.closest('.section-stage'); if(s)s.classList.add('staged')});
+    return;
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        const s = entry.target.closest('.section-stage');
+        if(s) s.classList.add('staged');
+      }
+    });
+  },{threshold:0.2});
+  stages.forEach(el=>io.observe(el));
+})();
