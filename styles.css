@@ -376,3 +376,30 @@ a{color:inherit}
  .opening-nav i{display:none}
  .opening-scroll{display:none}
 }
+
+
+/* Final opening cleanup: reference composition, no side rail, one envelope portrait */
+.opening-nav{display:none!important}
+.opening-content{width:min(620px,45vw);margin-left:5%;padding:8vh 0 6vh}
+.opening h1{font:500 clamp(54px,5.4vw,96px)/.86 "Playfair Display",serif;letter-spacing:-.035em;text-transform:uppercase;color:#f8d995}
+.opening h1 span{display:block;font:500 clamp(54px,5.4vw,96px)/.86 "Playfair Display",serif;letter-spacing:-.045em;margin:0;color:#f8d995}
+.opening .subtitle{font:clamp(27px,3vw,52px)/1 Parisienne,cursive;letter-spacing:0;text-transform:none;color:#f7e7f7;margin:16px 0}
+.opening .tiny-line{font-size:clamp(12px,1vw,16px);margin-bottom:18px}
+.opening .envelope{width:min(280px,22vw);height:155px;margin:16px auto 0}
+.opening .instruction{margin-top:10px}
+.opening-portrait-left{left:0;bottom:0;width:min(39vw,660px);height:86vh;z-index:5}
+.opening-portrait-left img{object-fit:contain;object-position:left bottom;mix-blend-mode:multiply;filter:drop-shadow(0 12px 25px rgba(18,4,20,.25))}
+.opening-portrait-fade,.opening-portrait-right{display:none!important}
+.hero-photo{background:transparent;mix-blend-mode:multiply;object-fit:contain;filter:drop-shadow(0 15px 25px rgba(8,3,13,.35))}
+.hero-photo-wrap{background:transparent!important;border:0!important;box-shadow:none!important}
+.gallery-photo,.gallery-photo img{background:transparent!important;border:0!important;box-shadow:none!important}
+.gallery-photo img{object-fit:contain;mix-blend-mode:multiply;filter:drop-shadow(0 10px 20px rgba(8,3,13,.32))}
+@media(max-width:900px){
+ .opening-content{width:55vw;margin-left:7%}
+ .opening-portrait-left{left:-4%;width:44vw;height:68vh}
+}
+@media(max-width:600px){
+ .opening-content{width:96vw;margin:0 auto;padding:7vh 8px 26vh}
+ .opening-portrait-left{left:-18%;width:66vw;height:42vh}
+ .opening .envelope{width:230px;height:140px}
+}
