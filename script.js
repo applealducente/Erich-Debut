@@ -41,14 +41,20 @@ function updateSeatConfirmation(guestName, attending) {
 }
 
 /* ===== RSVP FORM (SIMPLIFIED - NO PLUS-ONES) ===== */
-const modal = document.getElementById("rsvpModal");
-const openRsvp = document.getElementById("openRsvp");
-const closeRsvp = document.getElementById("closeRsvp");
-const form = document.getElementById("rsvpForm");
-const attendance = document.getElementById("attendance");
-const confirmation = document.getElementById("rsvpConfirmation");
-const seatingContent = document.getElementById("seatingContent");
-const seatingModal = document.getElementById("seatingModal");
+let modal, openRsvp, closeRsvp, form, attendance, confirmation, seatingContent, seatingModal;
+
+function initRSVP() {
+  modal = document.getElementById("rsvpModal");
+  openRsvp = document.getElementById("openRsvp");
+  closeRsvp = document.getElementById("closeRsvp");
+  form = document.getElementById("rsvpForm");
+  attendance = document.getElementById("attendance");
+  confirmation = document.getElementById("rsvpConfirmation");
+  seatingContent = document.getElementById("seatingContent");
+  seatingModal = document.getElementById("seatingModal");
+
+  if (!modal || !form) return;
+}
 
 function openModal() {
   modal.classList.add("show");
@@ -81,14 +87,15 @@ function closeSeatingModal() {
   seatingModal.setAttribute("aria-hidden", "true");
 }
 
-openRsvp.addEventListener("click", openModal);
-closeRsvp.addEventListener("click", closeModal);
-modal.querySelector(".modal-backdrop").addEventListener("click", closeModal);
+  openRsvp.addEventListener("click", openModal);
+  closeRsvp.addEventListener("click", closeModal);
+  modal.querySelector(".modal-backdrop").addEventListener("click", closeModal);
 
-document.getElementById("closeSeating").addEventListener("click", closeSeatingModal);
-seatingModal.querySelector(".modal-backdrop").addEventListener("click", closeSeatingModal);
+  document.getElementById("closeSeating").addEventListener("click", closeSeatingModal);
+  seatingModal.querySelector(".modal-backdrop").addEventListener("click", closeSeatingModal);
+}
 
-form.addEventListener("submit", e => {
+  form.addEventListener("submit", e => {
   e.preventDefault();
   const name = document.getElementById("guestName").value.trim();
   const att = attendance.value === "yes";
@@ -133,9 +140,10 @@ form.addEventListener("submit", e => {
       <p>Thank you, <strong>${name}</strong>, for letting us know.</p>
     `;
   }
-  
+
   form.querySelectorAll("input,select,textarea,button[type=submit]").forEach(el => el.disabled = true);
-});
+  });
+}
 
 /* ===== ORGANIZER SEATING DASHBOARD ===== */
 function renderSeatingGrid() {
@@ -211,4 +219,7 @@ document.getElementById('exportSeating')?.addEventListener('click', () => {
 });
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', initSeating);
+document.addEventListener('DOMContentLoaded', () => {
+  initSeating();
+  initRSVP();
+});
