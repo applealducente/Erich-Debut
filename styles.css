@@ -660,7 +660,7 @@ a{color:inherit}
   position:relative;margin:0;
   width:min(28vw,260px);height:min(42vw,380px);
   background:
-    linear-gradient(180deg,rgba(42,20,70,.35),rgba(10,3,18,.55)),
+    linear-gradient(180deg,rgba(42,20,70,.3),rgba(10,3,18,.5)),
     url("assets/garden-background.jpg") center 60%/cover no-repeat;
   border:1.5px solid rgba(245,215,145,.6);
   border-radius:50% 50% 10px 10px / 42% 42% 10px 10px;
@@ -672,19 +672,36 @@ a{color:inherit}
 }
 .photo-frame:before{
   content:"";position:absolute;inset:5px;z-index:1;pointer-events:none;
-  border-radius:48% 48% 7px 7px / 40% 40% 7px 7px;
+  border-radius:inherit;
   border:1px solid rgba(255,236,195,.35);
 }
 .photo-frame img{
-  display:block;position:absolute;left:0;bottom:0;
+  display:block;position:absolute;left:0;top:0;
   width:100%;height:100%;
-  object-fit:contain;object-position:center bottom;
+  object-fit:cover;object-position:center 20%;
   filter:
     drop-shadow(0 10px 18px rgba(10,3,18,.5))
     drop-shadow(0 0 24px rgba(255,215,140,.3))
     saturate(1.03) contrast(1.02);
   z-index:2;
 }
+
+/* Frame shape variants */
+.frame-arch{border-radius:50% 50% 10px 10px / 42% 42% 10px 10px}
+.frame-round{width:min(32vw,280px)!important;height:min(32vw,280px)!important;border-radius:50%!important}
+.frame-rect{border-radius:18px}
+.frame-wide{
+  width:min(44vw,420px)!important;height:min(26vw,250px)!important;
+  border-radius:14px;
+}
+.frame-oval{border-radius:50%/44%}
+
+/* Each shape gets a slightly different object-position so Erich stays centered on the point of interest */
+.frame-arch img{object-position:center 12%}
+.frame-round img{object-position:center 18%}
+.frame-rect img{object-position:center 18%}
+.frame-wide img{object-position:center 70%}
+.frame-oval img{object-position:center 15%}
 
 /* slight staggered float so they feel hung in the garden */
 .photo-frames .photo-frame:nth-child(1){transform:rotate(-1.5deg) translateY(6px)}
