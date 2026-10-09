@@ -93,7 +93,7 @@ a{color:inherit}
  clip-path:ellipse(60% 64% at 50% 100%);
  pointer-events:none;
 }
-.hero-photo{position:relative;z-index:2;width:100%;height:100%;object-fit:fill;object-position:center bottom;filter:contrast(1.03) saturate(1.04) drop-shadow(0 28px 34px rgba(10,3,18,.55));background:transparent;mix-blend-mode:normal;clip-path:polygon(62.90% 16.51%,43.83% 15.78%,34.51% 21.93%,30.37% 37.32%,11.30% 41.23%,10.18% 51.59%,1.90% 53.69%,10.87% 51.78%,16.57% 56.81%,14.84% 63.17%,0% 73.42%,0% 92.53%,87.23% 92.53%,68.94% 72.64%,93.53% 52.61%,75.06% 36.20%,73.08% 21.20%)}
+.hero-photo{position:relative;z-index:2;display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 18px 24px rgba(10,3,18,.45));background:transparent;mix-blend-mode:normal;clip-path:none;opacity:1;visibility:visible}
 .photo-aura{position:absolute;inset:8% 3% 0;border-radius:45% 45% 0 0;background:rgba(246,213,162,.08);box-shadow:0 0 70px rgba(255,212,142,.15);z-index:1}
 .hero-copy{position:relative;z-index:5;padding:30px 0 50px}
 .hero-copy h2{font:500 clamp(45px,6vw,78px) "Playfair Display",serif;margin:0;color:#fff2e4}
@@ -126,8 +126,8 @@ a{color:inherit}
 .palette-swatches i{width:25px;height:25px;border-radius:50%;border:1px solid rgba(255,255,255,.65);box-shadow:0 3px 10px rgba(0,0,0,.3)}
 .palette-swatches i:nth-child(1){background:#f2b8c7}.palette-swatches i:nth-child(2){background:#b9d5e8}.palette-swatches i:nth-child(3){background:#b8c9ad}.palette-swatches i:nth-child(4){background:#f4dfaa}.palette-swatches i:nth-child(5){background:#efc2a5}
 .garden-portraits{position:absolute;inset:0;pointer-events:none;z-index:auto;overflow:hidden}
-.garden-cutout{position:absolute;margin:0;border:0;background:transparent;opacity:1;mix-blend-mode:multiply;filter:drop-shadow(0 22px 32px rgba(13,3,20,.55));}
-.garden-cutout img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply;filter:saturate(1.04) brightness(1.03)}
+.garden-cutout{position:absolute;margin:0;border:0;background:transparent;opacity:1;mix-blend-mode:normal;filter:drop-shadow(0 22px 32px rgba(13,3,20,.45));visibility:visible}
+.garden-cutout img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;mix-blend-mode:normal;filter:none;opacity:1;visibility:visible}
 .gc1{width:330px;height:450px;left:-5px;top:5%;transform:rotate(-3deg);mask-image:linear-gradient(to bottom,black 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,black 78%,transparent 100%)}
 .gc2{width:310px;height:430px;right:-4px;top:6%;transform:rotate(3deg);mask-image:linear-gradient(to bottom,black 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,black 78%,transparent 100%)}
 .gc3{width:245px;height:300px;left:2px;bottom:1%;transform:rotate(3deg);mask-image:linear-gradient(to bottom,black 72%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,black 72%,transparent 100%)}
@@ -191,10 +191,10 @@ a{color:inherit}
 .gp2{width:205px;height:362px;right:4%;top:9%;transform:rotate(5deg)}
 .gp3{width:165px;height:291px;left:16%;bottom:5%;transform:rotate(3deg)}
 .gp4{width:175px;height:309px;right:16%;bottom:5%;transform:rotate(-3deg)}
-.gp1 img{clip-path:polygon(65.06% 23.20%,45.73% 24.87%,27.01% 43.23%,28.65% 47.09%,10.70% 61.36%,12.86% 69.37%,5.78% 74.74%,11.56% 73.08%,8.11% 84.81%,0% 88.08%,0% 92.53%,82.83% 92.43%,86.37% 86.08%,77.57% 73.52%,95.94% 72.06%,92.23% 70.84%,98.36% 60.33%,93.62% 50.12%)}
-.gp2 img{clip-path:polygon(62.04% 22.77%,45.47% 23.16%,38.48% 27.21%,31.84% 39.96%,24.07% 43.53%,26.06% 47.24%,6.90% 63.90%,8.80% 71.13%,1.90% 74.84%,1.90% 77.33%,7.68% 74.50%,0% 92.53%,83.43% 92.53%,85.59% 87.35%,75.67% 75.33%,85.76% 72.45%,86.19% 74.79%,92.92% 74.35%,92.15% 51.73%)}
-.gp3 img{clip-path:polygon(65.49% 22.67%,51.94% 20.96%,41.16% 25.01%,29.68% 49.63%,11.65% 54.32%,7.51% 63.36%,23.12% 74.35%,6.13% 81.05%,0% 86.42%,0% 92.57%,85.42% 92.53%,77.91% 82.36%,99.74% 60.48%,84.30% 50.56%,71.18% 46.90%,75.75% 27.75%)}
-.gp4 img{clip-path:polygon(67.90% 30.48%,52.37% 27.31%,42.28% 31.75%,34.51% 47.44%,18.81% 54.91%,26.92% 61.99%,23.99% 63.61%,30.97% 66.24%,18.55% 68.73%,0% 78.80%,0% 92.53%,100% 92.53%,99.74% 82.27%,63.68% 73.08%,72.91% 69.81%,84.73% 72.89%,86.63% 64.29%,93.96% 60.04%,90.77% 55.20%,75.75% 50.27%,71.10% 41.62%,74.03% 34.15%)}
+.gp1 img{clip-path:none}
+.gp2 img{clip-path:none}
+.gp3 img{clip-path:none}
+.gp4 img{clip-path:none}
 .garden-photo-gallery:after{content:"";position:absolute;inset:0;pointer-events:none;background:
  radial-gradient(circle at 8% 18%,rgba(238,190,255,.12),transparent 15%),
  radial-gradient(circle at 92% 20%,rgba(247,201,232,.12),transparent 16%),
@@ -215,10 +215,10 @@ a{color:inherit}
 .hero-gp4{width:155px;height:225px;right:13%;top:9%;transform:rotate(-3deg)}
 .story-photo-scatter{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .story-photo-scatter img{position:absolute;width:190px;height:335px;object-fit:fill;mix-blend-mode:normal;filter:drop-shadow(0 16px 24px rgba(8,2,15,.55));opacity:1}
-.scatter-two img:nth-child(1){clip-path:polygon(66.18% 12.70%,52.89% 13.34%,44.18% 28.09%,33.74% 29.36%,30.03% 38.45%,24.16% 39.13%,33.56% 38.40%,36.41% 44.11%,25.63% 49.10%,10.87% 64.29%,0% 92.53%,95.77% 92.53%,80.07% 59.50%,71.96% 52.37%,88.70% 37.91%,81.45% 33.95%,74.03% 16.02%)}
-.scatter-two img:nth-child(2){clip-path:polygon(57.38% 19.74%,50.91% 22.47%,51.51% 30.43%,40.21% 28.04%,32.27% 32.34%,13.98% 20.13%,10.79% 21.45%,27.09% 35.32%,42.36% 37.42%,11.91% 82.71%,17.08% 88.47%,25.88% 90.43%,68.85% 90.86%,83.52% 87.98%,87.92% 83.83%,71.27% 53.20%,85.25% 56.86%,91.20% 54.32%,80.41% 53.79%,70.66% 46.95%,75.75% 40.21%,64.97% 23.16%)}
-.scatter-two img:nth-child(3){clip-path:polygon(76.88% 38.06%,69.11% 35.03%,57.72% 36.88%,50.30% 44.94%,50.04% 50.37%,44.78% 49.58%,39.34% 52.03%,30.03% 61.90%,16.31% 63.90%,1.90% 68.88%,93.62% 68.88%,91.89% 60.82%,83.95% 51.73%)}
-.scatter-two img:nth-child(4){clip-path:polygon(58.84% 23.94%,42.28% 25.40%,27.78% 40.74%,27.35% 64.04%,18.72% 67.27%,17.00% 72.74%,1.98% 85.54%,9.23% 92.53%,100% 92.53%,100% 67.81%,87.66% 65.80%,97.50% 62.19%,89.82% 62.53%,93.62% 61.85%,93.87% 57.06%,87.32% 55.06%,67.21% 28.82%)}
+.scatter-two img:nth-child(1){clip-path:none}
+.scatter-two img:nth-child(2){clip-path:none}
+.scatter-two img:nth-child(3){clip-path:none}
+.scatter-two img:nth-child(4){clip-path:none}
 .scatter-two img:nth-child(1){left:2%;top:12%;transform:rotate(-5deg)}
 .scatter-two img:nth-child(2){right:2%;top:15%;transform:rotate(5deg)}
 .scatter-two img:nth-child(3){left:7%;bottom:5%;transform:rotate(4deg)}
