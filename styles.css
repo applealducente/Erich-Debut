@@ -539,13 +539,16 @@ a{color:inherit}
 }
 .stage-erich.in-view{opacity:1;transform:translateY(0)}
 
-/* Primary foreground figures (left or right) */
-.stage-primary{width:min(34vw,440px)!important;height:95%!important;top:auto!important}
-.stage-primary.stage-left{left:0!important;transform:translateY(40px)}
-.stage-primary.stage-right{right:0!important;transform:translateY(40px)}
-.stage-primary.in-view{transform:translateY(0)!important}
+/* Primary and distant figures: hidden by default; sections re-position them */
+.stage-primary{width:min(26vw,340px)!important;height:85%!important;top:auto!important;z-index:2!important}
+.stage-primary.stage-left{left:5%!important;transform:translateY(40px)}
+.stage-primary.stage-right{right:5%!important;transform:translateY(40px)}
+.stage-primary.in-view{transform:translateY(0)!important;opacity:.78!important}
+.stage-primary.in-view{filter:
+  drop-shadow(0 20px 28px rgba(10,3,18,.55))
+  drop-shadow(0 0 50px rgba(255,205,130,.35))
+  saturate(1) contrast(1) brightness(.95) hue-rotate(4deg)!important}
 
-/* Distant background figure, softer */
 .stage-distant{
   left:50%!important;margin-left:min(-13vw,-160px)!important;
   width:min(22vw,280px)!important;height:68%!important;z-index:2!important;
@@ -585,4 +588,35 @@ a{color:inherit}
   .details-story .story-inner,.program-story .story-inner{padding-left:4vw;padding-right:4vw}
   .rsvp-card{max-width:92vw!important}
   .stage-foreground{height:min(38%,260px)!important}
+}
+
+/* ===== Patch: kill the welcome oval shadow and tidy inner section photos ===== */
+
+/* Remove the clip-path ellipse that creates the dark egg under the welcome Erich */
+.hero-photo-wrap:after{
+  background:
+    radial-gradient(ellipse at 50% 92%,rgba(10,3,18,.6),transparent 55%),
+    radial-gradient(ellipse at 50% 60%,rgba(255,205,130,.18),transparent 50%)!important;
+  clip-path:none!important;
+  left:-30px!important;right:-30px!important;bottom:-10px!important;height:38%!important;
+  filter:blur(10px);
+}
+
+/* Inner section content padding - keep content clear of the primary stage photos */
+.details-story .story-inner,
+.program-story .story-inner{
+  padding-left:min(28vw,360px)!important;
+  padding-right:min(28vw,360px)!important;
+}
+.rsvp-story .rsvp-card{
+  max-width:min(540px,calc(100vw - min(56vw,680px) - 40px))!important;
+  margin:0 auto!important;
+}
+
+@media(max-width:900px){
+  .stage-primary{display:none!important}
+  .stage-distant{display:none!important}
+  .details-story .story-inner,
+  .program-story .story-inner{padding-left:4vw!important;padding-right:4vw!important}
+  .rsvp-story .rsvp-card{max-width:92vw!important}
 }
