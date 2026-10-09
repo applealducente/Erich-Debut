@@ -25,6 +25,7 @@ a{color:inherit}
   position:absolute;left:50%;top:60%;width:min(260px,38vw);height:min(170px,24vw);
   transform:translate(-50%,-50%);border:0;background:transparent;cursor:pointer;
   border-radius:12px;transition:transform .4s ease, box-shadow .4s ease;
+  pointer-events:auto;z-index:100;
 }
 .opening-hero .envelope-hotspot:hover{
   transform:translate(-50%,-54%);
