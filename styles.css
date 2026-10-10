@@ -763,8 +763,32 @@ a{color:inherit}
 
 /* Organizer Dashboard */
 .seating-dashboard {position:fixed;bottom:20px;right:20px;width:90vw;max-width:1200px;max-height:70vh;background:rgba(20,8,30,.95);border:1px solid rgba(245,215,145,.4);border-radius:12px;padding:20px;overflow-y:auto;z-index:1000;backdrop-filter:blur(8px)}
-.dashboard-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid rgba(245,215,145,.2);padding-bottom:12px}
+.dashboard-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:1px solid rgba(245,215,145,.2);padding-bottom:12px;flex-wrap:wrap;gap:12px}
 .dashboard-header h2 {color:#fff2e4;font-size:18px;margin:0}
+.dashboard-tabs {display:flex;gap:8px}
+.tab-btn {background:transparent;border:1px solid rgba(245,215,145,.3);color:#f5d58a;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;transition:all .2s}
+.tab-btn.active {background:rgba(245,215,145,.2);border-color:rgba(245,215,145,.6)}
+.tab-btn:hover:not(.active) {background:rgba(245,215,145,.1)}
+
+.dashboard-tab {display:none}
+.dashboard-tab.active {display:block}
+
+.blueprint-legend {display:flex;gap:20px;margin-bottom:20px;justify-content:center;flex-wrap:wrap}
+.legend-item {display:flex;align-items:center;gap:8px;font-size:13px}
+.legend-item:before {content:'';width:20px;height:20px;border-radius:4px;border:1px solid rgba(245,215,145,.3)}
+.legend-item.vacant:before {background:rgba(100,100,100,.3)}
+.legend-item.assigned:before {background:rgba(255,215,140,.3)}
+.legend-item.confirmed:before {background:rgba(144,238,144,.3)}
+
+.seating-blueprint {display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:20px}
+.blueprint-table {background:rgba(26,10,36,.4);border:1px solid rgba(245,215,145,.2);border-radius:8px;padding:14px}
+.blueprint-table-title {color:#f5d58a;font-size:13px;font-weight:500;margin-bottom:12px;text-align:center;text-transform:uppercase;letter-spacing:0.5px}
+.blueprint-seats {display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.blueprint-seat {width:100%;aspect-ratio:1;border-radius:4px;border:1px solid rgba(245,215,145,.3);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(245,215,145,.5);font-weight:500}
+.blueprint-seat.vacant {background:rgba(100,100,100,.2)}
+.blueprint-seat.assigned {background:rgba(255,215,140,.25);border-color:rgba(255,215,140,.5);color:#f5d58a}
+.blueprint-seat.confirmed {background:rgba(144,238,144,.25);border-color:rgba(144,238,144,.6);color:#a8ffa8}
+.blueprint-seat:hover {opacity:0.8}
 .btn-small {background:rgba(245,215,145,.15);border:1px solid rgba(245,215,145,.3);color:#f5d58a;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:12px}
 .btn-small:hover {background:rgba(245,215,145,.25)}
 

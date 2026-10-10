@@ -181,8 +181,46 @@ function renderSeatingGrid() {
   }
 }
 
+function renderSeatingBlueprint() {
+  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+  const blueprint = document.getElementById('seatingBlueprint');
+  if (!blueprint) return;
+
+  blueprint.innerHTML = '';
+
+  for (let t = 1; t <= 12; t++) {
+    const tableDiv = document.createElement('div');
+    tableDiv.className = 'blueprint-table';
+    tableDiv.innerHTML = `<div class="blueprint-table-title">Table ${t}</div>`;
+
+    const seatsDiv = document.createElement('div');
+    seatsDiv.className = 'blueprint-seats';
+
+    for (let s = 1; s <= 8; s++) {
+      const seat = seating.find(x => x.tableNum === t && x.seatNum === s);
+      const seatBtn = document.createElement('button');
+      seatBtn.className = 'blueprint-seat';
+      seatBtn.type = 'button';
+
+      if (seat && seat.guestName) {
+        seatBtn.classList.add(seat.confirmed ? 'confirmed' : 'assigned');
+        seatBtn.title = seat.guestName;
+        seatBtn.textContent = 'X';
+      } else {
+        seatBtn.classList.add('vacant');
+        seatBtn.textContent = s;
+      }
+
+      seatsDiv.appendChild(seatBtn);
+    }
+
+    tableDiv.appendChild(seatsDiv);
+    blueprint.appendChild(tableDiv);
+  }
+}
+
 function setupDashboard() {
-  // Save seating when inputs change
+  // Save seating when inputs change and update both views
   document.addEventListener('change', (e) => {
     if (e.target.tagName === 'INPUT' && e.target.hasAttribute('data-table')) {
       const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
@@ -192,8 +230,35 @@ function setupDashboard() {
       if (seat) {
         seat.guestName = e.target.value;
         saveSeating(seating);
+        renderSeatingBlueprint();
       }
     }
+  });
+
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const dashboardTabs = document.querySelectorAll('.dashboard-tab');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabName = btn.getAttribute('data-tab');
+
+      // Hide all tabs, remove active from all buttons
+      dashboardTabs.forEach(tab => tab.classList.remove('active'));
+      tabBtns.forEach(b => b.classList.remove('active'));
+
+      // Show selected tab, mark button as active
+      const selectedTab = document.getElementById(tabName + 'Tab');
+      if (selectedTab) selectedTab.classList.add('active');
+      btn.classList.add('active');
+
+      // Render the appropriate view
+      if (tabName === 'blueprint') {
+        renderSeatingBlueprint();
+      } else if (tabName === 'editor') {
+        renderSeatingGrid();
+      }
+    });
   });
 
   // Show/hide dashboard (press ~ to toggle on page)
@@ -202,7 +267,7 @@ function setupDashboard() {
       const dashboard = document.getElementById('seatingDashboard');
       if (dashboard && dashboard.hidden) {
         dashboard.hidden = false;
-        renderSeatingGrid();
+        renderSeatingBlueprint();
       } else if (dashboard) {
         dashboard.hidden = true;
       }

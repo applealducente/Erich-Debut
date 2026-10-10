@@ -130,7 +130,36 @@
 <div id="seatingModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card seating-modal"><button id="closeSeating" class="modal-close" type="button" aria-label="Close seating">×</button><p class="eyebrow">YOUR SEAT IN THE GARDEN</p><h3 id="seatingTitle">Find Your Place</h3><div id="seatingContent" class="seating-content"></div></div></div>
 
 <!-- Organizer Seating Dashboard (hidden, accessible via admin panel) -->
-<div id="seatingDashboard" class="seating-dashboard" hidden><div class="dashboard-header"><h2>Seating Chart Editor</h2><button id="toggleDashboard" class="btn-small">Close</button></div><div id="seatingGrid" class="seating-grid"></div><div class="dashboard-controls"><button id="exportSeating" class="btn-small">Export Seating</button><button id="importSeating" class="btn-small">Import Seating</button></div></div>
+<div id="seatingDashboard" class="seating-dashboard" hidden>
+  <div class="dashboard-header">
+    <h2>Seating Chart Editor</h2>
+    <div class="dashboard-tabs">
+      <button class="tab-btn active" data-tab="blueprint">Blueprint</button>
+      <button class="tab-btn" data-tab="editor">Assign Seats</button>
+    </div>
+    <button id="toggleDashboard" class="btn-small">Close</button>
+  </div>
+
+  <!-- Blueprint Tab -->
+  <div id="blueprintTab" class="dashboard-tab active">
+    <div class="blueprint-legend">
+      <span class="legend-item vacant">Vacant</span>
+      <span class="legend-item assigned">Assigned</span>
+      <span class="legend-item confirmed">Confirmed</span>
+    </div>
+    <div id="seatingBlueprint" class="seating-blueprint"></div>
+  </div>
+
+  <!-- Editor Tab -->
+  <div id="editorTab" class="dashboard-tab">
+    <div id="seatingGrid" class="seating-grid"></div>
+  </div>
+
+  <div class="dashboard-controls">
+    <button id="exportSeating" class="btn-small">Export Seating</button>
+    <button id="importSeating" class="btn-small">Import Seating</button>
+  </div>
+</div>
 <script src="data.js"></script><script src="script.js"></script>
 </body>
 </html>
