@@ -181,9 +181,9 @@ function renderSeatingGrid() {
   }
 }
 
-function renderSeatingBlueprint() {
+function renderSeatingBlueprint(containerId = 'seatingBlueprint') {
   const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-  const blueprint = document.getElementById('seatingBlueprint');
+  const blueprint = document.getElementById(containerId);
   if (!blueprint) return;
 
   blueprint.innerHTML = '';
@@ -375,4 +375,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initRSVP();
   setupDashboard();
   setupScrollReveals();
+  renderSeatingBlueprint('seatingBlueprintInvitation');
 });
