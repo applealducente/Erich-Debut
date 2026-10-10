@@ -264,9 +264,23 @@ function initRSVP() {
       return;
     }
 
+    // Check if already RSVPed
+    const all = JSON.parse(localStorage.getItem("erich_rsvps") || "[]");
+    const alreadyRsvped = all.find(r => r.guestName.toLowerCase() === name.toLowerCase());
+    if (alreadyRsvped) {
+      confirmation.hidden = false;
+      confirmation.innerHTML = `
+        <div class="not-on-list">
+          <strong>${name}</strong>, you've already submitted your RSVP on ${new Date(alreadyRsvped.submittedAt).toLocaleDateString()}.
+          Thank you for confirming your attendance!
+        </div>
+      `;
+      form.querySelectorAll("input,select,textarea,button[type=submit]").forEach(el => el.disabled = true);
+      return;
+    }
+
     // Save RSVP
     updateSeatConfirmation(name, attendance.value);
-    const all = JSON.parse(localStorage.getItem("erich_rsvps") || "[]");
     all.push({
       guestName: name,
       attendance: att ? "yes" : "no",
