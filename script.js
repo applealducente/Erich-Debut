@@ -294,19 +294,27 @@ function renderTableList(containerId = 'guestTableList') {
     header.innerHTML = `<span class="table-card-title">Table ${t}</span>`;
     tableCard.appendChild(header);
 
-    // Guest names as compact comma-separated list
+    // Guest names as individual list items
     const namesList = document.createElement('div');
     namesList.className = 'guest-names-compact';
 
     const allNames = [...confirmedNames, ...assignedNames];
     if (allNames.length > 0) {
-      namesList.innerHTML = `<span class="guest-names-text">${allNames.join(', ')}</span>`;
+      allNames.forEach(name => {
+        const nameItem = document.createElement('div');
+        nameItem.className = 'guest-item';
+        nameItem.textContent = name;
+        namesList.appendChild(nameItem);
+      });
     } else if (vacantCount === 8) {
-      namesList.innerHTML = `<span class="guest-names-text empty">No guests yet</span>`;
+      const emptyItem = document.createElement('div');
+      emptyItem.className = 'guest-item empty';
+      emptyItem.textContent = 'No guests yet';
+      namesList.appendChild(emptyItem);
     }
 
     if (vacantCount > 0 && totalGuests > 0) {
-      const vacantSpan = document.createElement('span');
+      const vacantSpan = document.createElement('div');
       vacantSpan.className = 'vacant-count';
       vacantSpan.textContent = `+${vacantCount} vacant`;
       namesList.appendChild(vacantSpan);
