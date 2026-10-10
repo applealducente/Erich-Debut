@@ -268,20 +268,21 @@ function initRSVP() {
     const all = JSON.parse(localStorage.getItem("erich_rsvps") || "[]");
     const alreadyRsvped = all.find(r => r.guestName.toLowerCase() === name.toLowerCase());
     if (alreadyRsvped) {
-      confirmation.hidden = false;
-      confirmation.innerHTML = `
-        <div class="not-on-list">
-          <strong>${name}</strong>, you've already submitted your RSVP on ${new Date(alreadyRsvped.submittedAt).toLocaleDateString()}.
-          Thank you for confirming your attendance!
-        </div>
-      `;
       form.querySelectorAll("input,select,textarea,button[type=submit]").forEach(el => el.disabled = true);
 
-      // Still show their seat
-      setTimeout(() => {
-        closeModal();
-        openSeatingModal(name, seat);
-      }, 800);
+      // Show seat modal with already-submitted message
+      const title = document.getElementById("seatingTitle");
+      title.textContent = `${name}, Your Table`;
+      seatingContent.innerHTML = `
+        <div class="seat-info">
+          <p style="color: #f1d99e; margin-bottom: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Already Confirmed</p>
+          <p class="seat-table">Table <strong>${seat.tableNum}</strong></p>
+          <p class="seat-msg">You've already RSVPed on ${new Date(alreadyRsvped.submittedAt).toLocaleDateString()}. We look forward to celebrating with you in the garden.</p>
+        </div>
+      `;
+      closeModal();
+      seatingModal.classList.add("show");
+      seatingModal.setAttribute("aria-hidden", "false");
       return;
     }
 
