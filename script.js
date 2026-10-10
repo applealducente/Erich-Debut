@@ -190,64 +190,39 @@ function renderTableList(containerId = 'guestTableList') {
 
   for (let t = 1; t <= 12; t++) {
     const tableSeats = seating.filter(x => x.tableNum === t);
-    const confirmedCount = tableSeats.filter(x => x.confirmed && x.guestName).length;
-    const assignedCount = tableSeats.filter(x => x.guestName && !x.confirmed).length;
+    const confirmedNames = tableSeats.filter(x => x.confirmed && x.guestName).map(x => x.guestName);
+    const assignedNames = tableSeats.filter(x => x.guestName && !x.confirmed).map(x => x.guestName);
     const vacantCount = tableSeats.filter(x => !x.guestName).length;
+    const totalGuests = confirmedNames.length + assignedNames.length;
 
     const tableCard = document.createElement('div');
     tableCard.className = 'table-card';
 
-    // Header with table number and occupancy
+    // Header with table number
     const header = document.createElement('div');
     header.className = 'table-card-header';
-    header.innerHTML = `
-      <span class="table-card-title">Table ${t}</span>
-      <span class="table-occupancy">${confirmedCount + assignedCount}/8 guests</span>
-    `;
+    header.innerHTML = `<span class="table-card-title">Table ${t}</span>`;
     tableCard.appendChild(header);
 
-    // Guest list
-    const guestList = document.createElement('div');
-    guestList.className = 'guest-list';
+    // Guest names as compact comma-separated list
+    const namesList = document.createElement('div');
+    namesList.className = 'guest-names-compact';
 
-    // Add confirmed guests first
-    tableSeats.forEach(seat => {
-      if (seat.guestName && seat.confirmed) {
-        const item = document.createElement('div');
-        item.className = 'guest-item confirmed';
-        item.innerHTML = `
-          <span class="guest-status confirmed"></span>
-          <span class="guest-name">${seat.guestName}</span>
-        `;
-        guestList.appendChild(item);
-      }
-    });
-
-    // Then assigned (not confirmed)
-    tableSeats.forEach(seat => {
-      if (seat.guestName && !seat.confirmed) {
-        const item = document.createElement('div');
-        item.className = 'guest-item assigned';
-        item.innerHTML = `
-          <span class="guest-status assigned"></span>
-          <span class="guest-name">${seat.guestName}</span>
-        `;
-        guestList.appendChild(item);
-      }
-    });
-
-    // Show only if there are vacancies (just one indicator)
-    if (vacantCount > 0) {
-      const item = document.createElement('div');
-      item.className = 'guest-item vacant';
-      item.innerHTML = `
-        <span class="guest-status vacant"></span>
-        <span class="guest-name">${vacantCount} vacant</span>
-      `;
-      guestList.appendChild(item);
+    const allNames = [...confirmedNames, ...assignedNames];
+    if (allNames.length > 0) {
+      namesList.innerHTML = `<span class="guest-names-text">${allNames.join(', ')}</span>`;
+    } else if (vacantCount === 8) {
+      namesList.innerHTML = `<span class="guest-names-text empty">No guests yet</span>`;
     }
 
-    tableCard.appendChild(guestList);
+    if (vacantCount > 0 && totalGuests > 0) {
+      const vacantSpan = document.createElement('span');
+      vacantSpan.className = 'vacant-count';
+      vacantSpan.textContent = `+${vacantCount} vacant`;
+      namesList.appendChild(vacantSpan);
+    }
+
+    tableCard.appendChild(namesList);
     container.appendChild(tableCard);
   }
 }
