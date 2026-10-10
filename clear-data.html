@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Firebase Data</title>
+  <style>
+    body {
+      background: #09100b;
+      color: #f8e3b5;
+      font-family: "Playfair Display", serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      text-align: center;
+      background: rgba(26,10,36,.5);
+      padding: 40px;
+      border-radius: 10px;
+      border: 1px solid rgba(245,215,145,.2);
+      max-width: 400px;
+    }
+    h1 {
+      margin: 0 0 20px;
+      color: #fff0e4;
+    }
+    p {
+      margin: 0 0 30px;
+      font-size: 14px;
+      color: #d9cec7;
+    }
+    button {
+      padding: 12px 30px;
+      background: #c5a25f;
+      color: #171008;
+      border: none;
+      border-radius: 5px;
+      font: 12px Cinzel, serif;
+      letter-spacing: .1em;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover {
+      background: #d4b86f;
+    }
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 13px;
+      display: none;
+    }
+    .status.success {
+      background: rgba(100, 200, 100, 0.2);
+      color: #90ee90;
+      display: block;
+    }
+    .status.error {
+      background: rgba(255, 100, 100, 0.2);
+      color: #ff9999;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🗑️ Clear Data</h1>
+    <p>This will delete all test RSVPs and seating data from Firebase and localStorage, giving you a fresh start.</p>
+    <button onclick="clearAllData()">Clear All Data</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <script>
+    function showStatus(message, isError = false) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = 'status ' + (isError ? 'error' : 'success');
+    }
+
+    function clearAllData() {
+      showStatus('Clearing Firebase...');
+
+      const db = firebase.database();
+
+      // Clear RSVPs
+      db.ref('rsvps').set(null)
+        .then(() => {
+          console.log('RSVPs cleared');
+          // Clear seating
+          return db.ref('seating').set(null);
+        })
+        .then(() => {
+          console.log('Seating cleared');
+          // Clear localStorage
+          localStorage.clear();
+          showStatus('✓ All data cleared! Redirecting to dashboard in 3 seconds...');
+          setTimeout(() => {
+            window.location.href = '/dashboard.html';
+          }, 3000);
+        })
+        .catch(err => {
+          console.error('Error:', err);
+          showStatus('Error: ' + err.message, true);
+        });
+    }
+  </script>
+</body>
+</html>
