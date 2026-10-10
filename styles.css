@@ -173,6 +173,15 @@ a{color:inherit}
 .rsvp-card{width:min(650px,92vw);margin:auto;text-align:center;padding:55px 35px;border:1px solid rgba(240,214,163,.5);background:linear-gradient(145deg,rgba(20,43,24,.84),rgba(43,21,40,.86));backdrop-filter:blur(10px);box-shadow:0 30px 90px rgba(0,0,0,.52),0 0 48px rgba(255,215,140,.22);animation:cardGlow 6.5s ease-in-out infinite}
 .rsvp-card p:not(.eyebrow){color:#d9cec7;line-height:1.7}.rsvp-card small{display:block;margin-top:14px;color:#bdb2ab}
 .modal{display:none;position:fixed;inset:0;z-index:100}.modal[aria-hidden="false"]{display:block}.modal-backdrop{position:absolute;inset:0;background:rgba(3,8,5,.78);backdrop-filter:blur(10px)}.modal-card{position:relative;width:min(520px,92vw);max-height:90vh;overflow:auto;margin:5vh auto;padding:34px;background:linear-gradient(145deg,#18321e,#321d31);border:1px solid rgba(240,214,163,.42);box-shadow:0 35px 100px rgba(0,0,0,.65);z-index:2}.modal-close{position:absolute;right:15px;top:12px;border:0;background:none;color:#f1dfbd;font-size:25px;cursor:pointer}.modal-card h3{font-size:32px;margin:0 0 8px}.modal-intro{color:#d2c5bd}.modal-card label{display:block;margin:15px 0;color:#e9ded7;font-size:13px}.modal-card input,.modal-card select,.modal-card textarea{display:block;width:100%;margin-top:7px;padding:12px 13px;background:rgba(0,0,0,.22);border:1px solid rgba(240,214,163,.22);color:#fff;border-radius:3px}.rsvp-submit{width:100%;margin-top:10px;padding:13px;background:#c5a25f;color:#171008;border:0;font:11px Cinzel,serif;letter-spacing:.16em;cursor:pointer}
+.seating-modal .modal-card{padding:48px 40px}
+.seat-info{text-align:center}
+.seat-table{font-size:36px;margin:0 0 16px;color:#f5d58a;font:500 36px "Playfair Display",serif}
+.seat-table strong{font-size:64px;color:#fff0e4;display:block;margin:12px 0;text-shadow:0 0 24px rgba(255,215,140,.3)}
+.seat-num{font-size:18px;color:#f4d9ba;margin:20px 0 24px;font:500 18px Cinzel,serif;letter-spacing:.1em}
+.seat-num strong{font-size:42px;color:#e8c987;display:block;margin:8px 0}
+.seat-msg{color:#d9cec7;line-height:1.8;margin-top:24px;font-size:14px}
+.rsvp-confirmation{text-align:center}
+.role-result-title{font-size:24px;color:#f5d58a;margin-bottom:12px;font:500 24px Cinzel,serif;letter-spacing:.08em}
 #plusOneNameWrap{display:none}
 .ambient{position:fixed;inset:0;z-index:20;pointer-events:none;overflow:hidden}
 .firefly{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff2c0;box-shadow:0 0 22px 8px rgba(255,219,128,.85),0 0 48px 14px rgba(255,200,110,.4);animation:float 7s ease-in-out infinite}
