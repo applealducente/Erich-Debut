@@ -132,6 +132,26 @@ async function getSeatingFromFirebase() {
   });
 }
 
+// Clear all RSVPs from Firebase (admin function)
+function clearAllRsvps() {
+  if (!db) {
+    console.log('Firebase not initialized');
+    return;
+  }
+  db.ref('rsvps').remove().then(() => {
+    console.log('All RSVPs cleared from Firebase');
+    localStorage.removeItem('erich_rsvps');
+    if (typeof loadRsvps === 'function') {
+      loadRsvps();
+    }
+    if (typeof updateStats === 'function') {
+      updateStats();
+    }
+  }).catch(err => {
+    console.error('Error clearing RSVPs:', err);
+  });
+}
+
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
   initFirebaseSync();

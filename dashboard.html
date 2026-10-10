@@ -130,6 +130,7 @@
       <div class="controls">
         <button class="btn" onclick="exportData()">Export CSV</button>
         <button class="btn" onclick="location.reload()">Refresh Data</button>
+        <button class="btn" onclick="if(confirm('Are you sure? This will delete ALL RSVPs from Firebase.')) { clearAllRsvps(); }">Clear All RSVPs</button>
       </div>
 
       <div class="filter-group">
@@ -167,6 +168,10 @@
     </div>
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="firebase-sync.js"></script>
   <script src="data.js"></script>
   <script>
     let allRsvps = [];
