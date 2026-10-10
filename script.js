@@ -453,15 +453,6 @@ function setupDashboard() {
       }
     });
   });
-
-
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'erich_seating.json';
-      a.click();
-    });
-  }
 }
 
 /* ===== ENVELOPE & OPENING ===== */
