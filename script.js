@@ -236,13 +236,13 @@ function renderTableList(containerId = 'guestTableList') {
       }
     });
 
-    // Then vacant seats
-    for (let s = 1; s <= vacantCount; s++) {
+    // Show only if there are vacancies (just one indicator)
+    if (vacantCount > 0) {
       const item = document.createElement('div');
       item.className = 'guest-item vacant';
       item.innerHTML = `
         <span class="guest-status vacant"></span>
-        <span class="guest-name">Vacant seat</span>
+        <span class="guest-name">${vacantCount} vacant</span>
       `;
       guestList.appendChild(item);
     }
