@@ -21,7 +21,65 @@ function initSeating() {
   return seating;
 }
 
-// Load guest list into seating (run once during setup)
+// Fetch guest list from Google Sheet CSV export
+async function syncGuestListFromSheet() {
+  try {
+    // Google Sheet CSV export URL (replace SHEET_ID and sheet gid)
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1NmHsc0HdhuiVzdJl8CdY0sHlW4-TqJyJVxYrnW8oWgs/export?format=csv&gid=0';
+
+    const response = await fetch(sheetUrl);
+    if (!response.ok) return false;
+
+    const csv = await response.text();
+    const lines = csv.trim().split('\n');
+
+    const guestList = [];
+    // Skip header row, parse guest data
+    for (let i = 1; i < lines.length; i++) {
+      const parts = lines[i].split(',');
+      if (parts.length >= 2 && parts[1].trim()) {
+        const name = parts[0].trim().replace(/^"|"$/g, '');
+        const tableStr = parts[1].trim();
+        const table = parseInt(tableStr);
+
+        if (name && table && table > 0) {
+          guestList.push({ name, table });
+        }
+      }
+    }
+
+    if (guestList.length === 0) return false;
+
+    // Apply to seating
+    applyGuestListToSeating(guestList);
+    return true;
+  } catch (err) {
+    console.log('Sheet sync skipped, using local data');
+    return false;
+  }
+}
+
+// Apply guest list to seating
+function applyGuestListToSeating(guestList) {
+  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+
+  // Clear existing guest names
+  seating.forEach(seat => {
+    seat.guestName = '';
+  });
+
+  // Assign guests from list
+  guestList.forEach((guest) => {
+    const seat = seating.find(s => s.tableNum === guest.table && !s.guestName);
+    if (seat) {
+      seat.guestName = guest.name;
+    }
+  });
+
+  localStorage.setItem('erich_seating', JSON.stringify(seating));
+}
+
+// Load guest list into seating (fallback if sheet sync fails)
 function loadGuestList() {
   const guestList = [
     {name: "Jubilee Ann Mancilla", table: 1},
@@ -476,10 +534,16 @@ function setupScrollReveals() {
 }
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   setupOpening();
   initSeating();
-  loadGuestList();
+
+  // Try to sync from Google Sheet, fallback to local data
+  const synced = await syncGuestListFromSheet();
+  if (!synced) {
+    loadGuestList();
+  }
+
   initRSVP();
   setupDashboard();
   setupScrollReveals();
