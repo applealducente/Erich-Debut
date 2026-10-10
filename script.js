@@ -158,11 +158,10 @@ function initRSVP() {
 
   function openSeatingModal(guestName, seat) {
     const title = document.getElementById("seatingTitle");
-    title.textContent = `${guestName}, Your Seat`;
+    title.textContent = `${guestName}, Your Table`;
     seatingContent.innerHTML = `
       <div class="seat-info">
         <p class="seat-table">Table <strong>${seat.tableNum}</strong></p>
-        <p class="seat-num">Seat <strong>${seat.seatNum}</strong></p>
         <p class="seat-msg">We look forward to celebrating with you in the garden.</p>
       </div>
     `;
