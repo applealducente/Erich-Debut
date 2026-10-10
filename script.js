@@ -21,6 +21,97 @@ function initSeating() {
   return seating;
 }
 
+// Load guest list into seating (run once during setup)
+function loadGuestList() {
+  const guestList = [
+    {name: "Jubilee Ann Mancilla", table: 1},
+    {name: "Alvin Sto. Domingo", table: 1},
+    {name: "Paola Mancilla", table: 1},
+    {name: "Jeamy Shane Nebrida", table: 1},
+    {name: "Apple Ulysses Alducente", table: 1},
+    {name: "Elma Mancilla", table: 1},
+    {name: "Harlet Caigas", table: 1},
+    {name: "Elmo Janzhel Mancilla", table: 1},
+    {name: "Wilmer Mancilla", table: 2},
+    {name: "Fernando Alducente", table: 2},
+    {name: "John Amiel Mancilla", table: 2},
+    {name: "Joey Baldo", table: 2},
+    {name: "John Raven Cruz", table: 2},
+    {name: "Diorella Cruz", table: 2},
+    {name: "Rommel Cruz", table: 2},
+    {name: "Daryl Melitante", table: 3},
+    {name: "Rachelle Melitante", table: 3},
+    {name: "Nikka Rein Bernil", table: 3},
+    {name: "Timmy Liz Ching", table: 3},
+    {name: "Leighna Mariano", table: 3},
+    {name: "Mary Ann Restua", table: 3},
+    {name: "Jelian Ventura", table: 3},
+    {name: "Sittie Ainah Sultan", table: 3},
+    {name: "Randolf Antonio", table: 4},
+    {name: "Frank Mhil Armada", table: 4},
+    {name: "Dan Allen Tolentino", table: 4},
+    {name: "Idhel Catabas", table: 4},
+    {name: "Crist Tilo", table: 4},
+    {name: "Hashlee Marie Boniao", table: 4},
+    {name: "John Frics Isaac", table: 4},
+    {name: "Rom David Bleza", table: 4},
+    {name: "David Joenr Traqueña", table: 5},
+    {name: "Precious Hillary Siochi", table: 5},
+    {name: "Velinda Guadalupe", table: 5},
+    {name: "Lorraine Villaflores", table: 5},
+    {name: "Daniella Shane Molina", table: 5},
+    {name: "Aaron Sales", table: 5},
+    {name: "Justine Rhayne Nebrida", table: 5},
+    {name: "John Rod Ordonio", table: 5},
+    {name: "Liesel Rodelo", table: 6},
+    {name: "Tomas Ching Jr.", table: 6},
+    {name: "Rene Ching", table: 6},
+    {name: "Evelyn Ching Ignacio", table: 6},
+    {name: "Kate Paraiso", table: 6},
+    {name: "Choi Paraiso", table: 6},
+    {name: "Jane Diane", table: 6},
+    {name: "Christopher Diane", table: 6},
+    {name: "Josephine Moya", table: 7},
+    {name: "Michael Moya", table: 7},
+    {name: "Yanyan Vibar", table: 7},
+    {name: "Mario Vibar", table: 7},
+    {name: "Ally Torres", table: 7},
+    {name: "Elaine Pascual", table: 7},
+    {name: "Eric Blanco", table: 7},
+    {name: "Vangie Grimaldo", table: 7},
+    {name: "Botchok Grimaldo", table: 8},
+    {name: "Ogie Banigued", table: 8},
+    {name: "Agnes Dela Cruz", table: 8},
+    {name: "Naneth Miranda", table: 8},
+    {name: "Manny Miranda", table: 8},
+    {name: "Jing Morte", table: 8},
+    {name: "Louie Morte", table: 8},
+    {name: "Maricar Rarama", table: 8},
+    {name: "Jaycel Dacanay", table: 9},
+    {name: "Mhane Rivero", table: 9},
+    {name: "Jhonny Tumbocon", table: 9},
+    {name: "Marcos Llenado", table: 9},
+    {name: "Crismar Canlas", table: 9},
+    {name: "Patrick John Razon", table: 9},
+    {name: "Dan Malumbay", table: 9},
+    {name: "Obet Panilong", table: 9},
+    {name: "Michael Nito", table: 10},
+    {name: "Marlyn Murata", table: 11},
+    {name: "Anna Martin", table: 12}
+  ];
+
+  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+
+  guestList.forEach((guest, idx) => {
+    const seat = seating.find(s => s.tableNum === guest.table && !s.guestName);
+    if (seat) {
+      seat.guestName = guest.name;
+    }
+  });
+
+  localStorage.setItem('erich_seating', JSON.stringify(seating));
+}
+
 function saveSeating(seating) {
   localStorage.setItem('erich_seating', JSON.stringify(seating));
 }
@@ -381,6 +472,7 @@ function setupScrollReveals() {
 document.addEventListener('DOMContentLoaded', () => {
   setupOpening();
   initSeating();
+  loadGuestList();
   initRSVP();
   setupDashboard();
   setupScrollReveals();
