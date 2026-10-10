@@ -181,41 +181,74 @@ function renderSeatingGrid() {
   }
 }
 
-function renderSeatingBlueprint(containerId = 'seatingBlueprint') {
+function renderTableList(containerId = 'guestTableList') {
   const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-  const blueprint = document.getElementById(containerId);
-  if (!blueprint) return;
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-  blueprint.innerHTML = '';
+  container.innerHTML = '';
 
   for (let t = 1; t <= 12; t++) {
-    const tableDiv = document.createElement('div');
-    tableDiv.className = 'blueprint-table';
-    tableDiv.innerHTML = `<div class="blueprint-table-title">Table ${t}</div>`;
+    const tableSeats = seating.filter(x => x.tableNum === t);
+    const confirmedCount = tableSeats.filter(x => x.confirmed && x.guestName).length;
+    const assignedCount = tableSeats.filter(x => x.guestName && !x.confirmed).length;
+    const vacantCount = tableSeats.filter(x => !x.guestName).length;
 
-    const seatsDiv = document.createElement('div');
-    seatsDiv.className = 'blueprint-seats';
+    const tableCard = document.createElement('div');
+    tableCard.className = 'table-card';
 
-    for (let s = 1; s <= 8; s++) {
-      const seat = seating.find(x => x.tableNum === t && x.seatNum === s);
-      const seatBtn = document.createElement('button');
-      seatBtn.className = 'blueprint-seat';
-      seatBtn.type = 'button';
+    // Header with table number and occupancy
+    const header = document.createElement('div');
+    header.className = 'table-card-header';
+    header.innerHTML = `
+      <span class="table-card-title">Table ${t}</span>
+      <span class="table-occupancy">${confirmedCount + assignedCount}/8 guests</span>
+    `;
+    tableCard.appendChild(header);
 
-      if (seat && seat.guestName) {
-        seatBtn.classList.add(seat.confirmed ? 'confirmed' : 'assigned');
-        seatBtn.title = seat.guestName;
-        seatBtn.textContent = 'X';
-      } else {
-        seatBtn.classList.add('vacant');
-        seatBtn.textContent = s;
+    // Guest list
+    const guestList = document.createElement('div');
+    guestList.className = 'guest-list';
+
+    // Add confirmed guests first
+    tableSeats.forEach(seat => {
+      if (seat.guestName && seat.confirmed) {
+        const item = document.createElement('div');
+        item.className = 'guest-item confirmed';
+        item.innerHTML = `
+          <span class="guest-status confirmed"></span>
+          <span class="guest-name">${seat.guestName}</span>
+        `;
+        guestList.appendChild(item);
       }
+    });
 
-      seatsDiv.appendChild(seatBtn);
+    // Then assigned (not confirmed)
+    tableSeats.forEach(seat => {
+      if (seat.guestName && !seat.confirmed) {
+        const item = document.createElement('div');
+        item.className = 'guest-item assigned';
+        item.innerHTML = `
+          <span class="guest-status assigned"></span>
+          <span class="guest-name">${seat.guestName}</span>
+        `;
+        guestList.appendChild(item);
+      }
+    });
+
+    // Then vacant seats
+    for (let s = 1; s <= vacantCount; s++) {
+      const item = document.createElement('div');
+      item.className = 'guest-item vacant';
+      item.innerHTML = `
+        <span class="guest-status vacant"></span>
+        <span class="guest-name">Vacant seat</span>
+      `;
+      guestList.appendChild(item);
     }
 
-    tableDiv.appendChild(seatsDiv);
-    blueprint.appendChild(tableDiv);
+    tableCard.appendChild(guestList);
+    container.appendChild(tableCard);
   }
 }
 
@@ -230,7 +263,8 @@ function setupDashboard() {
       if (seat) {
         seat.guestName = e.target.value;
         saveSeating(seating);
-        renderSeatingBlueprint();
+        renderTableList('seatingBlueprint');
+        renderTableList('guestTableList');
       }
     }
   });
@@ -254,7 +288,7 @@ function setupDashboard() {
 
       // Render the appropriate view
       if (tabName === 'blueprint') {
-        renderSeatingBlueprint();
+        renderTableList('seatingBlueprint');
       } else if (tabName === 'editor') {
         renderSeatingGrid();
       }
@@ -267,7 +301,7 @@ function setupDashboard() {
       const dashboard = document.getElementById('seatingDashboard');
       if (dashboard && dashboard.hidden) {
         dashboard.hidden = false;
-        renderSeatingBlueprint();
+        renderTableList('seatingBlueprint');
       } else if (dashboard) {
         dashboard.hidden = true;
       }
@@ -375,5 +409,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initRSVP();
   setupDashboard();
   setupScrollReveals();
-  renderSeatingBlueprint('seatingBlueprintInvitation');
+  renderTableList('guestTableList');
 });
