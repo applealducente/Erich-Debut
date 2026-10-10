@@ -454,25 +454,7 @@ function setupDashboard() {
     });
   });
 
-  // Show/hide dashboard (press ~ to toggle on page)
-  document.addEventListener('keydown', (e) => {
-    if (e.key === '~') {
-        dashboard.hidden = true;
-      }
-    }
-  });
 
-  const toggleBtn = document.getElementById('toggleDashboard');
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-  }
-
-  // Export/import seating
-  const exportBtn = document.getElementById('exportSeating');
-  if (exportBtn) {
-    exportBtn.addEventListener('click', () => {
-      const seating = localStorage.getItem('erich_seating');
-      const blob = new Blob([seating], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;

@@ -147,47 +147,6 @@
 
 <!-- Seating Chart Modal -->
 <div id="seatingModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card seating-modal"><button id="closeSeating" class="modal-close" type="button" aria-label="Close seating">×</button><p class="eyebrow">YOUR SEAT IN THE GARDEN</p><h3 id="seatingTitle">Find Your Place</h3><div id="seatingContent" class="seating-content"></div></div></div>
-
-<!-- Organizer Seating Dashboard (hidden, accessible via admin panel) -->
-<div id="seatingDashboard" class="seating-dashboard" hidden>
-  <div class="dashboard-header">
-    <h2>Seating Chart Editor</h2>
-    <div class="dashboard-tabs">
-      <button class="tab-btn active" data-tab="blueprint">Blueprint</button>
-      <button class="tab-btn" data-tab="editor">Assign Seats</button>
-      <button class="tab-btn" data-tab="tracker">RSVP Tracker</button>
-    </div>
-    <button id="toggleDashboard" class="btn-small">Close</button>
-  </div>
-
-  <!-- Blueprint Tab -->
-  <div id="blueprintTab" class="dashboard-tab active">
-    <div class="blueprint-legend">
-      <span class="legend-item vacant">Vacant</span>
-      <span class="legend-item assigned">Assigned</span>
-      <span class="legend-item confirmed">Confirmed</span>
-    </div>
-    <div id="seatingBlueprint" class="seating-blueprint"></div>
-  </div>
-
-  <!-- Editor Tab -->
-  <div id="editorTab" class="dashboard-tab">
-    <div id="seatingGrid" class="seating-grid"></div>
-  </div>
-
-  <!-- RSVP Tracker Tab -->
-  <div id="trackerTab" class="dashboard-tab">
-    <div style="padding: 20px; text-align: center;">
-      <p style="color: #d9cec7; margin-bottom: 20px;">View real-time RSVP tracking with guest details, roles, and confirmations.</p>
-      <a href="admin.html" target="_blank" class="btn-small" style="display: inline-block; padding: 12px 24px; background: #c5a25f; color: #171008; text-decoration: none; border-radius: 5px; font: 11px Cinzel, serif; letter-spacing: .1em; cursor: pointer;">Open RSVP Tracker →</a>
-    </div>
-  </div>
-
-  <div class="dashboard-controls">
-    <button id="exportSeating" class="btn-small">Export Seating</button>
-    <button id="importSeating" class="btn-small">Import Seating</button>
-  </div>
-</div>
 <script src="data.js"></script><script src="script.js"></script>
 </body>
 </html>
