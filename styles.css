@@ -183,6 +183,8 @@ a{color:inherit}
 .rsvp-confirmation{text-align:center}
 .role-result-title{font-size:24px;color:#f5d58a;margin-bottom:12px;font:500 24px Cinzel,serif;letter-spacing:.08em}
 #plusOneNameWrap{display:none}
+.organizer-btn{position:fixed;bottom:20px;right:20px;width:40px;height:40px;border-radius:50%;background:rgba(245,215,145,.15);border:1px solid rgba(245,215,145,.3);color:#f5d58a;font-size:18px;cursor:pointer;z-index:999;transition:all .3s ease}
+.organizer-btn:hover{background:rgba(245,215,145,.25);border-color:rgba(245,215,145,.5)}
 .ambient{position:fixed;inset:0;z-index:20;pointer-events:none;overflow:hidden}
 .firefly{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff2c0;box-shadow:0 0 22px 8px rgba(255,219,128,.85),0 0 48px 14px rgba(255,200,110,.4);animation:float 7s ease-in-out infinite}
 .f1{left:16%;top:55%}.f2{left:34%;top:24%;animation-delay:1s}.f3{left:72%;top:62%;animation-delay:2s}.f4{left:84%;top:31%;animation-delay:3s}.f5{left:52%;top:76%;animation-delay:4s}.f6{left:24%;top:78%;animation-delay:2.5s}

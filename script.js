@@ -561,6 +561,70 @@ function setupScrollReveals() {
   revealElements.forEach(el => observer.observe(el));
 }
 
+// Organizer password access
+function setupOrganizerAccess() {
+  const organizerBtn = document.getElementById('organizerAccessBtn');
+  const organizerModal = document.getElementById('organizerModal');
+  const closeOrganizerModal = document.getElementById('closeOrganizerModal');
+  const organizerForm = document.getElementById('organizerForm');
+  const organizerConfirmation = document.getElementById('organizerConfirmation');
+
+  if (!organizerBtn || !organizerModal) return;
+
+  const ORGANIZER_PASSWORD = 'erich18'; // Change this to your desired password
+
+  organizerBtn.addEventListener('click', () => {
+    organizerModal.classList.add('show');
+    organizerModal.setAttribute('aria-hidden', 'false');
+  });
+
+  closeOrganizerModal.addEventListener('click', () => {
+    organizerModal.classList.remove('show');
+    organizerModal.setAttribute('aria-hidden', 'true');
+    organizerForm.reset();
+  });
+
+  const backdrop = organizerModal.querySelector('.modal-backdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', () => {
+      organizerModal.classList.remove('show');
+      organizerModal.setAttribute('aria-hidden', 'true');
+      organizerForm.reset();
+    });
+  }
+
+  organizerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const password = document.getElementById('organizerPassword').value;
+
+    if (password === ORGANIZER_PASSWORD) {
+      organizerConfirmation.hidden = false;
+      organizerConfirmation.innerHTML = '<div style="text-align: center; color: #90ee90;">✓ Access granted!</div>';
+
+      setTimeout(() => {
+        organizerModal.classList.remove('show');
+        organizerModal.setAttribute('aria-hidden', 'true');
+        organizerForm.reset();
+        organizerConfirmation.hidden = true;
+
+        // Open dashboard
+        const dashboard = document.getElementById('seatingDashboard');
+        if (dashboard) {
+          dashboard.hidden = false;
+          renderTableList('seatingBlueprint');
+        }
+      }, 800);
+    } else {
+      organizerConfirmation.hidden = false;
+      organizerConfirmation.innerHTML = '<div style="text-align: center; color: #ff9999;">✗ Incorrect password</div>';
+      setTimeout(() => {
+        organizerConfirmation.hidden = true;
+        organizerForm.reset();
+      }, 2000);
+    }
+  });
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async () => {
   setupOpening();
@@ -574,6 +638,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   initRSVP();
   setupDashboard();
+  setupOrganizerAccess();
   setupScrollReveals();
   renderTableList('guestTableList');
 });

@@ -133,7 +133,16 @@
       <button id="openRsvp" class="rsvp-button" type="button">ENTER YOUR RSVP</button>
     </div>
   </section>
+
+  <!-- Organizer Access (Hidden) -->
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+    <button id="organizerAccessBtn" class="organizer-btn" type="button" title="For organizers">✦</button>
+  </div>
 </section>
+
+<!-- Organizer Password Modal -->
+<div id="organizerModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card"><button id="closeOrganizerModal" class="modal-close" type="button" aria-label="Close">×</button><p class="eyebrow">ORGANIZER ACCESS</p><h3>Dashboard</h3><p class="modal-intro">Enter the organizer password to access the dashboard.</p><form id="organizerForm"><label>Password<input id="organizerPassword" type="password" required placeholder="Enter password" autocomplete="off"></label><button type="submit" class="rsvp-submit">UNLOCK</button></form><div id="organizerConfirmation" hidden></div></form></div></div>
+
 <div id="rsvpModal" class="modal" aria-hidden="true"><div class="modal-backdrop"></div><div class="modal-card"><button id="closeRsvp" class="modal-close" type="button" aria-label="Close RSVP">×</button><p class="eyebrow">A PLACE HAS BEEN SAVED</p><h3>YOU’RE INVITED</h3><p class="modal-intro">Confirm your place in Erich’s enchanted garden.</p><form id="rsvpForm"><label>Your full name<input id="guestName" required autocomplete="name" placeholder="Enter your full name"></label><label>Will you be attending?<select id="attendance" required><option value="">Please select</option><option value="yes">Joyfully Accepts</option><option value="no">Regretfully Declines</option></select></label><label>Message <span>(optional)</span><textarea id="message" rows="3" placeholder="Leave a little message for Erich"></textarea></label><button type="submit" class="rsvp-submit">SEAL MY RSVP</button></form><div id="rsvpConfirmation" class="rsvp-confirmation" hidden></div></div></div>
 
 <!-- Seating Chart Modal -->
