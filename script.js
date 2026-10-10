@@ -276,6 +276,12 @@ function initRSVP() {
         </div>
       `;
       form.querySelectorAll("input,select,textarea,button[type=submit]").forEach(el => el.disabled = true);
+
+      // Still show their seat
+      setTimeout(() => {
+        closeModal();
+        openSeatingModal(name, seat);
+      }, 800);
       return;
     }
 
