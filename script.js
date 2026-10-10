@@ -457,11 +457,6 @@ function setupDashboard() {
   // Show/hide dashboard (press ~ to toggle on page)
   document.addEventListener('keydown', (e) => {
     if (e.key === '~') {
-      const dashboard = document.getElementById('seatingDashboard');
-      if (dashboard && dashboard.hidden) {
-        dashboard.hidden = false;
-        renderTableList('seatingBlueprint');
-      } else if (dashboard) {
         dashboard.hidden = true;
       }
     }
@@ -470,9 +465,6 @@ function setupDashboard() {
   const toggleBtn = document.getElementById('toggleDashboard');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
-      const dashboard = document.getElementById('seatingDashboard');
-      if (dashboard) dashboard.hidden = true;
-    });
   }
 
   // Export/import seating
@@ -607,12 +599,8 @@ function setupOrganizerAccess() {
         organizerForm.reset();
         organizerConfirmation.hidden = true;
 
-        // Open dashboard
-        const dashboard = document.getElementById('seatingDashboard');
-        if (dashboard) {
-          dashboard.hidden = false;
-          renderTableList('seatingBlueprint');
-        }
+        // Redirect to dashboard page
+        window.location.href = 'dashboard.html'; return;
       }, 800);
     } else {
       organizerConfirmation.hidden = false;

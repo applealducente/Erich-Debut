@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#120b18">
+  <title>Erich Enchants | Organizer Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #09100b;
+      color: #f8e3b5;
+      font-family: "Playfair Display", serif;
+      padding: 20px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { font-size: 32px; margin: 0 0 10px; color: #fff0e4; }
+    .subtitle { color: #d9cec7; margin: 0 0 30px; font-size: 14px; }
+
+    .dashboard-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid rgba(245,215,145,.15);
+      padding-bottom: 15px;
+    }
+    .nav-btn {
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid rgba(245,215,145,.2);
+      color: #d9cec7;
+      border-radius: 5px;
+      cursor: pointer;
+      font: 12px Cinzel, serif;
+      letter-spacing: .1em;
+      transition: all .3s ease;
+    }
+    .nav-btn.active {
+      background: rgba(245,215,145,.2);
+      color: #f5d58a;
+      border-color: rgba(245,215,145,.5);
+    }
+    .nav-btn:hover {
+      color: #f5d58a;
+      border-color: rgba(245,215,145,.4);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .stat-card {
+      background: rgba(26,10,36,.5);
+      border: 1px solid rgba(245,215,145,.2);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-number { font-size: 36px; font-weight: 600; color: #f5d58a; }
+    .stat-label { color: #d9cec7; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; }
+
+    .controls { margin-bottom: 30px; }
+    .btn { background: #c5a25f; color: #171008; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font: 11px Cinzel, serif; letter-spacing: .1em; margin-right: 10px; }
+    .btn:hover { background: #d4b571; }
+
+    table { width: 100%; border-collapse: collapse; background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.15); border-radius: 8px; overflow: hidden; }
+    th { background: rgba(26,10,36,.7); padding: 15px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: #f5d58a; border-bottom: 1px solid rgba(245,215,145,.15); }
+    td { padding: 12px 15px; border-bottom: 1px solid rgba(245,215,145,.08); color: #f4d9ba; font-size: 13px; }
+    tr:hover { background: rgba(255,215,140,.05); }
+
+    .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .status.confirmed { background: rgba(144,238,144,.2); color: #90ee90; }
+    .status.declined { background: rgba(200,100,100,.2); color: #ff9999; }
+    .status.pending { background: rgba(255,215,140,.15); color: #ffd78c; }
+
+    .role-badge { display: inline-block; background: rgba(245,215,145,.15); padding: 3px 8px; border-radius: 3px; font-size: 10px; margin-right: 5px; color: #f1d99e; }
+
+    .filter-group { margin-bottom: 20px; }
+    .filter-group label { color: #d9cec7; margin-right: 15px; font-size: 13px; }
+    .filter-group input[type="text"] { background: rgba(0,0,0,.3); border: 1px solid rgba(245,215,145,.2); color: #f8e3b5; padding: 8px 12px; border-radius: 5px; }
+
+    .seating-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .table-block { background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.15); border-radius: 8px; padding: 15px; }
+    .table-block h4 { color: #f5d58a; margin: 0 0 12px; font-size: 14px; }
+    .seats-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .seat-box { width: 40px; height: 40px; background: rgba(100,100,100,.2); border: 1px solid rgba(245,215,145,.15); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+    .seat-box input { width: 100%; height: 100%; border: none; background: transparent; color: #f4d9ba; text-align: center; font-size: 10px; }
+    .seat-box.confirmed { background: rgba(144,238,144,.15); border-color: rgba(144,238,144,.3); }
+    .seat-box.assigned { background: rgba(255,215,140,.1); border-color: rgba(255,215,140,.2); }
+
+    .empty { text-align: center; padding: 40px; color: #999; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Erich Enchants Organizer Dashboard</h1>
+    <p class="subtitle">November 7, 2026 • Complete event management</p>
+
+    <div class="dashboard-nav">
+      <button class="nav-btn active" onclick="switchTab('rsvp')">RSVP Tracker</button>
+      <button class="nav-btn" onclick="switchTab('seating')">Seating Chart</button>
+      <button class="nav-btn" onclick="switchTab('editor')">Seat Editor</button>
+    </div>
+
+    <!-- RSVP Tracker Tab -->
+    <div id="rsvp" class="tab-content active">
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="totalGuests">74</div>
+          <div class="stat-label">Total Guests</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="confirmCount">0</div>
+          <div class="stat-label">Confirmed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="declineCount">0</div>
+          <div class="stat-label">Declined</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="pendingCount">74</div>
+          <div class="stat-label">Awaiting Response</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" onclick="exportData()">Export CSV</button>
+        <button class="btn" onclick="location.reload()">Refresh Data</button>
+      </div>
+
+      <div class="filter-group">
+        <input type="text" id="searchInput" placeholder="Search by name..." onkeyup="filterTable()">
+        <label><input type="radio" name="filterStatus" value="all" checked onchange="filterTable()"> All</label>
+        <label><input type="radio" name="filterStatus" value="confirmed" onchange="filterTable()"> Confirmed</label>
+        <label><input type="radio" name="filterStatus" value="declined" onchange="filterTable()"> Declined</label>
+        <label><input type="radio" name="filterStatus" value="pending" onchange="filterTable()"> Pending</label>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Table</th>
+            <th>Status</th>
+            <th>Role(s)</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="5" class="empty">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Seating Blueprint Tab -->
+    <div id="seating" class="tab-content">
+      <div id="seatingBlueprint" class="seating-grid"></div>
+    </div>
+
+    <!-- Seat Editor Tab -->
+    <div id="editor" class="tab-content">
+      <div id="seatingGrid" class="seating-grid"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    let allRsvps = [];
+
+    function switchTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      // Render appropriate content
+      if (tabName === 'rsvp') {
+        loadRsvps();
+      } else if (tabName === 'seating') {
+        renderTableList('seatingBlueprint');
+      } else if (tabName === 'editor') {
+        renderSeatingGrid();
+      }
+    }
+
+    function loadRsvps() {
+      const rsvps = JSON.parse(localStorage.getItem('erich_rsvps') || '[]');
+      const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+
+      allRsvps = rsvps.map(rsvp => {
+        const seatData = seating.find(s => s.guestName.toLowerCase() === rsvp.guestName.toLowerCase());
+        const roles = findRoles(rsvp.guestName);
+
+        return {
+          name: rsvp.guestName,
+          status: rsvp.attendance === 'yes' ? 'confirmed' : 'declined',
+          table: seatData ? seatData.tableNum : '-',
+          roles: roles,
+          message: rsvp.message || '',
+          submittedAt: rsvp.submittedAt
+        };
+      });
+
+      seating.forEach(seat => {
+        if (seat.guestName && !allRsvps.find(r => r.name.toLowerCase() === seat.guestName.toLowerCase())) {
+          allRsvps.push({
+            name: seat.guestName,
+            status: 'pending',
+            table: seat.tableNum,
+            roles: findRoles(seat.guestName),
+            message: '',
+            submittedAt: null
+          });
+        }
+      });
+
+      updateStats();
+      renderTable(allRsvps);
+    }
+
+    function updateStats() {
+      const confirmed = allRsvps.filter(r => r.status === 'confirmed').length;
+      const declined = allRsvps.filter(r => r.status === 'declined').length;
+      const pending = allRsvps.filter(r => r.status === 'pending').length;
+
+      document.getElementById('confirmCount').textContent = confirmed;
+      document.getElementById('declineCount').textContent = declined;
+      document.getElementById('pendingCount').textContent = pending;
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('tableBody');
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty">No RSVPs yet</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map(rsvp => `
+        <tr data-status="${rsvp.status}">
+          <td>${rsvp.name}</td>
+          <td><strong>Table ${rsvp.table}</strong></td>
+          <td>
+            <span class="status ${rsvp.status}">
+              ${rsvp.status.charAt(0).toUpperCase() + rsvp.status.slice(1)}
+            </span>
+          </td>
+          <td>
+            ${rsvp.roles.map(r => `<span class="role-badge">${r.category}</span>`).join('')}
+          </td>
+          <td>${rsvp.message ? rsvp.message.substring(0, 50) + (rsvp.message.length > 50 ? '...' : '') : '-'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function filterTable() {
+      const searchText = document.getElementById('searchInput').value.toLowerCase();
+      const status = document.querySelector('input[name="filterStatus"]:checked').value;
+
+      let filtered = allRsvps;
+
+      if (searchText) {
+        filtered = filtered.filter(r => r.name.toLowerCase().includes(searchText));
+      }
+
+      if (status !== 'all') {
+        filtered = filtered.filter(r => r.status === status);
+      }
+
+      renderTable(filtered);
+    }
+
+    function renderTableList(containerId) {
+      const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.innerHTML = '';
+
+      for (let t = 1; t <= 12; t++) {
+        const tableSeats = seating.filter(x => x.tableNum === t);
+        const confirmedNames = tableSeats.filter(x => x.confirmed && x.guestName).map(x => x.guestName);
+        const assignedNames = tableSeats.filter(x => x.guestName && !x.confirmed).map(x => x.guestName);
+        const vacantCount = tableSeats.filter(x => !x.guestName).length;
+        const totalGuests = confirmedNames.length + assignedNames.length;
+
+        const tableCard = document.createElement('div');
+        tableCard.className = 'table-block';
+
+        const header = document.createElement('h4');
+        header.textContent = `Table ${t}`;
+        tableCard.appendChild(header);
+
+        const namesList = document.createElement('div');
+        const allNames = [...confirmedNames, ...assignedNames];
+
+        if (allNames.length > 0) {
+          allNames.forEach(name => {
+            const nameEl = document.createElement('div');
+            nameEl.style.cssText = 'color: #f4d9ba; font-size: 12px; line-height: 1.6; padding: 4px 0;';
+            nameEl.textContent = name;
+            namesList.appendChild(nameEl);
+          });
+        } else {
+          const empty = document.createElement('div');
+          empty.style.cssText = 'color: rgba(255,248,237,.4); font-size: 12px; font-style: italic;';
+          empty.textContent = 'No guests yet';
+          namesList.appendChild(empty);
+        }
+
+        if (vacantCount > 0 && totalGuests > 0) {
+          const vacant = document.createElement('div');
+          vacant.style.cssText = 'color: rgba(255,248,237,.5); font-size: 11px; margin-top: 8px; font-style: italic; border-top: 1px solid rgba(245,215,145,.1); padding-top: 8px;';
+          vacant.textContent = `+${vacantCount} vacant`;
+          namesList.appendChild(vacant);
+        }
+
+        tableCard.appendChild(namesList);
+        container.appendChild(tableCard);
+      }
+    }
+
+    function renderSeatingGrid() {
+      const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+      const grid = document.getElementById('seatingGrid');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+
+      for (let t = 1; t <= 12; t++) {
+        const tableDiv = document.createElement('div');
+        tableDiv.className = 'table-block';
+        tableDiv.innerHTML = `<h4>Table ${t}</h4>`;
+
+        const seatsDiv = document.createElement('div');
+        seatsDiv.className = 'seats-row';
+
+        for (let s = 1; s <= 8; s++) {
+          const seat = seating.find(x => x.tableNum === t && x.seatNum === s);
+          const seatDiv = document.createElement('div');
+          seatDiv.className = 'seat-box';
+          if (seat && seat.guestName) {
+            seatDiv.classList.add(seat.confirmed ? 'confirmed' : 'assigned');
+            seatDiv.title = seat.guestName;
+          }
+          seatDiv.innerHTML = `<input type="text" placeholder="S${s}" value="${seat?.guestName || ''}" data-table="${t}" data-seat="${s}" />`;
+          seatsDiv.appendChild(seatDiv);
+        }
+
+        tableDiv.appendChild(seatsDiv);
+        grid.appendChild(tableDiv);
+      }
+
+      // Save on change
+      document.addEventListener('change', (e) => {
+        if (e.target.tagName === 'INPUT' && e.target.hasAttribute('data-table')) {
+          const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+          const t = parseInt(e.target.getAttribute('data-table'));
+          const s = parseInt(e.target.getAttribute('data-seat'));
+          const seat = seating.find(x => x.tableNum === t && x.seatNum === s);
+          if (seat) {
+            seat.guestName = e.target.value;
+            localStorage.setItem('erich_seating', JSON.stringify(seating));
+          }
+        }
+      });
+    }
+
+    function exportData() {
+      let csv = 'Name,Table,Status,Roles,Message\n';
+
+      allRsvps.forEach(rsvp => {
+        const roles = rsvp.roles.map(r => r.category).join('; ');
+        const message = rsvp.message.replace(/"/g, '""');
+        csv += `"${rsvp.name}","Table ${rsvp.table}","${rsvp.status}","${roles}","${message}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'erich_rsvps.csv';
+      a.click();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadRsvps);
+    setInterval(loadRsvps, 10000);
+  </script>
+</body>
+</html>
