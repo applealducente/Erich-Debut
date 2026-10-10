@@ -447,6 +447,9 @@ function setupDashboard() {
         renderTableList('seatingBlueprint');
       } else if (tabName === 'editor') {
         renderSeatingGrid();
+      } else if (tabName === 'tracker') {
+        // Tracker tab opens admin.html in new window
+        window.open('admin.html', 'rsvp_tracker', 'width=1400,height=800');
       }
     });
   });
