@@ -2,16 +2,13 @@
 
 // Initialize seating chart (12 tables, 8 seats each)
 function initSeating() {
-  const stored = localStorage.getItem('erich_seating');
-  if (stored) return JSON.parse(stored);
-
   const seating = [];
   for (let t = 1; t <= 12; t++) {
     for (let s = 1; s <= 8; s++) {
       seating.push({
         tableNum: t,
         seatNum: s,
-        guestName: '', // Fill this in during assignment
+        guestName: '', // Will be filled from sheet sync or local data
         confirmed: false,
         confirmedAt: null
       });
@@ -61,12 +58,19 @@ async function syncGuestListFromSheet() {
 
 // Apply guest list to seating
 function applyGuestListToSeating(guestList) {
-  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-
-  // Clear existing guest names
-  seating.forEach(seat => {
-    seat.guestName = '';
-  });
+  // Create fresh seating (don't preserve old cached data)
+  const seating = [];
+  for (let t = 1; t <= 12; t++) {
+    for (let s = 1; s <= 8; s++) {
+      seating.push({
+        tableNum: t,
+        seatNum: s,
+        guestName: '',
+        confirmed: false,
+        confirmedAt: null
+      });
+    }
+  }
 
   // Assign guests from list
   guestList.forEach((guest) => {
