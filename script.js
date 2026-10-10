@@ -176,6 +176,11 @@ function loadGuestList() {
 
 function saveSeating(seating) {
   localStorage.setItem('erich_seating', JSON.stringify(seating));
+
+  // Also save to Firebase for real-time sync
+  if (typeof saveSeatingToFirebase === 'function') {
+    saveSeatingToFirebase(seating);
+  }
 }
 
 function getGuestSeat(guestName) {
@@ -297,6 +302,11 @@ function initRSVP() {
       submittedAt: new Date().toISOString()
     });
     localStorage.setItem("erich_rsvps", JSON.stringify(all));
+
+    // Also save to Firebase for real-time sync
+    if (typeof saveRsvpToFirebase === 'function') {
+      saveRsvpToFirebase(name, att ? 'yes' : 'no', message);
+    }
 
     // Show confirmation + seat
     confirmation.hidden = false;
