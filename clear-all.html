@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Clear Cache</title><style>body{background:#09100b;color:#f8e3b5;padding:40px;font-family:Arial;text-align:center}</style></head>
+<body>
+<h1>Clearing cache...</h1>
+<p id="msg">Removing old data from browser...</p>
+<script>
+localStorage.removeItem('erich_seating');
+localStorage.removeItem('erich_rsvps');
+sessionStorage.clear();
+document.getElementById('msg').innerHTML = '✓ Cache cleared! Redirecting to invitation...';
+setTimeout(()=>location.href='/',1500);
+</script>
+</body>
+</html>
