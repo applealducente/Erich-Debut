@@ -770,7 +770,9 @@ a{color:inherit}
 .seat-num {font-size:14px;color:#f5d58a;margin:0 0 24px}
 .seat-num strong {font-size:24px;display:block;color:#fff2e4}
 .seat-msg {color:#f4d9ba;font-size:14px;margin:0}
-.not-on-list {background:rgba(200,100,100,.2);border:1px solid rgba(200,100,100,.4);padding:20px;border-radius:8px;color:#ffb3b3;font-size:14px}
+.not-on-list {margin-top:16px;background:rgba(212,175,110,.12);border:1px solid rgba(212,175,110,.4);padding:20px;border-radius:8px;color:#f1e3c8;font-size:14px;line-height:1.6}
+.not-on-list p{margin:0 0 10px}
+.not-on-list .not-on-list-link{margin-top:4px;min-height:44px;padding:10px 20px;border-radius:999px;border:1px solid rgba(212,175,110,.6);background:transparent;color:#f6dfa6;font:inherit;letter-spacing:.06em;cursor:pointer}
 
 /* Organizer Dashboard */
 .seating-dashboard {position:fixed;bottom:20px;right:20px;width:90vw;max-width:1200px;max-height:70vh;background:rgba(20,8,30,.95);border:1px solid rgba(245,215,145,.4);border-radius:12px;padding:20px;overflow-y:auto;z-index:1000;backdrop-filter:blur(8px)}

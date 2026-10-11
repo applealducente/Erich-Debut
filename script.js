@@ -135,7 +135,13 @@ function initRSVP() {
 
     const guest = Guests.findGuest(GUEST_LIST, name);
     if (!guest) {
-      showNotice(`<div class="not-on-list">We don't have a seat assigned for <strong>${escapeHtml(name)}</strong>. Please double-check your name or contact Erich directly.</div>`);
+      showNotice(`<div class="not-on-list"><p>We couldn't find <strong>${escapeHtml(name)}</strong> just yet. Your name may be written a little differently on our list.</p><p>Kindly check the guest list and type your name exactly as it appears there. If you still can't find it, please reach out to Erich and we'll gladly sort it out.</p><button type="button" class="not-on-list-link" id="viewGuestListLink">View the guest list</button></div>`);
+      const link = document.getElementById("viewGuestListLink");
+      if (link) link.addEventListener("click", () => {
+        closeModal();
+        const target = document.getElementById("tableList");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
       return;
     }
 
