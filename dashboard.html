@@ -200,12 +200,8 @@
     }
 
     function loadRsvps() {
-      // Fetch from Firebase, not localStorage cache
-      const db = firebase.database();
-      db.ref('rsvps').once('value', (snapshot) => {
-        const firebaseRsvps = snapshot.val() || {};
-        const rsvps = Object.values(firebaseRsvps);
-        const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+      const rsvps = JSON.parse(localStorage.getItem('erich_rsvps') || '[]');
+      const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
 
       allRsvps = rsvps.map(rsvp => {
         const seatData = seating.find(s => s.guestName.toLowerCase() === rsvp.guestName.toLowerCase());
@@ -221,22 +217,21 @@
         };
       });
 
-        seating.forEach(seat => {
-          if (seat.guestName && !allRsvps.find(r => r.name.toLowerCase() === seat.guestName.toLowerCase())) {
-            allRsvps.push({
-              name: seat.guestName,
-              status: 'pending',
-              table: seat.tableNum,
-              roles: findRoles(seat.guestName),
-              message: '',
-              submittedAt: null
-            });
-          }
-        });
-
-        updateStats();
-        renderTable(allRsvps);
+      seating.forEach(seat => {
+        if (seat.guestName && !allRsvps.find(r => r.name.toLowerCase() === seat.guestName.toLowerCase())) {
+          allRsvps.push({
+            name: seat.guestName,
+            status: 'pending',
+            table: seat.tableNum,
+            roles: findRoles(seat.guestName),
+            message: '',
+            submittedAt: null
+          });
+        }
       });
+
+      updateStats();
+      renderTable(allRsvps);
     }
 
     function updateStats() {
