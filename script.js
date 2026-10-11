@@ -552,22 +552,19 @@ function setupOrganizerAccess() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async () => {
   setupOpening();
+  initSeating(); // Always reinitialize to fresh state
 
-  // Always ensure seating structure exists, but don't overwrite if already has guests
-  let existingSeating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-  if (existingSeating.length === 0) {
-    initSeating();
-  }
+  // Always load guest list first (Google Sheet as backup)
+  loadGuestList();
 
-  // Try to sync from Google Sheet, fallback to local data
-  const synced = await syncGuestListFromSheet();
-  if (!synced) {
-    loadGuestList();
-  }
+  // Try to sync fresh from Google Sheet to update if changed
+  await syncGuestListFromSheet();
 
   initRSVP();
   setupDashboard();
   setupOrganizerAccess();
   setupScrollReveals();
-  renderTableList('guestTableList');
+
+  // Render table list after all data is loaded
+  setTimeout(() => renderTableList('guestTableList'), 100);
 });
