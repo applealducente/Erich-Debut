@@ -1,9 +1,9 @@
 /* ===== SEATING SYSTEM ===== */
 
-// Initialize seating chart (12 tables, 8 seats each)
+// Initialize seating chart (13 tables, 8 seats each)
 function initSeating() {
   const seating = [];
-  for (let t = 1; t <= 12; t++) {
+  for (let t = 1; t <= 13; t++) {
     for (let s = 1; s <= 8; s++) {
       seating.push({
         tableNum: t,
@@ -60,7 +60,7 @@ async function syncGuestListFromSheet() {
 function applyGuestListToSeating(guestList) {
   // Create fresh seating (don't preserve old cached data)
   const seating = [];
-  for (let t = 1; t <= 12; t++) {
+  for (let t = 1; t <= 13; t++) {
     for (let s = 1; s <= 8; s++) {
       seating.push({
         tableNum: t,
@@ -310,7 +310,7 @@ function renderTableList(containerId = 'guestTableList') {
 
   container.innerHTML = '';
 
-  for (let t = 1; t <= 12; t++) {
+  for (let t = 1; t <= 13; t++) {
     const tableSeats = seating.filter(x => x.tableNum === t);
     const confirmedNames = tableSeats.filter(x => x.confirmed && x.guestName).map(x => x.guestName);
     const assignedNames = tableSeats.filter(x => x.guestName && !x.confirmed).map(x => x.guestName);
