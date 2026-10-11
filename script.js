@@ -101,16 +101,7 @@ function loadGuestList() {
     {name: "Jojo Anonas", table: 13},{name: "James Lumio", table: 13},{name: "Maricar Rarama", table: 13},{name: "Jaycel Dacanay", table: 13},{name: "Mhane Rivero", table: 13},{name: "Dan Malumbay", table: 13}
   ];
 
-  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-
-  guestList.forEach((guest, idx) => {
-    const seat = seating.find(s => s.tableNum === guest.table && !s.guestName);
-    if (seat) {
-      seat.guestName = guest.name;
-    }
-  });
-
-  localStorage.setItem('erich_seating', JSON.stringify(seating));
+  applyGuestListToSeating(guestList);
 }
 
 function saveSeating(seating) {
