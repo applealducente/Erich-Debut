@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600&display=swap" rel="stylesheet">
   <style>
+    .sheet-sync-note{color:#d9cec7;font-size:13px;margin:0 0 10px}
+    .btn-sync{background:#c4a35f;color:#1a1208;border-color:#c4a35f}
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -169,7 +171,9 @@
         </div>
       </div>
 
+      <p class="sheet-sync-note" id="sheetSyncNote">Guest list and the 18's are read from the Google Sheet.</p>
       <div class="controls">
+        <button class="btn btn-sync" id="syncSheetBtn" type="button">Sync with Google Sheet</button>
         <button class="btn" id="exportBtn" type="button">Export CSV</button>
         <button class="btn btn-danger" id="clearConfirmedBtn" type="button">Clear Confirmed RSVPs</button>
         <button class="btn btn-danger" id="clearAllBtn" type="button">Clear All RSVPs</button>
@@ -354,12 +358,22 @@
         : 'The guest list could not be loaded. Check that the sheet is shared as "Anyone with the link can view".';
     }
 
+    let rolesSource = 'none';
     async function loadGuestList() {
-      const result = await Guests.loadGuests();
+      const [result, rolesResult] = await Promise.all([Guests.loadGuests(), Guests.loadRoles()]);
       guests = result.guests;
       guestSource = result.source;
       guestLoadedAt = new Date();
+      rolesSource = rolesResult.source;
+      if (rolesResult.roles) applyRoles(rolesResult.roles);
       refresh();
+      const note = $('sheetSyncNote');
+      if (note) {
+        const rolesOk = rolesSource !== 'none';
+        note.textContent = guests.length
+          ? `Synced with the Google Sheet at ${guestLoadedAt.toLocaleTimeString()}: ${guests.length} guests` + (rolesOk ? ' and the 18\'s lists.' : '. The 18\'s tab could not be read, so the built-in lists are showing.')
+          : 'Could not sync. Check that the sheet is shared as "Anyone with the link can view".';
+      }
     }
 
     // ----- RSVP deletion (writes to Firebase, so every organizer sees it) -----
@@ -443,6 +457,11 @@
     $('clearConfirmedBtn').addEventListener('click', clearConfirmed);
     $('clearAllBtn').addEventListener('click', clearAll);
     $('reloadGuestsBtn').addEventListener('click', loadGuestList);
+    $('syncSheetBtn').addEventListener('click', async () => {
+      const btn = $('syncSheetBtn');
+      btn.disabled = true; btn.textContent = 'Syncing...';
+      try { await loadGuestList(); } finally { btn.disabled = false; btn.textContent = 'Sync with Google Sheet'; }
+    });
 
     document.addEventListener('DOMContentLoaded', () => {
       $('sheetLink').href = Guests.SHEET_EDIT_URL;

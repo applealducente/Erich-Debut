@@ -2,6 +2,7 @@
  *
  * Sheet columns on the FIRST tab: Number of Guests | Guest Name | Table Number
  * Edit the sheet and the site picks it up on the next page load.
+ * The "18's" tab (Roses, Treasures, Blue Bills, Candles, Cotillion) is read the same way.
  *
  * Load order in the browser:
  *   1. /api/guests  (Vercel function, fetches the sheet server side)
@@ -16,6 +17,11 @@
   const SHEET_GVIZ_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv';
   const SHEET_EDIT_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/edit';
   const CACHE_KEY = 'erich_guest_cache_v2';
+  // The "18's" tab (Roses, Treasures, Blue Bills, Candles, Cotillion)
+  const ROLES_GID = '1937863515';
+  const ROLES_EXPORT_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=' + ROLES_GID;
+  const ROLES_GVIZ_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&gid=' + ROLES_GID;
+  const ROLES_CACHE_KEY = 'erich_roles_cache_v1';
 
   /* ---------- name helpers ---------- */
   function norm(value) {
@@ -88,6 +94,57 @@
     return guests;
   }
 
+
+  /* ---------- the 18's tab ---------- */
+  // Cells look like "13. Alvin Sto. Domingo" or "16. Aislinn Laxamana(online)"; Cotillion cells are "A & B".
+  function cleanRoleCell(cell) {
+    const raw = String(cell || '');
+    const online = /\(\s*online\s*\)/i.test(raw);
+    const name = raw
+      .replace(/\(\s*online\s*\)/ig, '')
+      .replace(/^\s*\d+\s*[.)]\s*/, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return { name, online };
+  }
+
+  // Returns { roses, treasures, blueBills, candles, cotillion: [[a, b]], online: [names] } or null if the tab is unreadable
+  function parseRoles(csvText) {
+    const rows = parseCsv(csvText);
+    const wanted = { roses: /roses/, treasures: /treasures/, blueBills: /blue\s*bills/, candles: /candles/, cotillion: /cot+il+ion/ };
+    let headerRow = -1;
+    const cols = {};
+    for (let r = 0; r < Math.min(rows.length, 3); r++) {
+      const cells = rows[r].map(norm);
+      const found = {};
+      Object.entries(wanted).forEach(([key, re]) => {
+        const i = cells.findIndex(c => re.test(c));
+        if (i !== -1) found[key] = i;
+      });
+      if (Object.keys(found).length >= 4) { headerRow = r; Object.assign(cols, found); break; }
+    }
+    if (headerRow === -1) return null;
+
+    const out = { roses: [], treasures: [], blueBills: [], candles: [], cotillion: [], online: [] };
+    for (let r = headerRow + 1; r < rows.length; r++) {
+      ['roses', 'treasures', 'blueBills', 'candles'].forEach(key => {
+        if (cols[key] === undefined) return;
+        const { name, online } = cleanRoleCell(rows[r][cols[key]]);
+        if (!name) return;
+        out[key].push(name);
+        if (online) out.online.push(name);
+      });
+      if (cols.cotillion !== undefined) {
+        const cell = String(rows[r][cols.cotillion] || '');
+        const pair = cell.split('&').map(p => p.replace(/\s+/g, ' ').trim()).filter(Boolean);
+        if (pair.length === 2) out.cotillion.push(pair);
+      }
+    }
+    // A half-empty result means we read the wrong tab or a sign-in page
+    if (!out.roses.length || !out.treasures.length || !out.blueBills.length || !out.candles.length) return null;
+    return out;
+  }
+
   function findGuest(guests, typedName) {
     const target = norm(typedName);
     if (!target) return null;
@@ -139,6 +196,42 @@
     return { guests: [], source: 'none' };
   }
 
+
+  async function fetchJsonRoles() {
+    const res = await fetch('/api/roles', { cache: 'no-store' });
+    if (!res.ok) throw new Error('api ' + res.status);
+    const data = await res.json();
+    if (!data || !data.roles || !data.roles.roses) throw new Error('api empty');
+    return data.roles;
+  }
+
+  async function fetchRolesDirect() {
+    const res = await fetch(ROLES_GVIZ_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('sheet ' + res.status);
+    const roles = parseRoles(await res.text());
+    if (!roles) throw new Error('sheet empty');
+    return roles;
+  }
+
+  // Returns { roles, source: 'api' | 'sheet' | 'cache' | 'none' }. roles is null when nothing could be read,
+  // and the page keeps the lists that are built into it.
+  async function loadRoles() {
+    for (const [source, fn] of [['api', fetchJsonRoles], ['sheet', fetchRolesDirect]]) {
+      try {
+        const roles = await fn();
+        try { localStorage.setItem(ROLES_CACHE_KEY, JSON.stringify({ roles, savedAt: new Date().toISOString() })); } catch (err) { /* ignore */ }
+        return { roles, source };
+      } catch (err) {
+        console.warn('18s source failed:', source, err.message);
+      }
+    }
+    try {
+      const saved = JSON.parse(localStorage.getItem(ROLES_CACHE_KEY) || 'null');
+      if (saved && saved.roles && saved.roles.roses) return { roles: saved.roles, source: 'cache' };
+    } catch (err) { /* ignore */ }
+    return { roles: null, source: 'none' };
+  }
+
   function groupByTable(guests) {
     const tables = new Map();
     guests.forEach(g => {
@@ -149,8 +242,8 @@
   }
 
   const api = {
-    SHEET_EDIT_URL, SHEET_EXPORT_URL,
-    norm, keyFor, parseCsv, parseGuests, findGuest, loadGuests, groupByTable
+    SHEET_EDIT_URL, SHEET_EXPORT_URL, ROLES_EXPORT_URL,
+    norm, keyFor, parseCsv, parseGuests, parseRoles, findGuest, loadGuests, loadRoles, groupByTable
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = api;

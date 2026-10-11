@@ -5,6 +5,15 @@ blueBills:["Choi Paraiso","Christopher Diana","Mario Vibar","Jhonny Tumbocon","M
 candles:["Precious Hillary Siochi","Velinda Guadalupe","Lorraine Villaflores","Daniella Shane Molina","Leighna Mariano","Nikka Rein Bernil","Timmy Liz Ching","Sittie Ainah Sultan","Mary Ann Restua","Jelian Ventura","Hashlee Marie Boniao","Babylynne Gomez","Paola Mancilla","Jeamy Shane Nebrida","Jubilee Ann Mancilla","Aislinn Laxamana","Hope Sagana","Ritshelle Sem Dela Cruz"],
 cotillion:[["John Raven Cruz","Erich Jacelle Mancilla"],["John Frics Isaac","Precious Hillary Siochi"],["Rom David Bleza","Velinda Guadalupe"],["Randolf Antonio","Timmy Liz Ching"],["Dan Allen Tolentino","Nikka Rein Bernil"],["Idhel Catabas","Leighna Mariano"]]
 };
+// Names marked "(online)" on the sheet. Filled in by applyRoles().
+let ONLINE_NAMES=["Aislinn Laxamana","Hope Sagana","Ritshelle Sem Dela Cruz"];
+// Replace the built-in lists with the ones read from the sheet's 18's tab
+function applyRoles(r){
+ if(!r)return;
+ ["roses","treasures","blueBills","candles"].forEach(k=>{if(Array.isArray(r[k])&&r[k].length)ERICH_18[k]=r[k]});
+ if(Array.isArray(r.cotillion)&&r.cotillion.length)ERICH_18.cotillion=r.cotillion;
+ if(Array.isArray(r.online))ONLINE_NAMES=r.online;
+}
 const ROLE_LABELS={roses:"18 Roses",candles:"18 Candles",treasures:"18 Treasures",blueBills:"18 Blue Bills"};
 const NAME_ALIASES={"marcos llenado":"marcus llenado"};
 function normalizeName(v){const n=v.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();return NAME_ALIASES[n]||n}

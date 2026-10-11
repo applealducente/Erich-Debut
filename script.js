@@ -342,6 +342,23 @@ function setupOrganizerAccess() {
 }
 
 // Initialize on page load
+// Rebuild the "Her Eighteen" lists on the page from ERICH_18 (kept in sync with the sheet's 18's tab)
+function renderRoleLists() {
+  if (typeof ERICH_18 === "undefined") return;
+  const cards = { roses: "roses", candles: "candles", treasures: "treasures", blueBills: "blue-bills" };
+  Object.entries(cards).forEach(([key, cls]) => {
+    const box = document.querySelector(`.role-bloom-card.${cls} .name-list`);
+    if (!box || !ERICH_18[key].length) return;
+    box.innerHTML = ERICH_18[key].map((n, i) =>
+      `<span>${i + 1}. ${escapeHtml(n)}${ONLINE_NAMES.includes(n) ? " (online)" : ""}</span>`).join("");
+  });
+  const pairs = document.querySelector(".cotillion-pairs");
+  if (pairs && ERICH_18.cotillion.length) {
+    pairs.innerHTML = ERICH_18.cotillion.map((p, i) =>
+      `<div><b>${String(i + 1).padStart(2, "0")}</b><span>${escapeHtml(p[0])}</span><i>&amp;</i><span>${escapeHtml(p[1])}</span></div>`).join("");
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   // Old versions kept guest and RSVP data in this browser. Firebase and the Google Sheet replace it.
   try {
@@ -359,4 +376,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   GUEST_LIST = guests;
   if (source === 'none') console.error('Guest list could not be loaded from any source');
   renderTableList('guestTableList');
+
+  // The 18's lists come from the sheet's 18's tab. If it cannot be read, the lists built into the page stay.
+  const { roles } = await Guests.loadRoles();
+  if (roles) {
+    applyRoles(roles);
+    renderRoleLists();
+  }
 });
