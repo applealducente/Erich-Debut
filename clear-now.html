@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Clear</title><style>body{background:#09100b;color:#f8e3b5;padding:40px;font-family:Arial}</style></head>
+<body>
+<h1>Clearing all data...</h1>
+<p id="msg">Please wait...</p>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+<script>
+const config = {apiKey:"AIzaSyC23EdjuCmwmhR4AQZELE3ojyQEzKUS8KQ",authDomain:"erich-enchants.firebaseapp.com",databaseURL:"https://erich-enchants-default-rtdb.firebaseio.com",projectId:"erich-enchants",storageBucket:"erich-enchants.firebasestorage.app",messagingSenderId:"717900637787",appId:"1:717900637787:web:62aa390acd88d50bd9817e",measurementId:"G-YDPSQ4E2HL"};
+firebase.initializeApp(config);
+firebase.database().ref('rsvps').set(null);
+firebase.database().ref('seating').set(null);
+localStorage.clear();
+document.getElementById('msg').innerHTML = '✓ CLEARED! Redirecting...';
+setTimeout(()=>location.href='/dashboard.html', 1500);
+</script>
+</body>
+</html>
