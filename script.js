@@ -102,6 +102,7 @@ function initRSVP() {
         ${intro || ''}
         <p class="seat-table">Table <strong>${tableNum}</strong></p>
         ${rolesHtml(guestName)}
+        <p class="seat-screenshot">Feel free to take a screenshot of this for your reference, so you won&rsquo;t need to look for your table on the day.</p>
         <p class="seat-msg">We look forward to celebrating with you in the garden.</p>
       </div>
     `;

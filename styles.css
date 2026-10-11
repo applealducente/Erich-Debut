@@ -905,3 +905,4 @@ a{color:inherit}
 .seat-roles ul{list-style:none;margin:0;padding:0}
 .seat-roles li{color:#fff2e4;font-size:15px;line-height:1.7}
 .seat-roles li strong{color:#f5d58a;font-weight:500}
+.seat-screenshot{margin:0 auto 6px;max-width:340px;color:#f1d99e;font-size:13px;line-height:1.7;font-style:italic}
