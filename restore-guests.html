@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Restore</title><style>body{background:#09100b;color:#f8e3b5;padding:40px;font-family:Arial}</style></head>
+<body>
+<h1>Restoring guest list...</h1>
+<p id="msg">Please wait...</p>
+<script src="data.js"></script>
+<script>
+// Initialize seating with 12 tables, 8 seats each
+const seating = [];
+for (let t = 1; t <= 12; t++) {
+  for (let s = 1; s <= 8; s++) {
+    seating.push({
+      tableNum: t,
+      seatNum: s,
+      guestName: '',
+      confirmed: false
+    });
+  }
+}
+
+// Assign guests from ERICH_18 to seating
+const allGuests = [
+  ...ERICH_18.roses,
+  ...ERICH_18.candles,
+  ...ERICH_18.treasures,
+  ...ERICH_18.blueBills
+];
+
+for (let i = 0; i < allGuests.length && i < seating.length; i++) {
+  seating[i].guestName = allGuests[i];
+}
+
+localStorage.setItem('erich_seating', JSON.stringify(seating));
+document.getElementById('msg').innerHTML = '✓ Guest list restored! Redirecting...';
+setTimeout(()=>location.href='/dashboard.html', 1500);
+</script>
+</body>
+</html>
