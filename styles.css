@@ -898,3 +898,10 @@ a{color:inherit}
   #invitation .music-toggle span{font-size:11px}
   small{font-size:11px!important}
 }
+
+/* Roles shown in the seating pop-up */
+.seat-roles{margin:22px auto 18px;padding:16px 14px;max-width:340px;border:1px solid rgba(212,175,110,.45);border-radius:10px;background:rgba(212,175,110,.08)}
+.seat-roles-title{margin:0 0 10px;color:#f6dfa6;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.seat-roles ul{list-style:none;margin:0;padding:0}
+.seat-roles li{color:#fff2e4;font-size:15px;line-height:1.7}
+.seat-roles li strong{color:#f5d58a;font-weight:500}

@@ -78,6 +78,22 @@ function initRSVP() {
     document.body.classList.remove("modal-open");
   }
 
+  // "Part of the 18s": roles from data.js (18 Roses, Candles, Treasures, Blue Bills, Cotillion)
+  function rolesHtml(guestName) {
+    if (typeof findRoles !== "function") return "";
+    const roles = findRoles(guestName);
+    if (!roles.length) return "";
+    const lines = roles.map(r => {
+      if (r.category === "Cotillion Dancer") {
+        const pair = ERICH_18.cotillion[r.number - 1] || [];
+        const partner = pair.find(n => normalizeName(n) !== normalizeName(guestName));
+        return `<li><strong>Cotillion Dancer</strong>${partner ? ` &middot; paired with ${escapeHtml(partner)}` : ""}</li>`;
+      }
+      return `<li><strong>${escapeHtml(r.category)}</strong> &middot; No. ${r.number} of 18</li>`;
+    }).join("");
+    return `<div class="seat-roles"><p class="seat-roles-title">&#10022; You are part of Erich&rsquo;s Eighteen &#10022;</p><ul>${lines}</ul></div>`;
+  }
+
   function openSeatingModal(guestName, tableNum, intro) {
     const title = document.getElementById("seatingTitle");
     title.textContent = `${guestName}, Your Table`;
@@ -85,6 +101,7 @@ function initRSVP() {
       <div class="seat-info">
         ${intro || ''}
         <p class="seat-table">Table <strong>${tableNum}</strong></p>
+        ${rolesHtml(guestName)}
         <p class="seat-msg">We look forward to celebrating with you in the garden.</p>
       </div>
     `;
