@@ -104,6 +104,8 @@ function initRSVP() {
   function showNotice(html) {
     confirmation.hidden = false;
     confirmation.innerHTML = html;
+    // On a phone the keyboard can hide the message, so bring it into view
+    confirmation.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
   // Event listeners

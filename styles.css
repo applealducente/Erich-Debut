@@ -859,3 +859,43 @@ a{color:inherit}
   #opening .opening-hero-img{width:100%;height:100%;object-fit:fill}
   #opening .envelope-hotspot{left:50.2%;top:65.2%;width:20%;height:19.5%}
 }
+
+/* ===== Phone polish ===== */
+
+/* The music button was turned into a normal block by ".invitation>*" (line 85), so it scrolled
+   away with the page and hung off the left edge. Pin it to the corner again. */
+#invitation .music-toggle{
+  position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;left:auto;z-index:60;
+  min-height:44px;padding:0 16px;display:inline-flex;align-items:center;
+}
+
+/* 16px form text stops iPhones from zooming the page in when a field is tapped,
+   which looks like the page getting cropped. The message box also uses the site font now. */
+.modal-card input,.modal-card select,.modal-card textarea{
+  font-size:16px!important;font-family:"Playfair Display",serif;
+}
+
+@media (max-width:600px){
+  /* Pop-ups follow the visible screen height, which shifts with the browser toolbars and keyboard */
+  .modal-card{max-height:calc(100dvh - 24px);margin:12px auto;padding:30px 22px}
+  .modal-close{width:44px;height:44px;right:4px;top:4px}
+  .seating-modal .modal-card{padding:44px 24px}
+
+  /* Easier tapping and reading */
+  .story-button,.rsvp-button,.rsvp-submit{min-height:48px;padding:15px 24px;font-size:12px}
+  small{font-size:11px}
+  a[href*="maps.google"]{display:inline-block;padding:12px 0;line-height:1.5}
+  a[download]{padding:16px 30px!important}
+
+  /* Guest tables: one column so names stay on one line */
+  .guest-table-list{grid-template-columns:1fr;gap:14px}
+  .table-card{padding:16px 18px}
+  .guest-item{font-size:14px;padding:9px 0}
+
+  /* The organizer button is for you, not guests. Keep it small and faint so it never covers content. */
+  .organizer-btn{width:34px;height:34px;font-size:15px;opacity:.35;bottom:calc(12px + env(safe-area-inset-bottom,0px));right:12px}
+}
+@media (max-width:600px){
+  #invitation .music-toggle span{font-size:11px}
+  small{font-size:11px!important}
+}

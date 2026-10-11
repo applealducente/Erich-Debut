@@ -107,6 +107,33 @@
 
     .empty { text-align: center; padding: 40px; color: #999; }
     .empty.error { color: #ff9999; }
+    /* ===== Phone layout (organizers check RSVPs from their phones) ===== */
+    @media (max-width: 700px) {
+      body { padding: 14px; }
+      h1 { font-size: 24px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+      .stat-card { padding: 12px; }
+      .stat-number { font-size: 28px; }
+      .stat-label { font-size: 11px; margin-top: 4px; }
+      .nav-btn { flex: 1 1 auto; min-height: 44px; padding: 10px 12px; }
+      .controls { margin-bottom: 20px; }
+      .controls .btn { flex: 1 1 calc(50% - 10px); min-height: 44px; text-align: center; }
+      .filter-group input[type="text"] { width: 100%; margin-bottom: 10px; font-size: 16px; }
+      .filter-group label { display: inline-block; margin: 0 14px 8px 0; padding: 6px 0; }
+
+      table, thead, tbody, tr, td { display: block; width: 100%; }
+      thead { display: none; }
+      table { background: none; border: 0; }
+      tr { background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.15); border-radius: 8px; margin-bottom: 10px; padding: 10px 14px; }
+      td { border: 0; padding: 5px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; text-align: right; }
+      td::before { content: attr(data-label); flex: 0 0 72px; color: #f5d58a; font: 11px Cinzel, serif; letter-spacing: .1em; text-transform: uppercase; text-align: left; }
+      td:first-child { font-size: 16px; font-weight: 600; color: #fff0e4; }
+      td.empty { display: block; text-align: center; }
+      td.empty::before { display: none; }
+      .btn-delete { min-height: 40px; padding: 8px 18px; font-size: 11px; }
+      .sheet-panel { padding: 16px; }
+      .sheet-panel .btn { flex: 1 1 100%; text-align: center; min-height: 44px; line-height: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -294,12 +321,12 @@
           : '-';
         return `
           <tr>
-            <td>${esc(row.name)}</td>
-            <td>${tableCell}</td>
-            <td><span class="status ${row.status}">${row.status.charAt(0).toUpperCase() + row.status.slice(1)}</span></td>
-            <td>${roles}</td>
-            <td>${message}</td>
-            <td>${action}</td>
+            <td data-label="Name">${esc(row.name)}</td>
+            <td data-label="Table">${tableCell}</td>
+            <td data-label="Status"><span class="status ${row.status}">${row.status.charAt(0).toUpperCase() + row.status.slice(1)}</span></td>
+            <td data-label="Role(s)">${roles || '-'}</td>
+            <td data-label="Message">${message}</td>
+            <td data-label="Action">${action}</td>
           </tr>`;
       }).join('');
     }
