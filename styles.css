@@ -931,3 +931,4 @@ a{color:inherit}
 /* Credit line at the bottom of the invitation */
 .site-credit{position:relative;z-index:5;text-align:center;padding:28px 20px calc(36px + env(safe-area-inset-bottom));}
 .site-credit p{margin:0;color:rgba(245,215,145,.55);font-size:12px;letter-spacing:.12em;line-height:1.6}
+.site-credit p+p{margin-top:4px;font-size:11px;color:rgba(245,215,145,.4)}
