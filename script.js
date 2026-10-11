@@ -278,7 +278,7 @@ function renderSeatingGrid() {
 
   grid.innerHTML = '';
 
-  for (let t = 1; t <= 12; t++) {
+  for (let t = 1; t <= 13; t++) {
     const tableDiv = document.createElement('div');
     tableDiv.className = 'table-block';
     tableDiv.innerHTML = `<h4>Table ${t}</h4>`;
