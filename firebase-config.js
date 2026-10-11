@@ -1,4 +1,5 @@
 // Firebase Configuration for Erich Enchants
+// Pages load the "-compat" Firebase scripts, which provide the global `firebase` object.
 const firebaseConfig = {
   apiKey: "AIzaSyC23EdjuCmwmhR4AQZELE3ojyQEzKUS8KQ",
   authDomain: "erich-enchants.firebaseapp.com",
@@ -10,8 +11,10 @@ const firebaseConfig = {
   measurementId: "G-YDPSQ4E2HL"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-console.log('Firebase initialized');
+let erichDb = null;
+try {
+  firebase.initializeApp(firebaseConfig);
+  erichDb = firebase.database();
+} catch (err) {
+  console.error('Firebase failed to start:', err);
+}

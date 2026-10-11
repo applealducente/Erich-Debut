@@ -19,7 +19,12 @@
     }
     .container { max-width: 1400px; margin: 0 auto; }
     h1 { font-size: 32px; margin: 0 0 10px; color: #fff0e4; }
-    .subtitle { color: #d9cec7; margin: 0 0 30px; font-size: 14px; }
+    .subtitle { color: #d9cec7; margin: 0 0 12px; font-size: 14px; }
+
+    .sync-status { font-size: 12px; margin: 0 0 24px; color: #d9cec7; }
+    .sync-status.ok { color: #90ee90; }
+    .sync-status.warn { color: #ffd78c; }
+    .sync-status.error { color: #ff9999; }
 
     .dashboard-nav {
       display: flex;
@@ -27,6 +32,7 @@
       margin-bottom: 30px;
       border-bottom: 1px solid rgba(245,215,145,.15);
       padding-bottom: 15px;
+      flex-wrap: wrap;
     }
     .nav-btn {
       padding: 10px 20px;
@@ -63,10 +69,12 @@
     .stat-number { font-size: 36px; font-weight: 600; color: #f5d58a; }
     .stat-label { color: #d9cec7; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; }
 
-    .controls { margin-bottom: 30px; }
-    .btn { background: #c5a25f; color: #171008; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font: 11px Cinzel, serif; letter-spacing: .1em; margin-right: 10px; }
+    .controls { margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { background: #c5a25f; color: #171008; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font: 11px Cinzel, serif; letter-spacing: .1em; text-decoration: none; display: inline-block; }
     .btn:hover { background: #d4b571; }
-    .btn-delete { background: rgba(255,100,100,.3); color: #ff9999; border: 1px solid rgba(255,100,100,.4); padding: 5px 12px; font-size: 10px; margin: 0; }
+    .btn-danger { background: rgba(255,100,100,.25); color: #ffb3b3; border: 1px solid rgba(255,100,100,.45); }
+    .btn-danger:hover { background: rgba(255,100,100,.45); color: #fff; }
+    .btn-delete { background: rgba(255,100,100,.3); color: #ff9999; border: 1px solid rgba(255,100,100,.4); padding: 5px 12px; font: 10px Cinzel, serif; border-radius: 5px; cursor: pointer; }
     .btn-delete:hover { background: rgba(255,100,100,.5); color: #fff; }
 
     table { width: 100%; border-collapse: collapse; background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.15); border-radius: 8px; overflow: hidden; }
@@ -80,68 +88,72 @@
     .status.pending { background: rgba(255,215,140,.15); color: #ffd78c; }
 
     .role-badge { display: inline-block; background: rgba(245,215,145,.15); padding: 3px 8px; border-radius: 3px; font-size: 10px; margin-right: 5px; color: #f1d99e; }
+    .off-list { color: #ffb3b3; font-size: 12px; }
 
     .filter-group { margin-bottom: 20px; }
     .filter-group label { color: #d9cec7; margin-right: 15px; font-size: 13px; }
     .filter-group input[type="text"] { background: rgba(0,0,0,.3); border: 1px solid rgba(245,215,145,.2); color: #f8e3b5; padding: 8px 12px; border-radius: 5px; }
 
-    .seating-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .seating-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
     .table-block { background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.15); border-radius: 8px; padding: 15px; }
-    .table-block h4 { color: #f5d58a; margin: 0 0 12px; font-size: 14px; }
-    .seats-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .seat-box { width: 40px; height: 40px; background: rgba(100,100,100,.2); border: 1px solid rgba(245,215,145,.15); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
-    .seat-box input { width: 100%; height: 100%; border: none; background: transparent; color: #f4d9ba; text-align: center; font-size: 10px; }
-    .seat-box.confirmed { background: rgba(144,238,144,.15); border-color: rgba(144,238,144,.3); }
-    .seat-box.assigned { background: rgba(255,215,140,.1); border-color: rgba(255,215,140,.2); }
+    .table-block h4 { color: #f5d58a; margin: 0 0 12px; font-size: 14px; display: flex; justify-content: space-between; align-items: baseline; }
+    .table-block h4 small { color: #d9cec7; font-weight: 400; font-size: 11px; }
+    .seat-name { font-size: 12px; line-height: 1.6; padding: 2px 0; color: #f4d9ba; }
+    .seat-name.confirmed { color: #90ee90; }
+    .seat-name.declined { color: #ff9999; text-decoration: line-through; opacity: .7; }
+
+    .sheet-panel { background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.2); border-radius: 10px; padding: 24px; max-width: 720px; line-height: 1.6; }
+    .sheet-panel p { margin: 0 0 14px; color: #f4d9ba; font-size: 14px; }
 
     .empty { text-align: center; padding: 40px; color: #999; }
+    .empty.error { color: #ff9999; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Erich Enchants Organizer Dashboard</h1>
     <p class="subtitle">November 7, 2026 • Complete event management</p>
+    <p class="sync-status" id="syncStatus">Connecting...</p>
 
     <div class="dashboard-nav">
-      <button class="nav-btn active" onclick="switchTab('rsvp')">RSVP Tracker</button>
-      <button class="nav-btn" onclick="switchTab('seating')">Seating Chart</button>
-      <button class="nav-btn" onclick="switchTab('editor')">Seat Editor</button>
+      <button class="nav-btn active" data-tab="rsvp">RSVP Tracker</button>
+      <button class="nav-btn" data-tab="seating">Seating Chart</button>
+      <button class="nav-btn" data-tab="sheet">Guest List (Google Sheet)</button>
     </div>
 
     <!-- RSVP Tracker Tab -->
     <div id="rsvp" class="tab-content active">
       <div class="stats">
         <div class="stat-card">
-          <div class="stat-number" id="totalGuests">74</div>
+          <div class="stat-number" id="totalGuests">-</div>
           <div class="stat-label">Total Guests</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="confirmCount">0</div>
+          <div class="stat-number" id="confirmCount">-</div>
           <div class="stat-label">Confirmed</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="declineCount">0</div>
+          <div class="stat-number" id="declineCount">-</div>
           <div class="stat-label">Declined</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="pendingCount">74</div>
+          <div class="stat-number" id="pendingCount">-</div>
           <div class="stat-label">Awaiting Response</div>
         </div>
       </div>
 
       <div class="controls">
-        <button class="btn" onclick="exportData()">Export CSV</button>
-        <button class="btn" onclick="location.reload()">Refresh Data</button>
-        <button class="btn" onclick="clearAllConfirmedRsvps()">Clear Confirmed RSVPs</button>
-        <button class="btn" onclick="window.location.href='/clear-rsvps.html'">Clear All</button>
+        <button class="btn" id="exportBtn" type="button">Export CSV</button>
+        <button class="btn btn-danger" id="clearConfirmedBtn" type="button">Clear Confirmed RSVPs</button>
+        <button class="btn btn-danger" id="clearAllBtn" type="button">Clear All RSVPs</button>
       </div>
 
       <div class="filter-group">
-        <input type="text" id="searchInput" placeholder="Search by name..." onkeyup="filterTable()">
-        <label><input type="radio" name="filterStatus" value="all" checked onchange="filterTable()"> All</label>
-        <label><input type="radio" name="filterStatus" value="confirmed" onchange="filterTable()"> Confirmed</label>
-        <label><input type="radio" name="filterStatus" value="declined" onchange="filterTable()"> Declined</label>
-        <label><input type="radio" name="filterStatus" value="pending" onchange="filterTable()"> Pending</label>
+        <input type="text" id="searchInput" placeholder="Search by name...">
+        <label><input type="radio" name="filterStatus" value="all" checked> All</label>
+        <label><input type="radio" name="filterStatus" value="confirmed"> Confirmed</label>
+        <label><input type="radio" name="filterStatus" value="declined"> Declined</label>
+        <label><input type="radio" name="filterStatus" value="pending"> Pending</label>
       </div>
 
       <table>
@@ -161,309 +173,282 @@
       </table>
     </div>
 
-    <!-- Seating Blueprint Tab -->
+    <!-- Seating Chart Tab -->
     <div id="seating" class="tab-content">
       <div id="seatingBlueprint" class="seating-grid"></div>
     </div>
 
-    <!-- Seat Editor Tab -->
-    <div id="editor" class="tab-content">
-      <div id="seatingGrid" class="seating-grid"></div>
+    <!-- Guest List Tab -->
+    <div id="sheet" class="tab-content">
+      <div class="sheet-panel">
+        <p>The Google Sheet is the guest list. To add a guest, rename someone, or move them to another table, edit the sheet. The invitation page and this dashboard pick up changes on their next load.</p>
+        <p id="sheetInfo">Loading guest list...</p>
+        <div class="controls">
+          <a class="btn" id="sheetLink" href="#" target="_blank" rel="noopener">Open Google Sheet</a>
+          <button class="btn" id="reloadGuestsBtn" type="button">Reload Guest List</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="guests.js"></script>
   <script src="firebase-config.js"></script>
   <script src="firebase-sync.js"></script>
   <script src="data.js"></script>
   <script>
-    let allRsvps = [];
+    let guests = [];          // from the Google Sheet
+    let guestSource = 'none';
+    let guestLoadedAt = null;
+    let rsvpMap = {};         // from Firebase, updates live
+    let rsvpsLoaded = false;
+    let rsvpError = '';
+    let rows = [];            // one row per guest, plus any RSVP whose name is not on the sheet
 
-    function switchTab(tabName) {
-      // Hide all tabs
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    const $ = id => document.getElementById(id);
 
-      // Show selected tab
-      document.getElementById(tabName).classList.add('active');
-      event.target.classList.add('active');
-
-      // Render appropriate content
-      if (tabName === 'rsvp') {
-        loadRsvps();
-      } else if (tabName === 'seating') {
-        renderTableList('seatingBlueprint');
-      } else if (tabName === 'editor') {
-        renderSeatingGrid();
-      }
+    function esc(value) {
+      return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
     }
 
-    function loadRsvps() {
-      // Always check Firebase first, fallback to localStorage only if Firebase is unavailable
-      const db = firebase.database();
-      db.ref('rsvps').once('value', (snapshot) => {
-        const firebaseData = snapshot.val() || {};
-        const rsvps = Object.values(firebaseData);
-        const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+    function setSync(text, state) {
+      const el = $('syncStatus');
+      el.textContent = text;
+      el.className = 'sync-status ' + (state || '');
+    }
 
-      allRsvps = rsvps.map(rsvp => {
-        const seatData = seating.find(s => s.guestName.toLowerCase() === rsvp.guestName.toLowerCase());
-        const roles = findRoles(rsvp.guestName);
+    function statusOf(rsvp) {
+      if (!rsvp) return 'pending';
+      return rsvp.attendance === 'yes' ? 'confirmed' : 'declined';
+    }
 
-        return {
-          name: rsvp.guestName,
-          status: rsvp.attendance === 'yes' ? 'confirmed' : 'declined',
-          table: seatData ? seatData.tableNum : '-',
-          roles: roles,
-          message: rsvp.message || '',
-          submittedAt: rsvp.submittedAt
-        };
+    function buildRows() {
+      const onList = new Set();
+      rows = guests.map(g => {
+        const key = Guests.keyFor(g.name);
+        onList.add(key);
+        const rsvp = rsvpMap[key] || null;
+        return { key, name: g.name, table: g.table, rsvp, status: statusOf(rsvp), onList: true };
       });
-
-        seating.forEach(seat => {
-          if (seat.guestName && !allRsvps.find(r => r.name.toLowerCase() === seat.guestName.toLowerCase())) {
-            allRsvps.push({
-              name: seat.guestName,
-              status: 'pending',
-              table: seat.tableNum,
-              roles: findRoles(seat.guestName),
-              message: '',
-              submittedAt: null
-            });
-          }
-        });
-
-        updateStats();
-        renderTable(allRsvps);
+      // RSVPs that no longer match a sheet name (test entries, renamed guests) stay visible so they can be deleted
+      Object.entries(rsvpMap).forEach(([key, rsvp]) => {
+        if (!onList.has(key)) {
+          rows.push({ key, name: (rsvp && rsvp.guestName) || key, table: null, rsvp, status: statusOf(rsvp), onList: false });
+        }
       });
+    }
+
+    function refresh() {
+      buildRows();
+      updateStats();
+      applyFilters();
+      renderSeating();
+      renderSheetInfo();
     }
 
     function updateStats() {
-      const confirmed = allRsvps.filter(r => r.status === 'confirmed').length;
-      const declined = allRsvps.filter(r => r.status === 'declined').length;
-      const pending = allRsvps.filter(r => r.status === 'pending').length;
-
-      document.getElementById('confirmCount').textContent = confirmed;
-      document.getElementById('declineCount').textContent = declined;
-      document.getElementById('pendingCount').textContent = pending;
-    }
-
-    function renderTable(data) {
-      const tbody = document.getElementById('tableBody');
-
-      if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="empty">No RSVPs yet</td></tr>';
+      $('totalGuests').textContent = guests.length || '-';
+      if (!rsvpsLoaded) {
+        ['confirmCount', 'declineCount', 'pendingCount'].forEach(id => { $(id).textContent = '-'; });
         return;
       }
-
-      tbody.innerHTML = data.map(rsvp => `
-        <tr data-status="${rsvp.status}">
-          <td>${rsvp.name}</td>
-          <td><strong>Table ${rsvp.table}</strong></td>
-          <td>
-            <span class="status ${rsvp.status}">
-              ${rsvp.status.charAt(0).toUpperCase() + rsvp.status.slice(1)}
-            </span>
-          </td>
-          <td>
-            ${rsvp.roles.map(r => `<span class="role-badge">${r.category}</span>`).join('')}
-          </td>
-          <td>${rsvp.message ? rsvp.message.substring(0, 50) + (rsvp.message.length > 50 ? '...' : '') : '-'}</td>
-          <td><button class="btn-delete" onclick="deleteRsvp('${rsvp.name.replace(/'/g, "\\'")}')">Delete</button></td>
-        </tr>
-      `).join('');
+      $('confirmCount').textContent = rows.filter(r => r.status === 'confirmed').length;
+      $('declineCount').textContent = rows.filter(r => r.status === 'declined').length;
+      $('pendingCount').textContent = rows.filter(r => r.status === 'pending').length;
     }
 
-    function deleteRsvp(guestName) {
-      if (!confirm(`Delete RSVP for ${guestName}?`)) return;
-
-      const db = firebase.database();
-      const sanitizedName = guestName.replace(/[.#$[\]]/g, '');
-
-      // Delete from Firebase
-      db.ref('rsvps/' + sanitizedName).remove().then(() => {
-        console.log('RSVP deleted from Firebase:', guestName);
-
-        // Also delete from localStorage
-        const rsvps = JSON.parse(localStorage.getItem('erich_rsvps') || '[]');
-        const filtered = rsvps.filter(r => r.guestName.toLowerCase() !== guestName.toLowerCase());
-        localStorage.setItem('erich_rsvps', JSON.stringify(filtered));
-
-        // Refresh the table
-        loadRsvps();
-      }).catch(err => {
-        alert('Error deleting RSVP: ' + err.message);
-      });
-    }
-
-    function clearAllConfirmedRsvps() {
-      if (!confirm('Delete ALL confirmed RSVPs? This cannot be undone.')) return;
-
-      const db = firebase.database();
-      const rsvps = JSON.parse(localStorage.getItem('erich_rsvps') || '[]');
-      const confirmed = rsvps.filter(r => r.attendance === 'yes');
-
-      if (confirmed.length === 0) {
-        alert('No confirmed RSVPs to delete.');
-        return;
-      }
-
-      let deleted = 0;
-      confirmed.forEach(rsvp => {
-        const sanitizedName = rsvp.guestName.replace(/[.#$[\]]/g, '');
-        db.ref('rsvps/' + sanitizedName).remove().then(() => {
-          deleted++;
-          if (deleted === confirmed.length) {
-            // All deleted, now update localStorage
-            const remaining = rsvps.filter(r => r.attendance !== 'yes');
-            localStorage.setItem('erich_rsvps', JSON.stringify(remaining));
-            loadRsvps();
-            alert(`Deleted ${confirmed.length} confirmed RSVPs`);
-          }
-        }).catch(err => {
-          console.error('Error deleting:', err);
-        });
-      });
-    }
-
-    function filterTable() {
-      const searchText = document.getElementById('searchInput').value.toLowerCase();
+    function applyFilters() {
+      const searchText = $('searchInput').value.toLowerCase();
       const status = document.querySelector('input[name="filterStatus"]:checked').value;
-
-      let filtered = allRsvps;
-
-      if (searchText) {
-        filtered = filtered.filter(r => r.name.toLowerCase().includes(searchText));
-      }
-
-      if (status !== 'all') {
-        filtered = filtered.filter(r => r.status === status);
-      }
-
+      let filtered = rows;
+      if (searchText) filtered = filtered.filter(r => r.name.toLowerCase().includes(searchText));
+      if (status !== 'all') filtered = filtered.filter(r => r.status === status);
       renderTable(filtered);
     }
 
-    function renderTableList(containerId) {
-      const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-      const container = document.getElementById(containerId);
-      if (!container) return;
+    function renderTable(data) {
+      const tbody = $('tableBody');
 
-      container.innerHTML = '';
+      if (rsvpError) {
+        tbody.innerHTML = `<tr><td colspan="6" class="empty error">${esc(rsvpError)}</td></tr>`;
+        return;
+      }
+      if (!rsvpsLoaded || !guests.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty">Loading...</td></tr>';
+        return;
+      }
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty">No matching guests</td></tr>';
+        return;
+      }
 
-      for (let t = 1; t <= 13; t++) {
-        const tableSeats = seating.filter(x => x.tableNum === t);
-        const confirmedNames = tableSeats.filter(x => x.confirmed && x.guestName).map(x => x.guestName);
-        const assignedNames = tableSeats.filter(x => x.guestName && !x.confirmed).map(x => x.guestName);
-        const vacantCount = tableSeats.filter(x => !x.guestName).length;
-        const totalGuests = confirmedNames.length + assignedNames.length;
+      tbody.innerHTML = data.map(row => {
+        const roles = findRoles(row.name).map(r => `<span class="role-badge">${esc(r.category)}</span>`).join('');
+        const message = row.rsvp && row.rsvp.message
+          ? esc(row.rsvp.message.substring(0, 50)) + (row.rsvp.message.length > 50 ? '...' : '')
+          : '-';
+        const tableCell = row.onList ? `<strong>Table ${esc(row.table)}</strong>` : '<span class="off-list">Not on guest list</span>';
+        const action = row.rsvp
+          ? `<button class="btn-delete" type="button" data-key="${esc(row.key)}" data-name="${esc(row.name)}">Delete</button>`
+          : '-';
+        return `
+          <tr>
+            <td>${esc(row.name)}</td>
+            <td>${tableCell}</td>
+            <td><span class="status ${row.status}">${row.status.charAt(0).toUpperCase() + row.status.slice(1)}</span></td>
+            <td>${roles}</td>
+            <td>${message}</td>
+            <td>${action}</td>
+          </tr>`;
+      }).join('');
+    }
 
-        const tableCard = document.createElement('div');
-        tableCard.className = 'table-block';
+    function renderSeating() {
+      const container = $('seatingBlueprint');
+      if (!guests.length) { container.innerHTML = '<div class="empty">Loading guest list...</div>'; return; }
 
-        const header = document.createElement('h4');
-        header.textContent = `Table ${t}`;
-        tableCard.appendChild(header);
+      const statusByKey = new Map(rows.map(r => [r.key, r.status]));
+      container.innerHTML = Guests.groupByTable(guests).map(([tableNum, tableGuests]) => {
+        const confirmed = tableGuests.filter(g => statusByKey.get(Guests.keyFor(g.name)) === 'confirmed').length;
+        const names = tableGuests.map(g => {
+          const status = statusByKey.get(Guests.keyFor(g.name)) || 'pending';
+          return `<div class="seat-name ${status}">${esc(g.name)}</div>`;
+        }).join('');
+        return `<div class="table-block"><h4>Table ${tableNum}<small>${rsvpsLoaded ? confirmed + ' of ' + tableGuests.length + ' confirmed' : tableGuests.length + ' guests'}</small></h4>${names}</div>`;
+      }).join('');
+    }
 
-        const namesList = document.createElement('div');
-        const allNames = [...confirmedNames, ...assignedNames];
+    function renderSheetInfo() {
+      $('sheetLink').href = Guests.SHEET_EDIT_URL;
+      const labels = { api: 'the site server', sheet: 'Google Sheets directly', cache: 'a saved copy in this browser (live sheet unreachable)', none: 'nowhere' };
+      $('sheetInfo').textContent = guests.length
+        ? `${guests.length} guests on ${new Set(guests.map(g => g.table)).size} tables, loaded from ${labels[guestSource]} at ${guestLoadedAt.toLocaleTimeString()}.`
+        : 'The guest list could not be loaded. Check that the sheet is shared as "Anyone with the link can view".';
+    }
 
-        if (allNames.length > 0) {
-          allNames.forEach(name => {
-            const nameEl = document.createElement('div');
-            nameEl.style.cssText = 'color: #f4d9ba; font-size: 12px; line-height: 1.6; padding: 4px 0;';
-            nameEl.textContent = name;
-            namesList.appendChild(nameEl);
-          });
-        } else {
-          const empty = document.createElement('div');
-          empty.style.cssText = 'color: rgba(255,248,237,.4); font-size: 12px; font-style: italic;';
-          empty.textContent = 'No guests yet';
-          namesList.appendChild(empty);
-        }
+    async function loadGuestList() {
+      const result = await Guests.loadGuests();
+      guests = result.guests;
+      guestSource = result.source;
+      guestLoadedAt = new Date();
+      refresh();
+    }
 
-        if (vacantCount > 0 && totalGuests > 0) {
-          const vacant = document.createElement('div');
-          vacant.style.cssText = 'color: rgba(255,248,237,.5); font-size: 11px; margin-top: 8px; font-style: italic; border-top: 1px solid rgba(245,215,145,.1); padding-top: 8px;';
-          vacant.textContent = `+${vacantCount} vacant`;
-          namesList.appendChild(vacant);
-        }
-
-        tableCard.appendChild(namesList);
-        container.appendChild(tableCard);
+    // ----- RSVP deletion (writes to Firebase, so every organizer sees it) -----
+    async function removeKeys(keys, successText) {
+      try {
+        await RsvpStore.removeKeys(keys);
+        if (successText) alert(successText);
+      } catch (err) {
+        alert('Could not delete: ' + RsvpStore.friendly(err));
       }
     }
 
-    function renderSeatingGrid() {
-      const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-      const grid = document.getElementById('seatingGrid');
-      if (!grid) return;
+    function deleteRsvp(key, name) {
+      if (!confirm(`Delete the RSVP for ${name}?`)) return;
+      removeKeys([key]);
+    }
 
-      grid.innerHTML = '';
+    function clearConfirmed() {
+      const keys = rows.filter(r => r.status === 'confirmed').map(r => r.key);
+      if (!keys.length) { alert('No confirmed RSVPs to delete.'); return; }
+      if (!confirm(`Delete ${keys.length} confirmed RSVPs? This cannot be undone.`)) return;
+      removeKeys(keys, `Deleted ${keys.length} confirmed RSVPs.`);
+    }
 
-      for (let t = 1; t <= 13; t++) {
-        const tableDiv = document.createElement('div');
-        tableDiv.className = 'table-block';
-        tableDiv.innerHTML = `<h4>Table ${t}</h4>`;
+    function clearAll() {
+      const keys = Object.keys(rsvpMap);
+      if (!keys.length) { alert('There are no RSVPs to delete.'); return; }
+      const typed = prompt(`This deletes all ${keys.length} RSVPs (confirmed and declined) for every organizer. It cannot be undone.\n\nType CLEAR to continue.`);
+      if (typed === null) return;
+      if (typed.trim() !== 'CLEAR') { alert('Nothing was deleted. You need to type CLEAR exactly.'); return; }
+      removeKeys(keys, `Deleted ${keys.length} RSVPs.`);
+    }
 
-        const seatsDiv = document.createElement('div');
-        seatsDiv.className = 'seats-row';
-
-        for (let s = 1; s <= 8; s++) {
-          const seat = seating.find(x => x.tableNum === t && x.seatNum === s);
-          const seatDiv = document.createElement('div');
-          seatDiv.className = 'seat-box';
-          if (seat && seat.guestName) {
-            seatDiv.classList.add(seat.confirmed ? 'confirmed' : 'assigned');
-            seatDiv.title = seat.guestName;
-          }
-          seatDiv.innerHTML = `<input type="text" placeholder="S${s}" value="${seat?.guestName || ''}" data-table="${t}" data-seat="${s}" />`;
-          seatsDiv.appendChild(seatDiv);
-        }
-
-        tableDiv.appendChild(seatsDiv);
-        grid.appendChild(tableDiv);
-      }
-
-      // Save on change
-      document.addEventListener('change', (e) => {
-        if (e.target.tagName === 'INPUT' && e.target.hasAttribute('data-table')) {
-          const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-          const t = parseInt(e.target.getAttribute('data-table'));
-          const s = parseInt(e.target.getAttribute('data-seat'));
-          const seat = seating.find(x => x.tableNum === t && x.seatNum === s);
-          if (seat) {
-            seat.guestName = e.target.value;
-            localStorage.setItem('erich_seating', JSON.stringify(seating));
-          }
-        }
-      });
+    // ----- CSV export -----
+    function csvCell(value) {
+      let text = String(value == null ? '' : value);
+      if (/^[=+\-@\t\r]/.test(text)) text = "'" + text; // stop spreadsheet formulas from running
+      return '"' + text.replace(/"/g, '""') + '"';
     }
 
     function exportData() {
-      let csv = 'Name,Table,Status,Roles,Message\n';
-
-      allRsvps.forEach(rsvp => {
-        const roles = rsvp.roles.map(r => r.category).join('; ');
-        const message = rsvp.message.replace(/"/g, '""');
-        csv += `"${rsvp.name}","Table ${rsvp.table}","${rsvp.status}","${roles}","${message}"\n`;
+      const lines = ['Name,Table,Status,Roles,Message,Submitted At'];
+      rows.forEach(row => {
+        const roles = findRoles(row.name).map(r => r.category).join('; ');
+        lines.push([
+          row.name,
+          row.onList ? 'Table ' + row.table : 'Not on guest list',
+          row.status,
+          roles,
+          row.rsvp ? row.rsvp.message : '',
+          row.rsvp ? row.rsvp.submittedAt : ''
+        ].map(csvCell).join(','));
       });
 
-      const blob = new Blob([csv], { type: 'text/csv' });
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = 'erich_rsvps.csv';
       a.click();
+      URL.revokeObjectURL(url);
     }
 
-    document.addEventListener('DOMContentLoaded', loadRsvps);
-    setInterval(loadRsvps, 10000);
+    // ----- wiring -----
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        $(btn.dataset.tab).classList.add('active');
+        btn.classList.add('active');
+      });
+    });
+
+    $('tableBody').addEventListener('click', e => {
+      const btn = e.target.closest('.btn-delete');
+      if (btn) deleteRsvp(btn.dataset.key, btn.dataset.name);
+    });
+    $('searchInput').addEventListener('input', applyFilters);
+    document.querySelectorAll('input[name="filterStatus"]').forEach(r => r.addEventListener('change', applyFilters));
+    $('exportBtn').addEventListener('click', exportData);
+    $('clearConfirmedBtn').addEventListener('click', clearConfirmed);
+    $('clearAllBtn').addEventListener('click', clearAll);
+    $('reloadGuestsBtn').addEventListener('click', loadGuestList);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      $('sheetLink').href = Guests.SHEET_EDIT_URL;
+      loadGuestList();
+      setInterval(loadGuestList, 60000); // pick up sheet edits
+
+      if (!RsvpStore.available()) {
+        rsvpError = 'Firebase did not start, so RSVPs cannot load. Check the browser console for the reason.';
+        setSync('Not connected to Firebase', 'error');
+        refresh();
+        return;
+      }
+
+      // Live feed: every change anywhere (guest RSVPs, another organizer's delete) appears here at once
+      RsvpStore.listen(
+        map => {
+          rsvpMap = map;
+          rsvpsLoaded = true;
+          rsvpError = '';
+          setSync('Live · synced ' + new Date().toLocaleTimeString(), 'ok');
+          refresh();
+        },
+        message => {
+          rsvpError = message;
+          setSync('Firebase error', 'error');
+          refresh();
+        }
+      );
+
+      setTimeout(() => {
+        if (!rsvpsLoaded && !rsvpError) setSync('Still connecting to Firebase...', 'warn');
+      }, 8000);
+    });
   </script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="firebase-sync.js"></script>
-  <script src="data.js"></script>
 </body>
 </html>
