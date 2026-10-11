@@ -31,12 +31,32 @@ async function syncGuestListFromSheet() {
     const lines = csv.trim().split('\n');
 
     const guestList = [];
-    // Skip header row, parse guest data
+    // Skip header row, parse guest data (columns: number, name, table)
     for (let i = 1; i < lines.length; i++) {
-      const parts = lines[i].split(',');
-      if (parts.length >= 2 && parts[1].trim()) {
-        const name = parts[0].trim().replace(/^"|"$/g, '');
-        const tableStr = parts[1].trim();
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      // Parse CSV with proper quote handling
+      let parts = [];
+      let current = '';
+      let inQuotes = false;
+      for (let j = 0; j < line.length; j++) {
+        const char = line[j];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          parts.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      parts.push(current.trim());
+
+      // Guest name is in column 1 (index 1), table is in column 2 (index 2)
+      if (parts.length >= 3 && parts[1]) {
+        const name = parts[1].replace(/^"|"$/g, '').trim();
+        const tableStr = parts[2].trim();
         const table = parseInt(tableStr);
 
         if (name && table && table > 0) {
@@ -51,7 +71,7 @@ async function syncGuestListFromSheet() {
     applyGuestListToSeating(guestList);
     return true;
   } catch (err) {
-    console.log('Sheet sync skipped, using local data');
+    console.log('Sheet sync skipped, using local data', err);
     return false;
   }
 }
@@ -529,7 +549,12 @@ function setupOrganizerAccess() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async () => {
   setupOpening();
-  initSeating();
+
+  // Always ensure seating structure exists, but don't overwrite if already has guests
+  let existingSeating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+  if (existingSeating.length === 0) {
+    initSeating();
+  }
 
   // Try to sync from Google Sheet, fallback to local data
   const synced = await syncGuestListFromSheet();
