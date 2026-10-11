@@ -103,31 +103,36 @@ function applyGuestListToSeating(guestList) {
   localStorage.setItem('erich_seating', JSON.stringify(seating));
 }
 
-// Load guest list into seating (fallback if sheet sync fails)
+// Load guest list into seating
 function loadGuestList() {
-  const guestList = [
-    {name: "Jubilee Ann Mancilla", table: 1},{name: "Alvin Sto. Domingo", table: 1},{name: "Paola Mancilla", table: 1},{name: "Elma Mancilla", table: 1},{name: "Wilmer Mancilla", table: 1},{name: "Fernando Alducente", table: 1},{name: "John Amiel Mancilla", table: 1},{name: "Marlyn Murata", table: 1},
-    {name: "Apple Ulysses Alducente", table: 2},{name: "Harlet Caigas", table: 2},{name: "Joey Baldo", table: 2},{name: "Ally Torres", table: 2},{name: "John Rod Ordonio", table: 2},{name: "Rodolfo Ordonio", table: 2},{name: "Aaron Sales", table: 2},{name: "Patrick John Razon", table: 2},
-    {name: "Jeamy Shane Nebrida", table: 3},{name: "Elmo Janzhel Mancilla", table: 3},{name: "Justine Rhayne Nebrida", table: 3},{name: "John Raven Cruz", table: 3},{name: "Diorella Cruz", table: 3},{name: "Rommel Cruz", table: 3},{name: "Daryl Melitante", table: 3},{name: "Rachelle Melitante", table: 3},
-    {name: "Nikka Rein Bernil", table: 4},{name: "Timmy Liz Ching", table: 4},{name: "Leighna Mariano", table: 4},{name: "Mary Ann Restua", table: 4},{name: "Jelian Ventura", table: 4},{name: "Randolf Antonio", table: 4},{name: "Frank Mhil Armada", table: 4},{name: "Dan Allen Tolentino", table: 4},
-    {name: "Sittie Ainah Sultan", table: 5},{name: "Idhel Catabas", table: 5},{name: "Crist Tilo", table: 5},{name: "Hashlee Marie Boniao", table: 5},
-    {name: "John Benedick Ching", table: 6},{name: "Robert Ching", table: 6},{name: "Liesel Rodelo", table: 6},{name: "Tomas Ching Jr.", table: 6},{name: "Rene Ching", table: 6},{name: "Evelyn Ching Ignacio", table: 6},{name: "Anna Martin", table: 6},{name: "Aida Delos Santos", table: 6},
-    {name: "John Frics Isaac", table: 7},{name: "Rom David Bleza", table: 7},{name: "David Joenr Traqueña", table: 7},{name: "Precious Hillary Siochi", table: 7},{name: "Velinda Guadalupe", table: 7},{name: "Lorraine Villaflores", table: 7},{name: "Daniella Shane Molina", table: 7},{name: "Gaby Maravillo", table: 7},
-    {name: "Kate Paraiso", table: 8},{name: "Choi Paraiso", table: 8},{name: "Jane Diane", table: 8},{name: "Christopher Diane", table: 8},{name: "Ogie Banigued", table: 8},{name: "Agnes Dela Cruz", table: 8},{name: "Elaine Pascual", table: 8},{name: "Eric Blanco", table: 8},
-    {name: "Yanyan Vibar", table: 9},{name: "Mario Vibar", table: 9},{name: "Jhonny Tumbocon", table: 9},{name: "Marcos Llenado", table: 9},{name: "Crismar Canlas", table: 9},{name: "Julianne Marie Llenado", table: 9},{name: "Hissie Moreno", table: 9},{name: "Obet Panilong", table: 9},
-    {name: "Josephine Moya", table: 10},{name: "Michael Moya", table: 10},{name: "Vangie Grimaldo", table: 10},{name: "Michael Nito", table: 10},{name: "Agnes Nito", table: 10},{name: "Botchok Grimaldo", table: 10},
-    {name: "Jennelyn Morte", table: 11},{name: "Louie Morte", table: 11},{name: "Babylynne Gomez", table: 11},{name: "Violy Delos Reyes", table: 11},{name: "Allan Delos Reyes", table: 11},
-    {name: "Christine Juco", table: 12},{name: "Laser Juco", table: 12},{name: "Lance Juco", table: 12},{name: "Terry Joy Gonzales", table: 12},{name: "Marlon Gonzales", table: 12},{name: "Naneth Miranda", table: 12},{name: "Manny Miranda", table: 12},
-    {name: "Jojo Anonas", table: 13},{name: "James Lumio", table: 13},{name: "Maricar Rarama", table: 13},{name: "Jaycel Dacanay", table: 13},{name: "Mhane Rivero", table: 13},{name: "Dan Malumbay", table: 13}
+  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+
+  // Direct guest list - all 89 guests with correct table assignments
+  const guests = [
+    ["Jubilee Ann Mancilla",1],["Alvin Sto. Domingo",1],["Paola Mancilla",1],["Elma Mancilla",1],["Wilmer Mancilla",1],["Fernando Alducente",1],["John Amiel Mancilla",1],["Marlyn Murata",1],
+    ["Apple Ulysses Alducente",2],["Harlet Caigas",2],["Joey Baldo",2],["Ally Torres",2],["John Rod Ordonio",2],["Rodolfo Ordonio",2],["Aaron Sales",2],["Patrick John Razon",2],
+    ["Jeamy Shane Nebrida",3],["Elmo Janzhel Mancilla",3],["Justine Rhayne Nebrida",3],["John Raven Cruz",3],["Diorella Cruz",3],["Rommel Cruz",3],["Daryl Melitante",3],["Rachelle Melitante",3],
+    ["Nikka Rein Bernil",4],["Timmy Liz Ching",4],["Leighna Mariano",4],["Mary Ann Restua",4],["Jelian Ventura",4],["Randolf Antonio",4],["Frank Mhil Armada",4],["Dan Allen Tolentino",4],
+    ["Sittie Ainah Sultan",5],["Idhel Catabas",5],["Crist Tilo",5],["Hashlee Marie Boniao",5],
+    ["John Benedick Ching",6],["Robert Ching",6],["Liesel Rodelo",6],["Tomas Ching Jr.",6],["Rene Ching",6],["Evelyn Ching Ignacio",6],["Anna Martin",6],["Aida Delos Santos",6],
+    ["John Frics Isaac",7],["Rom David Bleza",7],["David Joenr Traqueña",7],["Precious Hillary Siochi",7],["Velinda Guadalupe",7],["Lorraine Villaflores",7],["Daniella Shane Molina",7],["Gaby Maravillo",7],
+    ["Kate Paraiso",8],["Choi Paraiso",8],["Jane Diane",8],["Christopher Diane",8],["Ogie Banigued",8],["Agnes Dela Cruz",8],["Elaine Pascual",8],["Eric Blanco",8],
+    ["Yanyan Vibar",9],["Mario Vibar",9],["Jhonny Tumbocon",9],["Marcos Llenado",9],["Crismar Canlas",9],["Julianne Marie Llenado",9],["Hissie Moreno",9],["Obet Panilong",9],
+    ["Josephine Moya",10],["Michael Moya",10],["Vangie Grimaldo",10],["Michael Nito",10],["Agnes Nito",10],["Botchok Grimaldo",10],
+    ["Jennelyn Morte",11],["Louie Morte",11],["Babylynne Gomez",11],["Violy Delos Reyes",11],["Allan Delos Reyes",11],
+    ["Christine Juco",12],["Laser Juco",12],["Lance Juco",12],["Terry Joy Gonzales",12],["Marlon Gonzales",12],["Naneth Miranda",12],["Manny Miranda",12],
+    ["Jojo Anonas",13],["James Lumio",13],["Maricar Rarama",13],["Jaycel Dacanay",13],["Mhane Rivero",13],["Dan Malumbay",13]
   ];
 
-  console.log('Loading guest list with', guestList.length, 'guests');
-  console.log('First 5 guests:', guestList.slice(0, 5));
-  applyGuestListToSeating(guestList);
-  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-  const filled = seating.filter(x => x.guestName);
-  console.log('Seating after load:', filled.length, 'seats filled');
-  console.log('Table 1 seats:', seating.filter(x => x.tableNum === 1).map(s => s.guestName));
+  // Assign each guest to correct seat
+  guests.forEach(([name, table]) => {
+    const seat = seating.find(s => s.tableNum === table && !s.guestName);
+    if (seat) {
+      seat.guestName = name;
+    }
+  });
+
+  localStorage.setItem('erich_seating', JSON.stringify(seating));
 }
 
 function saveSeating(seating) {
