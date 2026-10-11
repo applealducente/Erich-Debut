@@ -23,8 +23,13 @@ function setupRealtimeListeners() {
     const firebaseRsvps = snapshot.val() || {};
     const rsvpArray = Object.values(firebaseRsvps);
 
-    // Update localStorage with Firebase data
-    localStorage.setItem('erich_rsvps', JSON.stringify(rsvpArray));
+    // Update localStorage ONLY if there's actual data from Firebase
+    // Do NOT cache empty/null values
+    if (Object.keys(firebaseRsvps).length > 0) {
+      localStorage.setItem('erich_rsvps', JSON.stringify(rsvpArray));
+    } else {
+      localStorage.removeItem('erich_rsvps');
+    }
 
     // Trigger dashboard update if it exists
     if (typeof loadRsvps === 'function') {
