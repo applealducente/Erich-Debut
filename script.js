@@ -121,7 +121,10 @@ function loadGuestList() {
     {name: "Jojo Anonas", table: 13},{name: "James Lumio", table: 13},{name: "Maricar Rarama", table: 13},{name: "Jaycel Dacanay", table: 13},{name: "Mhane Rivero", table: 13},{name: "Dan Malumbay", table: 13}
   ];
 
+  console.log('Loading guest list with', guestList.length, 'guests');
   applyGuestListToSeating(guestList);
+  const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
+  console.log('Seating after load:', seating.filter(x => x.guestName).length, 'seats filled');
 }
 
 function saveSeating(seating) {
