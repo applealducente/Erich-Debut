@@ -322,6 +322,10 @@ function renderTableList(containerId = 'guestTableList') {
   const container = document.getElementById(containerId);
   if (!container) return;
 
+  console.log('renderTableList - seating has', seating.length, 'seats');
+  console.log('Sample seat 0:', seating[0]);
+  console.log('Sample seat 50:', seating[50]);
+
   container.innerHTML = '';
 
   for (let t = 1; t <= 13; t++) {
@@ -330,6 +334,8 @@ function renderTableList(containerId = 'guestTableList') {
     const assignedNames = tableSeats.filter(x => x.guestName && !x.confirmed).map(x => x.guestName);
     const vacantCount = tableSeats.filter(x => !x.guestName).length;
     const totalGuests = confirmedNames.length + assignedNames.length;
+
+    if (t === 1) console.log('Table 1:', { tableSeats: tableSeats.length, assignedNames, vacantCount });
 
     const tableCard = document.createElement('div');
     tableCard.className = 'table-card';
