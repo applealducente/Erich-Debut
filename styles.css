@@ -906,3 +906,14 @@ a{color:inherit}
 .seat-roles li{color:#fff2e4;font-size:15px;line-height:1.7}
 .seat-roles li strong{color:#f5d58a;font-weight:500}
 .seat-screenshot{margin:0 auto 6px;max-width:340px;color:#f1d99e;font-size:13px;line-height:1.7;font-style:italic}
+
+/* iPhone / WebKit ignores the rounded overflow clip on frames that are rotated, animated or hold
+   filtered images, so the photos showed as full rectangles over the gold outline. Force the clip. */
+.photo-frame{
+  isolation:isolate;
+  -webkit-mask-image:-webkit-radial-gradient(white,black);
+  mask-image:radial-gradient(white,black);
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.photo-frame:before{z-index:3}
