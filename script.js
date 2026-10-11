@@ -122,9 +122,12 @@ function loadGuestList() {
   ];
 
   console.log('Loading guest list with', guestList.length, 'guests');
+  console.log('First 5 guests:', guestList.slice(0, 5));
   applyGuestListToSeating(guestList);
   const seating = JSON.parse(localStorage.getItem('erich_seating') || '[]');
-  console.log('Seating after load:', seating.filter(x => x.guestName).length, 'seats filled');
+  const filled = seating.filter(x => x.guestName);
+  console.log('Seating after load:', filled.length, 'seats filled');
+  console.log('Table 1 seats:', seating.filter(x => x.tableNum === 1).map(s => s.guestName));
 }
 
 function saveSeating(seating) {
