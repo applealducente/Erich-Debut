@@ -917,3 +917,13 @@ a{color:inherit}
   backface-visibility:hidden;
 }
 .photo-frame:before{z-index:3}
+
+/* iPhone (WebKit) ignores a parent's rounded overflow clip when the parent is rotated/animated
+   and the photo has a filter, so cutouts spilled out of the frames as flat rectangles.
+   Clip each photo to its own frame shape instead of relying on the parent. */
+.photo-frame img{-webkit-clip-path:inset(0 round 50% 50% 10px 10px / 42% 42% 10px 10px);clip-path:inset(0 round 50% 50% 10px 10px / 42% 42% 10px 10px)}
+.frame-arch img{-webkit-clip-path:inset(0 round 50% 50% 10px 10px / 42% 42% 10px 10px);clip-path:inset(0 round 50% 50% 10px 10px / 42% 42% 10px 10px)}
+.frame-rect img{-webkit-clip-path:inset(0 round 18px);clip-path:inset(0 round 18px)}
+.frame-oval img{-webkit-clip-path:inset(0 round 50% / 42%);clip-path:inset(0 round 50% / 42%)}
+.frame-wide img{-webkit-clip-path:inset(0 round 14px);clip-path:inset(0 round 14px)}
+.photo-frame{isolation:isolate}
