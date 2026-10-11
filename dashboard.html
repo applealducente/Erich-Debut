@@ -132,7 +132,8 @@
       <div class="controls">
         <button class="btn" onclick="exportData()">Export CSV</button>
         <button class="btn" onclick="location.reload()">Refresh Data</button>
-        <button class="btn" onclick="window.location.href='/clear-rsvps.html'">Clear All RSVPs</button>
+        <button class="btn" onclick="clearAllConfirmedRsvps()">Clear Confirmed RSVPs</button>
+        <button class="btn" onclick="window.location.href='/clear-rsvps.html'">Clear All</button>
       </div>
 
       <div class="filter-group">
@@ -288,6 +289,36 @@
         loadRsvps();
       }).catch(err => {
         alert('Error deleting RSVP: ' + err.message);
+      });
+    }
+
+    function clearAllConfirmedRsvps() {
+      if (!confirm('Delete ALL confirmed RSVPs? This cannot be undone.')) return;
+
+      const db = firebase.database();
+      const rsvps = JSON.parse(localStorage.getItem('erich_rsvps') || '[]');
+      const confirmed = rsvps.filter(r => r.attendance === 'yes');
+
+      if (confirmed.length === 0) {
+        alert('No confirmed RSVPs to delete.');
+        return;
+      }
+
+      let deleted = 0;
+      confirmed.forEach(rsvp => {
+        const sanitizedName = rsvp.guestName.replace(/[.#$[\]]/g, '');
+        db.ref('rsvps/' + sanitizedName).remove().then(() => {
+          deleted++;
+          if (deleted === confirmed.length) {
+            // All deleted, now update localStorage
+            const remaining = rsvps.filter(r => r.attendance !== 'yes');
+            localStorage.setItem('erich_rsvps', JSON.stringify(remaining));
+            loadRsvps();
+            alert(`Deleted ${confirmed.length} confirmed RSVPs`);
+          }
+        }).catch(err => {
+          console.error('Error deleting:', err);
+        });
       });
     }
 
