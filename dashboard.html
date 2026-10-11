@@ -66,6 +66,8 @@
     .controls { margin-bottom: 30px; }
     .btn { background: #c5a25f; color: #171008; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font: 11px Cinzel, serif; letter-spacing: .1em; margin-right: 10px; }
     .btn:hover { background: #d4b571; }
+    .btn-delete { background: rgba(255,100,100,.3); color: #ff9999; border: 1px solid rgba(255,100,100,.4); padding: 5px 12px; font-size: 10px; margin: 0; }
+    .btn-delete:hover { background: rgba(255,100,100,.5); color: #fff; }
 
     table { width: 100%; border-collapse: collapse; background: rgba(26,10,36,.5); border: 1px solid rgba(245,215,145,.15); border-radius: 8px; overflow: hidden; }
     th { background: rgba(26,10,36,.7); padding: 15px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: #f5d58a; border-bottom: 1px solid rgba(245,215,145,.15); }
@@ -149,10 +151,11 @@
             <th>Status</th>
             <th>Role(s)</th>
             <th>Message</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody id="tableBody">
-          <tr><td colspan="5" class="empty">Loading...</td></tr>
+          <tr><td colspan="6" class="empty">Loading...</td></tr>
         </tbody>
       </table>
     </div>
@@ -244,7 +247,7 @@
       const tbody = document.getElementById('tableBody');
 
       if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="empty">No RSVPs yet</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="empty">No RSVPs yet</td></tr>';
         return;
       }
 
@@ -261,8 +264,31 @@
             ${rsvp.roles.map(r => `<span class="role-badge">${r.category}</span>`).join('')}
           </td>
           <td>${rsvp.message ? rsvp.message.substring(0, 50) + (rsvp.message.length > 50 ? '...' : '') : '-'}</td>
+          <td><button class="btn-delete" onclick="deleteRsvp('${rsvp.name.replace(/'/g, "\\'")}')">Delete</button></td>
         </tr>
       `).join('');
+    }
+
+    function deleteRsvp(guestName) {
+      if (!confirm(`Delete RSVP for ${guestName}?`)) return;
+
+      const db = firebase.database();
+      const sanitizedName = guestName.replace(/[.#$[\]]/g, '');
+
+      // Delete from Firebase
+      db.ref('rsvps/' + sanitizedName).remove().then(() => {
+        console.log('RSVP deleted from Firebase:', guestName);
+
+        // Also delete from localStorage
+        const rsvps = JSON.parse(localStorage.getItem('erich_rsvps') || '[]');
+        const filtered = rsvps.filter(r => r.guestName.toLowerCase() !== guestName.toLowerCase());
+        localStorage.setItem('erich_rsvps', JSON.stringify(filtered));
+
+        // Refresh the table
+        loadRsvps();
+      }).catch(err => {
+        alert('Error deleting RSVP: ' + err.message);
+      });
     }
 
     function filterTable() {
