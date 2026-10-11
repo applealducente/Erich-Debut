@@ -834,3 +834,28 @@ a{color:inherit}
   .seating-dashboard {width:calc(100vw - 20px);bottom:10px;right:10px}
   .seating-grid {grid-template-columns:1fr}
 }
+
+/* ===== Opening screen on portrait phones =====
+   The opening artwork is one wide picture (1832 x 858) with the title, tagline and envelope
+   baked into its middle. Stretching it to the full screen height crops those away on a tall,
+   narrow phone. On portrait screens we show the middle window of the picture (x = 590 to 1180)
+   scaled to the screen width, over a soft blur of the same artwork.
+   Desktop and landscape keep the original full-screen look. */
+.opening-stage{display:contents}
+.opening-backdrop{display:none}
+@media (max-aspect-ratio:1/1){
+  #opening.opening.opening-hero{display:block;background-image:none!important;background-color:#120b18}
+  #opening .opening-backdrop{
+    display:block;position:absolute;inset:-6%;z-index:0;
+    background:url("assets/hero-reference.png") 62% center/cover no-repeat;
+    filter:blur(18px) brightness(.6) saturate(1.15);
+  }
+  #opening .opening-stage{
+    display:block;position:absolute;z-index:1;
+    left:-100vw;top:50%;width:310.5vw;aspect-ratio:1832/858;transform:translateY(-50%);
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 91%,transparent 100%);
+    mask-image:linear-gradient(to bottom,transparent 0,#000 9%,#000 91%,transparent 100%);
+  }
+  #opening .opening-hero-img{width:100%;height:100%;object-fit:fill}
+  #opening .envelope-hotspot{left:50.2%;top:65.2%;width:20%;height:19.5%}
+}
