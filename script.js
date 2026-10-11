@@ -21,8 +21,8 @@ function initSeating() {
 // Fetch guest list from Google Sheet CSV export
 async function syncGuestListFromSheet() {
   try {
-    // Google Sheet CSV export URL (replace SHEET_ID and sheet gid)
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1NmHsc0HdhuiVzdJl8CdY0sHlW4-TqJyJVxYrnW8oWgs/export?format=csv&gid=0';
+    // Google Sheet CSV export URL - Guests sheet
+    const sheetUrl = 'https://docs.google.com/spreadsheets/d/1NmHsc0HdhuiVzdJl8CdY0sHlW4-TqJyJVxYrnW8oWgs/export?format=csv&gid=1937863515';
 
     const response = await fetch(sheetUrl);
     if (!response.ok) return false;
